@@ -1,13 +1,29 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}"
-  ],
+  content: ['./**/*.{html,js,jsx,ts,tsx}', '!./node_modules'],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-in forwards',
+        fadeOut: 'fadeOut 0.5s ease-out forwards',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
+    },
+    screens: {
+      mobile: '0em',
+      tablet: '46.25em',
+      desktop: '64em',
+    },
   },
   plugins: [],
 } satisfies Config;
-

@@ -1,11 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
+import authFeature from '@features/auth';
+import themeFeature from '@features/theme';
+import toastFeature from '@features/toast';
+import { configureStore } from '@reduxjs/toolkit';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-        
-  }
+    theme: themeFeature.themeReducer,
+    auth: authFeature.authReducer,
+    toast: toastFeature.toastReducer,
+  },
 });
 
-export type AppStore = typeof store
-export type RootState = ReturnType<AppStore["getState"]>
-export type AppDispatch = AppStore["dispatch"]
+export default store;

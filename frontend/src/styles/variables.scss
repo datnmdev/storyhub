@@ -1,0 +1,19 @@
+$primary: #977ef5;
+$black: #000;
+$white: #fff;
+$gray: #bdc3c8;
+$dark-gray: #6e6464;
+$desktop-container-w: calc(100% - (48px * 2));
+$tablet-container-w: calc(100% - (24px * 2));
+$mobile-container-w: calc(100% - (16px * 2));
+
+:root {
+  --primary: #{$primary};
+  --black: #{$black};
+  --white: #{$white};
+  --gray: #{$gray};
+  --dark-gray: #{$dark-gray};
+  --desktop-container-w: #{$desktop-container-w};
+  --tablet-container-w: #{$tablet-container-w};
+  --mobile-container-w: #{$mobile-container-w};
+}

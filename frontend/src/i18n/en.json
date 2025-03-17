@@ -1,0 +1,69 @@
+{
+  "reader": {
+    "header": {
+      "nav": {
+        "home": "HOME",
+        "novel": "NOVEL",
+        "comic": "COMIC",
+        "search": "SEARCH",
+        "rank": "RANK"
+      },
+      "btn": {
+        "signIn": "Sign In"
+      },
+      "language": {
+        "vi": "Vietnamese",
+        "en": "English"
+      },
+      "user": {
+        "wallet": "Wallet",
+        "follow": "Followed Stories",
+        "history": "Reading History",
+        "setting": "Settings",
+        "signOut": "Sign Out"
+      }
+    },
+    "footer": {
+      "contact": {
+        "heading": "Contact",
+        "address": "97 Man Thien St., Hiep Phu, District 9, Ho Chi Minh City 70000"
+      },
+      "about": {
+        "heading": "About",
+        "privacy": "Privacy Policy",
+        "term": "Terms of Use"
+      }
+    },
+    "signInPage": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot Password?",
+      "or": "Or",
+      "noAccount": "Don't have an account?",
+      "signUpNow": "Sign up now"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email",
+    "password": "Password must be at least 8 characters long, including at least one uppercase letter, one lowercase letter, one number, and one special character"
+  },
+  "errorPage": {
+    "notFoundPage": {
+      "message": "Sorry! We couldn't find this page"
+    },
+    "forbiddenPage": {
+      "message": "Sorry! You do not have permission to access this page"
+    },
+    "button": {
+      "goHome": "Go home"
+    }
+  },
+  "notification": {
+    "signInWithEmailPasswordFailure": "Incorrect email or password",
+    "loginSuccess": "Login successful",
+    "undefinedError": "An undefined error occurred, please try again"
+  }
+}

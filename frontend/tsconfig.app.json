@@ -1,5 +1,21 @@
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@components/*": ["components/*"],
+      "@features/*": ["features/*"],
+      "@hooks/*": ["hooks/*"],
+      "@i18n/*": ["i18n/*"],
+      "@layouts/*": ["layouts/*"],
+      "@pages/*": ["pages/*"],
+      "@routers/*": ["routers/*"],
+      "@store/*": ["store/*"],
+      "@utilities/*": ["utilities/*"],
+      "@constants/*": ["constants/*"],
+      "@apis/*": ["apis/*"],
+      "@type/*": ["types/*"]
+    },
     "tsBuildInfoFile": "node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,

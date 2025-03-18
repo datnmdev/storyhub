@@ -2,6 +2,7 @@ import { Body, Controller, Headers, Post } from '@nestjs/common';
 import { EmailPasswordCredentialDto } from './dto/email-password-credential.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { UserService } from './user.service';
+import { SignOutDto } from './dto/sign-out.dto';
 
 @Controller('auth')
 export class UserController {
@@ -24,5 +25,10 @@ export class UserController {
   @Post('refresh-token')
   async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
     return await this.userService.refreshToken(refreshTokenDto);
+  }
+
+  @Post('sign-out')
+  async signOut(@Body() signOutDto: SignOutDto) {
+    return await this.userService.signOut(signOutDto);
   }
 }

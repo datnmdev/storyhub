@@ -16,7 +16,7 @@ class PromiseUtils {
           clearInterval(intervalId);
           resolve(result);
         }
-      }, 1000);
+      }, 100);
     });
   }
 }

@@ -11,6 +11,9 @@ const authApi = {
   refreshToken: (options: RequestInit) => {
     return axiosInstance().post('/auth/refresh-token', options.body);
   },
+  signOut: (options: RequestInit) => {
+    return axiosInstance().post('/auth/sign-out', options.body);
+  },
 };
 
 export default authApi;

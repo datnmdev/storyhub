@@ -17,7 +17,7 @@ function SignInPage() {
 
           <div>
             <ul className="flex border-[1px] border-solid border-[var(--gray)] rounded-[4px]">
-              <li className='grow'>
+              <li className="grow">
                 <Link
                   className="block text-center w-full py-2.5 bg-[var(--primary)] text-[var(--white)]"
                   to="#"
@@ -26,7 +26,7 @@ function SignInPage() {
                 </Link>
               </li>
 
-              <li className='grow'>
+              <li className="grow">
                 <Link
                   className="block text-center w-full py-2.5 hover:text-[var(--primary)]"
                   to="#"

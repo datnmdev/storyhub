@@ -14,6 +14,7 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception';
 import { User } from './entities/user.entity';
 import { ConfigService } from '@/common/config/config.service';
+import { SignOutDto } from './dto/sign-out.dto';
 
 @Injectable()
 export class UserService {
@@ -107,6 +108,32 @@ export class UserService {
       throw new UnauthorizedException();
     } catch (error) {
       throw new UnauthorizedException();
+    }
+  }
+
+  async signOut(signOutDto: SignOutDto) {
+    try {
+      const accessTokenPayload = this.jwtService.decode(signOutDto.accessToken);
+      const refreshTokenPayload = this.jwtService.decode(
+        signOutDto.refreshToken
+      );
+
+      await this.redisClient
+        .multi()
+        .setEx(
+          KeyGenerator.tokenBlacklistKey(accessTokenPayload.jti),
+          accessTokenPayload.exp - Math.ceil(Date.now() / 1000),
+          '1'
+        )
+        .setEx(
+          KeyGenerator.tokenBlacklistKey(refreshTokenPayload.jti),
+          refreshTokenPayload.exp - Math.ceil(Date.now() / 1000),
+          '1'
+        )
+        .exec();
+      return true;
+    } catch (error) {
+      return false;
     }
   }
 }

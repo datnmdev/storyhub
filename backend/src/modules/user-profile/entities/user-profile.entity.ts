@@ -21,8 +21,12 @@ export class UserProfile {
   @Column('date', { name: 'dob', nullable: true })
   dob: string | null;
 
-  @Column('int', { name: 'gender', nullable: true })
-  gender: number | null;
+  @Column('enum', {
+    name: 'gender',
+    enum: ['male', 'female', 'orther'],
+    nullable: true
+  })
+  gender: 'male' | 'female' | 'orther';
 
   @Column('varchar', { name: 'phone', nullable: true, length: 20 })
   phone: string | null;

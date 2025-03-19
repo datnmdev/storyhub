@@ -8,6 +8,9 @@ import { AuthorizationMiddleware } from './common/middleware/middleware.service'
 import { UserProfileModule } from './modules/user-profile/user-profile.module';
 import { ConfigModule } from './common/config/config.module';
 import { ConfigService } from './common/config/config.service';
+import { MailModule } from './common/mail/mail.module';
+import { BullModule } from './common/bull/bull.module';
+import { CountryModule } from './modules/country/country.module';
 
 @Module({
   imports: [
@@ -32,8 +35,11 @@ import { ConfigService } from './common/config/config.service';
     }),
     JwtModule,
     MiddlewareModule,
+    BullModule,
+ 		MailModule,
     UserModule,
     UserProfileModule,
+    CountryModule
   ],
 })
 export class AppModule implements NestModule {

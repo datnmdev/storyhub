@@ -40,6 +40,6 @@ const RedirectUtils = {
     }
     return route;
   },
-}
+};
 
 export default RedirectUtils;

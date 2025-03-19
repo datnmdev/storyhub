@@ -1,6 +1,6 @@
 import { Inject, Injectable, Res } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, Repository, Transaction } from 'typeorm';
 import { SignInWithEmailPasswordDto } from './dto/sign-in-with-email-password.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@/common/jwt/jwt.service';
@@ -14,9 +14,22 @@ import { UnauthorizedException } from '@/common/exceptions/unauthorized.exceptio
 import { User } from './entities/user.entity';
 import { ConfigService } from '@/common/config/config.service';
 import axios from 'axios';
-import { AuthType, Role, UserStatus } from '@/common/constants/user.constants';
+import {
+  AuthType,
+  Role,
+  UserStatus,
+  OtpVerificationType,
+} from '@/common/constants/user.constants';
 import { UserProfile } from '../user-profile/entities/user-profile.entity';
 import { Wallet } from '../wallet/entities/wallet.entity';
+import { BullService } from '@/common/bull/bull.service';
+import { JobName } from '@/common/constants/bull.constants';
+import * as randomString from 'randomstring';
+import { SendOtpData } from '@/common/types/mail.type';
+import { SignUpDto } from './dto/sign-up.dto';
+import { VerifyAccountDto } from './dto/verify-account.dto';
+import { ResendOtpDto } from './dto/resend-otp.dto';
+import * as moment from 'moment';
 
 @Injectable()
 export class UserService {
@@ -27,7 +40,8 @@ export class UserService {
     private readonly jwtService: JwtService,
     @Inject(REDIS_CLIENT)
     private readonly redisClient: RedisClient,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly bullService: BullService
   ) {}
 
   async signInWithEmailPassword(
@@ -127,8 +141,8 @@ export class UserService {
           // Mở ví cho người dùng
           const walletEntity = plainToInstance(Wallet, {
             id: newUser.id,
-						balance: '0'
-					} as Wallet)
+            balance: '0',
+          } as Wallet);
           await queryRunner.manager.save(walletEntity);
 
           // Thực hiện commit transaction
@@ -228,9 +242,7 @@ export class UserService {
   async signOut(token: Token) {
     try {
       const accessTokenPayload = this.jwtService.decode(token.accessToken);
-      const refreshTokenPayload = this.jwtService.decode(
-        token.refreshToken
-      );
+      const refreshTokenPayload = this.jwtService.decode(token.refreshToken);
       await this.redisClient
         .multi()
         .setEx(
@@ -248,5 +260,137 @@ export class UserService {
     } catch (error) {
       return false;
     }
+  }
+
+  async signUp(signUpDto: SignUpDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    try {
+      await queryRunner.startTransaction();
+
+      // Lưu thông tin người dùng
+      const userEntity = plainToInstance(User, {
+        authType: 'email_password',
+        email: signUpDto.email,
+        password: await bcrypt.hash(signUpDto.password, 10),
+        role: signUpDto.type,
+        status: UserStatus.UNACTIVATED,
+        createdAt: new Date(),
+      } as User)
+      const newUser = await queryRunner.manager.save(userEntity);
+
+      const userProfileEntity = plainToInstance(UserProfile, {
+        id: newUser.id,
+        name: signUpDto.name,
+        dob: moment(signUpDto.dob).format('YYYY-MM-DD HH:mm:ss'),
+        gender: signUpDto.gender,
+        phone: signUpDto.phone,
+        countryId: 1
+      } as UserProfile);
+      await queryRunner.manager.save(userProfileEntity);
+
+      const walletEntity = plainToInstance(Wallet, {
+        id: newUser.id,
+        balance: '0',
+      });
+      await queryRunner.manager.save(walletEntity);
+
+      // Gửi mã otp xác thực
+      const jobData: SendOtpData = {
+        accountId: newUser.id,
+        otp: randomString.generate({
+          length: 6,
+          charset: 'numeric',
+        }),
+        to: signUpDto.email,
+      };
+      await this.bullService.addJob(
+        JobName.SEND_OTP_TO_VERIFY_ACCOUNT,
+        jobData
+      );
+      await queryRunner.commitTransaction();
+      return newUser;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async validateEmail(email: string) {
+    const user =
+      await this.userRepository.findOne({
+        where: {
+          email,
+        },
+      });
+    if (user) {
+      return true;
+    }
+    return false;
+  }
+
+  async verifyAccount(verifyAccountDto: VerifyAccountDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    try {
+      await queryRunner.startTransaction();
+      const otp = await this.redisClient.get(
+        KeyGenerator.otpToVerifyAccountKey(verifyAccountDto.accountId)
+      );
+      if (verifyAccountDto.otp === otp) {
+        await queryRunner.manager.update(User, verifyAccountDto.accountId, {
+          status: UserStatus.ACTIVATED,
+        });
+        await this.redisClient.del(
+          KeyGenerator.otpToVerifyAccountKey(verifyAccountDto.accountId)
+        );
+        await queryRunner.commitTransaction();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      return false;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async resendOtp(resendOtpDto: ResendOtpDto) {
+    const user =
+      await this.userRepository.findOne({
+        where: {
+          email: resendOtpDto.email,
+        }
+      });
+    if (user) {
+      switch (resendOtpDto.type) {
+        case OtpVerificationType.SIGN_IN:
+        case OtpVerificationType.SIGN_UP:
+          if (
+            user.status === UserStatus.UNACTIVATED
+          ) {
+            const jobData: SendOtpData = {
+              accountId: user.id,
+              otp: randomString.generate({
+                length: 6,
+                charset: 'numeric',
+              }),
+              to: user.email,
+            };
+            await this.bullService.addJob(
+              JobName.SEND_OTP_TO_VERIFY_ACCOUNT,
+              jobData
+            );
+          }
+          break;
+
+        case OtpVerificationType.FORGOT_PASSWORD:
+          break;
+      }
+    }
+    return true;
   }
 }

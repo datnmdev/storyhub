@@ -13,10 +13,7 @@ function LoadingWrapper({
       <div>{children}</div>
 
       {isLoading && (
-        <Loading
-          message={message}
-          backgroundVisible={backgroundVisible}
-        />
+        <Loading message={message} backgroundVisible={backgroundVisible} />
       )}
     </div>
   );

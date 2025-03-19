@@ -21,7 +21,8 @@
         "history": "Lịch sử đọc",
         "setting": "Cài đặt",
         "signOut": "Đăng xuất"
-      }
+      },
+      "signingOut": "Đang đăng xuất..."
     },
     "footer": {
       "contact": {
@@ -48,12 +49,57 @@
       "getOAuthUrl": "Đang lấy địa chỉ xác thực...",
       "authenticating": "Đang tiến hành xác thực. Vui lòng đợi trong giây lát...",
       "failedAuth": "Xác thực và uỷ quyền thất bại. Vui lòng thử lại..."
+    },
+    "signUpPage": {
+      "signIn": "Đăng nhập",
+      "signUp": "Đăng Ký",
+      "accountType": {
+        "label": "Loại tài khoản",
+        "reader": "Độc giả",
+        "author": "Tác giả"
+      },
+      "email": "Địa chỉ email",
+      "name": "Họ và tên",
+      "dob": "Ngày sinh",
+      "gender": {
+        "label": "Giới tính",
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      },
+      "phone": "Số điện thoại",
+      "password": "Mật khẩu",
+      "repeatPassword": "Nhập lại mật khẩu",
+      "country": {
+        "label": "Quốc gia"
+      },
+      "or": "Hoặc",
+      "hadAccount": "Bạn đã có tài khoản?",
+      "signInNow": "Đăng nhập ngay"
+    },
+    "otpVerificationPage": {
+      "btn": {
+        "goBack": "Quay lại",
+        "resendOtp": "Yêu cầu gửi lại mã"
+      },
+      "sentOtpMessage": "Mã xác thực OTP đã được gửi đến địa chỉ {{email}}. Vui lòng kiểm tra hộp thư để lấy mã xác thực",
+      "otp": "Mã OTP",
+      "notReceiveOtp": "Bạn chưa nhận được mã?",
+      "resendRequest": "Bạn có thể yêu cầu gửi lại mã sau {{second}} giây nữa"
     }
   },
   "validation": {
     "required": "Trường này là bắt buộc",
+    "accountType": "Loại tài khoản không hợp lệ",
     "email": "Email không hợp lệ",
-    "password": "Mật khẩu phải tối thiểu 8 kí tự, bao gồm ít nhất một chữ in hoa, chữ thường, số và kí tự đặc biệt"
+    "password": "Mật khẩu phải tối thiểu 8 kí tự, bao gồm ít nhất một chữ in hoa, chữ thường, số và kí tự đặc biệt",
+    "dob": "Ngày sinh phải là một mốc thời gian trong quá khứ",
+    "gender": "Giới tính không hợp lệ",
+    "phone": "Số điện thoại không hợp lệ",
+    "repeatPassword": "Trường này phải trùng khớp với trường mật khẩu",
+    "emailExisted": "Email đã tồn tại",
+    "length": "Trường này phải có độ dài {{length}}",
+    "numberString": "Trường này chỉ bao gồm chữ số"
   },
   "errorPage": {
     "notFoundPage": {
@@ -69,6 +115,10 @@
   "notification": {
     "signInWithEmailPasswordFailure": "Địa chỉ email hoặc mật khẩu không đúng",
     "loginSuccess": "Đăng nhập thành công",
-    "undefinedError": "Đã có lỗi không xác định xảy ra, hãy vui lòng thử lại"
+    "undefinedError": "Đã có lỗi không xác định xảy ra, hãy vui lòng thử lại",
+    "signUpSuccess": "Đăng ký tài khoản thành công",
+    "verifyAccountSuccess": "Xác nhận tài khoản thành công",
+    "verifyOtpError": "Mã OTP không chính xác. Vui lòng thử lại",
+    "needToVerifyAccount": "Tài khoản của bạn cần được xác thực"
   }
 }

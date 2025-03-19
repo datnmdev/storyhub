@@ -11,6 +11,9 @@ import { Role } from '@constants/user.constants';
 import Authentication from '@components/Authentication';
 import ErrorBoundary from '@components/ErrorBoundary';
 import AuthRedirectPage from '@pages/AuthRedirectPage';
+import SignUpPage from '@pages/SignUpPage';
+import OtpVerificationPage from '@pages/OtpVerificationPage';
+import Guest from '@components/Guest';
 
 const router = createBrowserRouter([
   {
@@ -34,9 +37,11 @@ const router = createBrowserRouter([
       {
         path: paths.signInPage(),
         element: (
-          <ReaderLayout>
-            <SignInPage />
-          </ReaderLayout>
+          <Guest>
+            <ReaderLayout>
+              <SignInPage />
+            </ReaderLayout>
+          </Guest>
         ),
       },
       {
@@ -45,6 +50,26 @@ const router = createBrowserRouter([
           <ReaderLayout>
             <AuthRedirectPage />
           </ReaderLayout>
+        ),
+      },
+      {
+        path: paths.signUpPage(),
+        element: (
+          <Guest>
+            <ReaderLayout>
+              <SignUpPage />
+            </ReaderLayout>
+          </Guest>
+        ),
+      },
+      {
+        path: paths.otpVerificationPage(),
+        element: (
+          <Guest>
+            <ReaderLayout>
+              <OtpVerificationPage />
+            </ReaderLayout>
+          </Guest>
         ),
       },
       {

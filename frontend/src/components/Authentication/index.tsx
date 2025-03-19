@@ -21,7 +21,7 @@ function Authentication({ children }: AuthenticationProps) {
     if (data) {
       dispatch(authFeature.authAction.setAuthenticated(true));
     } else {
-      dispatch(authFeature.authAction.setAuthenticated(true));
+      dispatch(authFeature.authAction.setAuthenticated(false));
     }
   }
 

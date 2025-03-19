@@ -175,6 +175,114 @@ export class UserService {
     }
   }
 
+  async signInWithFacebook(qp: string) {
+    const facebookAuthUrl = this.configService.getFacebookConfig().authUrl;
+    const params = new URLSearchParams({
+      client_id: this.configService.getFacebookConfig().clientId,
+      redirect_uri: this.configService.getFacebookConfig().callbackUrl,
+      response_type: 'code',
+      scope: 'public_profile',
+      state: qp,
+    });
+    return `${facebookAuthUrl}?${params.toString()}`;
+  }
+
+  async signInWithFacebookCallback(query: ParameterDecorator) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    try {
+      const { code } = query as any;
+      if (code) {
+        const tokenResponse = await axios.post(
+          this.configService.getFacebookConfig().tokenUrl,
+          {
+            code,
+            client_id: this.configService.getFacebookConfig().clientId,
+            client_secret: this.configService.getFacebookConfig().clientSecret,
+            redirect_uri: this.configService.getFacebookConfig().callbackUrl,
+          }
+        );
+        const { access_token } = tokenResponse.data as any;
+        const userInfoResponse = await axios.get(
+          this.configService.getFacebookConfig().userInfoUrl,
+          {
+            params: {
+              fields: 'id,name,picture',
+              access_token
+            }
+          }
+        );
+        const userInfo = userInfoResponse.data as any;
+        let payload: JwtPayload;
+
+        // Vô hiệu hoá token facebook
+        await axios.delete(`https://graph.facebook.com/${userInfo.id}/permissions?access_token=${encodeURIComponent(access_token)}`)
+
+        // Kiểm tra và tạo tài khoản mới nêú chưa có
+        const user = await this.userRepository.findOne({
+          where: {
+            suid: userInfo.id,
+            authType: AuthType.FACEBOOK
+          },
+        });
+        if (!user) {
+          // Bắt đầu transaction
+          await queryRunner.startTransaction();
+
+          // Tạo và lưu user mới
+          const userEntity = plainToInstance(User, {
+            authType: AuthType.FACEBOOK,
+            suid: userInfo.id,
+            status: UserStatus.ACTIVATED,
+            role: Role.READER,
+            createdAt: new Date(),
+          } as User);
+          const newUser = await queryRunner.manager.save(userEntity);
+
+          // Lưu profile người dùng
+          const userProfileEntity = plainToInstance(UserProfile, {
+            id: newUser.id,
+            name: userInfo.name,
+            avatar: userInfo.picture.data.url,
+          });
+          await queryRunner.manager.save(userProfileEntity);
+
+          // Mở ví cho người dùng
+          const walletEntity = plainToInstance(Wallet, {
+            id: newUser.id,
+            balance: '0',
+          } as Wallet);
+          await queryRunner.manager.save(walletEntity);
+
+          // Thực hiện commit transaction
+          await queryRunner.commitTransaction();
+
+          // Cập nhật giá trị token payload
+          payload = plainToInstance(JwtPayload, {
+            id: newUser.id,
+            status: newUser.status,
+            role: newUser.role,
+          } as JwtPayload);
+        } else {
+          // Cập nhật giá trị token payload
+          payload = plainToInstance(JwtPayload, {
+            id: user.id,
+            status: user.status,
+            role: user.role,
+          } as JwtPayload);
+        }
+
+        return this.jwtService.generateToken(payload);
+      }
+      return null;
+    } catch (error) {
+      // Thực hiện rollback transaction
+      await queryRunner.rollbackTransaction();
+      return null;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
   async validateToken(authorization: string) {
     try {
       if (authorization) {
@@ -195,9 +303,9 @@ export class UserService {
         }
       }
 
-      throw new UnauthorizedException();
+      return false;
     } catch (error) {
-      throw new UnauthorizedException();
+      return false;
     }
   }
 

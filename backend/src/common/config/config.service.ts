@@ -84,4 +84,15 @@ export class ConfigService {
       userInfoUrl: this.nestConfigService.get('GOOGLE_USER_INFO_URL'),
     };
   }
+
+  getFacebookConfig() {
+    return {
+      clientId: this.nestConfigService.get('FACEBOOK_CLIENT_ID'),
+      clientSecret: this.nestConfigService.get('FACEBOOK_CLIENT_SECRET'),
+      callbackUrl: this.nestConfigService.get('FACEBOOK_REDIRECT_URI'),
+      authUrl: this.nestConfigService.get('FACEBOOK_AUTH_URL'),
+      tokenUrl: this.nestConfigService.get('FACEBOOK_TOKEN_URL'),
+      userInfoUrl: this.nestConfigService.get('FACEBOOK_USER_INFO_URL'),
+    };
+  }
 }

@@ -1,10 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { Auth } from './auth.type';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Auth, Token } from './auth.type';
 import { AUTH_KEY } from '@constants/user.constants';
-import Cookies from 'js-cookie';
 
 const initialState: Auth = {
-  isAuthenticated: false,
+  isAuthenticated: null,
   user: null,
 };
 
@@ -12,7 +11,7 @@ export const authSlice = createSlice({
   name: AUTH_KEY,
   initialState,
   reducers: {
-    setAuthenticated: (state, action) => {
+    setAuthenticated: (state, action: PayloadAction<boolean>) => {
       state.isAuthenticated = action.payload;
     },
     setUser: (state, action) => {

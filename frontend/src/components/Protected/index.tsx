@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 import { Location, Navigate, useLocation } from 'react-router-dom';
 import { ProtectedProps } from './Protected.type';
 import paths from '@routers/router.path';
@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '@type/jwt.type';
 import { ForbiddenError } from '@utilities/error.util';
 import Cookies from 'js-cookie';
+import Loading from '@components/Loading';
 
 function Protected({ children, role }: ProtectedProps) {
   const location: Location<LocationState> = useLocation();
@@ -16,9 +17,9 @@ function Protected({ children, role }: ProtectedProps) {
     authFeature.authSelector.selectAuthenticated
   );
 
-  useEffect(() => {
-    console.log(isAuthenticated);
-  }, [isAuthenticated]);
+  if (isAuthenticated === null) {
+    return <Loading />;
+  }
 
   if (isAuthenticated) {
     const tokenJson = Cookies.get('accessToken');

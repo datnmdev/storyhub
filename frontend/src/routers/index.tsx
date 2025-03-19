@@ -10,6 +10,7 @@ import ModeratorHomePage from '@pages/ModeratorHomePage';
 import { Role } from '@constants/user.constants';
 import Authentication from '@components/Authentication';
 import ErrorBoundary from '@components/ErrorBoundary';
+import AuthRedirectPage from '@pages/AuthRedirectPage';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,14 @@ const router = createBrowserRouter([
         element: (
           <ReaderLayout>
             <SignInPage />
+          </ReaderLayout>
+        ),
+      },
+      {
+        path: paths.authRedirectPage(),
+        element: (
+          <ReaderLayout>
+            <AuthRedirectPage />
           </ReaderLayout>
         ),
       },

@@ -1,12 +1,17 @@
 import Logo from '@assets/icons/logo.png';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, Location, useLocation } from 'react-router-dom';
 import SignInWithEmailForm from './components/SignInWithEmailForm';
 import IconButton from '@components/IconButton';
 import GoogleIcon from '@assets/icons/static/google.png';
+import { LocationState } from '@type/reactRouterDom.type';
+import UrlUtils from '@utilities/url.util';
+import paths from '@routers/router.path';
 
 function SignInPage() {
   const { t } = useTranslation();
+  const location: Location<LocationState> = useLocation();
+
   return (
     <div>
       <div className="desktop:w-[var(--desktop-container-w)] tablet:w-[var(--tablet-container-w)] mobile:w-[var(--mobile-container-w)] mx-auto py-8 flex justify-center items-center">
@@ -53,6 +58,15 @@ function SignInPage() {
                     bgColor="var(--white)"
                     borderRadius="50%"
                     boxShadow="0 0 4px var(--gray)"
+                    onClick={() => {
+                      const params = new URLSearchParams({
+                        url: `${import.meta.env.VITE_HOST}}/${location.state?.from}`,
+                        role: location.state?.role || 'guest',
+                      });
+                      window.location.href = UrlUtils.generateUrl(
+                        `/auth/sign-in/google?redirect-to=${encodeURIComponent(`${import.meta.env.VITE_HOST}${paths.authRedirectPage()}?${params.toString()}`)}`
+                      );
+                    }}
                   />
                 </div>
               </div>

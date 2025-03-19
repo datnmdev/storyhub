@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Res } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { EmailPasswordCredentialDto } from './dto/email-password-credential.dto';
+import { DataSource, Repository } from 'typeorm';
+import { SignInWithEmailPasswordDto } from './dto/sign-in-with-email-password.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@/common/jwt/jwt.service';
 import { plainToInstance } from 'class-transformer';
@@ -13,10 +13,15 @@ import { FailedSignInException } from '@/common/exceptions/failed-login.exceptio
 import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception';
 import { User } from './entities/user.entity';
 import { ConfigService } from '@/common/config/config.service';
+import axios from 'axios';
+import { AuthType, Role, UserStatus } from '@/common/constants/user.constants';
+import { UserProfile } from '../user-profile/entities/user-profile.entity';
+import { Wallet } from '../wallet/entities/wallet.entity';
 
 @Injectable()
 export class UserService {
   constructor(
+    private readonly dataSource: DataSource,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private readonly jwtService: JwtService,
@@ -25,19 +30,19 @@ export class UserService {
     private readonly configService: ConfigService
   ) {}
 
-  async loginWithEmailPassword(
-    emailPasswordCredentialDto: EmailPasswordCredentialDto
+  async signInWithEmailPassword(
+    signInWithEmailPasswordDto: SignInWithEmailPasswordDto
   ) {
     // Kiểm tra tài khoản của địa chỉ email được yêu cầu đến có tồn tại hay không?
     const user = await this.userRepository.findOne({
       where: {
-        email: emailPasswordCredentialDto.email,
+        email: signInWithEmailPasswordDto.email,
       },
     });
     if (user) {
       // Kiểm tra mật khẩu có khớp hay không?
       const checkPassword = await bcrypt.compare(
-        emailPasswordCredentialDto.password,
+        signInWithEmailPasswordDto.password,
         user.password
       );
       if (checkPassword) {
@@ -51,6 +56,109 @@ export class UserService {
     }
 
     throw new FailedSignInException();
+  }
+
+  async signInWithGoogle(qp: string) {
+    const googleAuthUrl = this.configService.getGoogleConfig().authUrl;
+    const params = new URLSearchParams({
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      redirect_uri: process.env.GOOGLE_REDIRECT_URI,
+      response_type: 'code',
+      scope: 'profile email',
+      access_type: 'offline',
+      state: qp,
+    });
+    return `${googleAuthUrl}?${params.toString()}`;
+  }
+
+  async signInWithGoogleCallback(query: ParameterDecorator) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    try {
+      const { code } = query as any;
+      if (code) {
+        const tokenResponse = await axios.post(
+          this.configService.getGoogleConfig().tokenUrl,
+          {
+            code,
+            client_id: this.configService.getGoogleConfig().clientId,
+            client_secret: this.configService.getGoogleConfig().clientSecret,
+            redirect_uri: this.configService.getGoogleConfig().callbackUrl,
+            grant_type: 'authorization_code',
+          }
+        );
+        const { access_token } = tokenResponse.data as any;
+        const userInfoResponse = await axios.get(
+          this.configService.getGoogleConfig().userInfoUrl,
+          {
+            headers: { Authorization: `Bearer ${access_token}` },
+          }
+        );
+        const userInfo = userInfoResponse.data as any;
+        let payload: JwtPayload;
+
+        // Kiểm tra và tạo tài khoản mới nêú chưa có
+        const user = await this.userRepository.findOne({
+          where: {
+            suid: userInfo.id,
+          },
+        });
+        if (!user) {
+          // Bắt đầu transaction
+          await queryRunner.startTransaction();
+
+          // Tạo và lưu user mới
+          const userEntity = plainToInstance(User, {
+            authType: AuthType.GOOGLE,
+            suid: userInfo.id,
+            status: UserStatus.ACTIVATED,
+            role: Role.READER,
+            createdAt: new Date(),
+          } as User);
+          const newUser = await queryRunner.manager.save(userEntity);
+
+          // Lưu profile người dùng
+          const userProfileEntity = plainToInstance(UserProfile, {
+            id: newUser.id,
+            name: userInfo.name,
+            avatar: userInfo.picture,
+          });
+          await queryRunner.manager.save(userProfileEntity);
+
+          // Mở ví cho người dùng
+          const walletEntity = plainToInstance(Wallet, {
+            id: newUser.id,
+						balance: '0'
+					} as Wallet)
+          await queryRunner.manager.save(walletEntity);
+
+          // Thực hiện commit transaction
+          await queryRunner.commitTransaction();
+
+          // Cập nhật giá trị token payload
+          payload = plainToInstance(JwtPayload, {
+            id: newUser.id,
+            status: newUser.status,
+            role: newUser.role,
+          } as JwtPayload);
+        } else {
+          // Cập nhật giá trị token payload
+          payload = plainToInstance(JwtPayload, {
+            id: user.id,
+            status: user.status,
+            role: user.role,
+          } as JwtPayload);
+        }
+
+        return this.jwtService.generateToken(payload);
+      }
+      return null;
+    } catch (error) {
+      // Thực hiện rollback transaction
+      await queryRunner.rollbackTransaction();
+      return null;
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async validateToken(authorization: string) {
@@ -138,8 +246,6 @@ export class UserService {
         .exec();
       return true;
     } catch (error) {
-      console.log(error);
-      
       return false;
     }
   }

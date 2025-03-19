@@ -6,7 +6,7 @@ import { Link, Location, useLocation, useNavigate } from 'react-router-dom';
 import IconButton from '@components/IconButton';
 import { useFormValidation } from './hooks/validate.hook';
 import ErrorMessage from '@components/ErrorMessage';
-import { generateValidateSchema } from './schema';
+import { generateValidateSchema } from './SignInWithEmailForm.schema';
 import useFetch from '@hooks/fetch.hook';
 import { Token } from '@features/auth/auth.type';
 import apis from '@apis/index';
@@ -15,11 +15,9 @@ import { useAppDispatch } from '@hooks/redux.hook';
 import authFeature from '@features/auth';
 import toastFeature from '@features/toast';
 import { ToastType } from '@constants/toast.constants';
-import paths from '@routers/router.path';
-import { jwtDecode } from 'jwt-decode';
-import { JwtPayload } from 'types/jwt.type';
-import { Role } from '@constants/user.constants';
 import { LocationState } from '@type/reactRouterDom.type';
+import paths from '@routers/router.path';
+import { Role } from '@constants/user.constants';
 
 function SignInWithEmailForm() {
   const dispatch = useAppDispatch();
@@ -56,35 +54,10 @@ function SignInWithEmailForm() {
           title: t('notification.loginSuccess'),
         })
       );
-      const payload = jwtDecode(data.accessToken) as JwtPayload;
-      let route: string;
-      switch (payload.role) {
-        case Role.ADMIN:
-          route = paths.managerDashboardPage();
-          break;
-
-        case Role.MODERATOR:
-          route = paths.moderatorHomePage();
-          break;
-
-        case Role.AUTHOR:
-          route = paths.authorHomePage();
-          break;
-
-        case Role.TRANSLATOR:
-          route = '';
-          break;
-
-        default:
-          route = paths.readerHomePage();
-          break;
-      }
-      if (location.state?.role && location.state.role === payload.role) {
-        if (location.state?.from) {
-          route = location.state.from;
-        }
-      }
-      navigate(route, {
+      navigate(`${paths.authRedirectPage()}?${new URLSearchParams({
+        url: location.state.from || '/',
+        role: location.state.role as Role
+      }).toString()}`, {
         replace: true,
       });
     }

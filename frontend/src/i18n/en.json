@@ -42,7 +42,10 @@
       "forgotPassword": "Forgot Password?",
       "or": "Or",
       "noAccount": "Don't have an account?",
-      "signUpNow": "Sign up now"
+      "signUpNow": "Sign up now",
+      "getOAuthUrl": "Fetching authentication URL...",
+      "authenticating": "Authenticating. Please wait a moment...",
+      "failedAuth": "Authentication and authorization failed. Please try again..."
     }
   },
   "validation": {

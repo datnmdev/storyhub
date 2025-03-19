@@ -73,4 +73,15 @@ export class ConfigService {
       urlCipherSecret: this.nestConfigService.get('URL_CIPHER_SECRET'),
     };
   }
+
+  getGoogleConfig() {
+    return {
+      clientId: this.nestConfigService.get('GOOGLE_CLIENT_ID'),
+      clientSecret: this.nestConfigService.get('GOOGLE_CLIENT_SECRET'),
+      callbackUrl: this.nestConfigService.get('GOOGLE_REDIRECT_URI'),
+      authUrl: this.nestConfigService.get('GOOGLE_AUTH_URL'),
+      tokenUrl: this.nestConfigService.get('GOOGLE_TOKEN_URL'),
+      userInfoUrl: this.nestConfigService.get('GOOGLE_USER_INFO_URL'),
+    };
+  }
 }

@@ -1,3 +1,5 @@
+import { Role, UserStatus } from "../constants/user.constants";
+
 export class Token {
   accessToken: string;
   refreshToken: string;
@@ -5,8 +7,8 @@ export class Token {
 
 export class JwtPayload {
   id: number;
-  role: number;
-  status: number;
+  role: Role;
+  status: UserStatus;
   iat?: number;
   exp?: number;
   jti?: string;

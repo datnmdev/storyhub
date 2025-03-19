@@ -1,5 +1,7 @@
 import {
   Body,
+  Get,
+  Query,
   Controller,
   Headers,
   HttpStatus,
@@ -7,12 +9,12 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
-import { EmailPasswordCredentialDto } from './dto/email-password-credential.dto';
-import { UserService } from './user.service';
 import { Request, Response } from 'express';
 import { Token } from '@/common/jwt/jwt.type';
 import { plainToClass } from 'class-transformer';
 import { ConfigService } from '@/common/config/config.service';
+import { UserService } from './user.service';
+import { SignInWithEmailPasswordDto } from './dto/sign-in-with-email-password.dto';
 
 @Controller('auth')
 export class UserController {
@@ -22,11 +24,11 @@ export class UserController {
   ) {}
 
   @Post('sign-in/email-password')
-  async loginWithEmailPassword(
-    @Body() emailPasswordCredentialDto: EmailPasswordCredentialDto,
+  async signWithEmailPassword(
+    @Body() emailPasswordCredentialDto: SignInWithEmailPasswordDto,
     @Res() res: Response
   ) {
-    const token = await this.userService.loginWithEmailPassword(
+    const token = await this.userService.signInWithEmailPassword(
       emailPasswordCredentialDto
     );
     res.cookie('accessToken', token.accessToken, {
@@ -44,9 +46,39 @@ export class UserController {
     return res.status(HttpStatus.OK).send(true);
   }
 
+  @Get('sign-in/google')
+  async signInWithGoogle(@Query('redirect-to') redirectTo: string, @Res() res: Response) {
+    const url = await this.userService.signInWithGoogle(redirectTo);
+    return res.redirect(url);
+  }
+
+  @Get('sign-in/google/callback')
+  async signInWithGoogleCallback(
+    @Query() query: ParameterDecorator,
+    @Query('state') redirectTo: string,
+    @Res() res: Response
+  ) {
+    const token = await this.userService.signInWithGoogleCallback(query);
+    if (token) {
+      // Lưu token vào cookies
+      res.cookie('accessToken', token.accessToken, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'prod',
+        sameSite: 'strict',
+      });
+      res.cookie('refreshToken', token.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'prod',
+        sameSite: 'strict',
+      });
+      return res.redirect(redirectTo);
+    }
+    return res.redirect(redirectTo);
+  }
+
   @Post('validate-token')
-  async validateToken(@Headers('Authorization') authorization: string) {
-    return await this.userService.validateToken(authorization);
+  validateToken(@Headers('Authorization') authorization: string) {
+    return this.userService.validateToken(authorization);
   }
 
   @Post('refresh-token')

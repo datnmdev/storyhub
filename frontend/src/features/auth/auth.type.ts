@@ -16,6 +16,6 @@ export interface User {
 }
 
 export interface Auth {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | null
   user: User | null;
 }

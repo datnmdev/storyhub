@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { InputWithIconProps } from './type';
+import { InputWithIconProps } from './InputWithIcon.type';
 
 function InputWithIcon({
   icon = <i className="fa-regular fa-envelope"></i>,

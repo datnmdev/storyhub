@@ -1,5 +1,5 @@
 import colors from '@assets/colors';
-import { ButtonProps } from './type';
+import { ButtonProps } from './Button.type';
 
 function Button({
   width = 120,

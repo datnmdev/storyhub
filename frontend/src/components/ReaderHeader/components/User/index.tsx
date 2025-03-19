@@ -7,9 +7,8 @@ import themeFeature from '@features/theme';
 import { Link, useNavigate } from 'react-router-dom';
 import useFetch from '@hooks/fetch.hook';
 import apis from '@apis/index';
-import UserSkeleton from './UserSkeleton';
+import UserSkeleton from './User.skeleton';
 import authFeature from '@features/auth';
-import UrlUtils from '@utilities/url.util';
 import paths from '@routers/router.path';
 import LoadingWrapper from '@components/LoadingWrapper';
 
@@ -75,10 +74,10 @@ function User() {
             <IconButton
               icon={
                 <img
-                  className="w-6 h-6 object-cover object-center"
+                  className="w-8 h-8 object-cover object-center rounded-[50%]"
                   src={
                     profile.avatar
-                      ? UrlUtils.generateUrl(profile.avatar)
+                      ? profile.avatar
                       : DefaultAvatar
                   }
                   alt="Avatar"
@@ -95,10 +94,10 @@ function User() {
             <IconButton
               icon={
                 <img
-                  className="w-4 h-4 object-cover object-center"
+                  className="w-5 h-5 object-cover object-center rounded-[50%]"
                   src={
                     profile.avatar
-                      ? UrlUtils.generateUrl(profile.avatar)
+                      ? profile.avatar
                       : DefaultAvatar
                   }
                   alt="Avatar"

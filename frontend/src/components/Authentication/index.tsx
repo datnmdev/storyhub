@@ -9,19 +9,20 @@ import Cookies from 'js-cookie';
 
 function Authentication({ children }: AuthenticationProps) {
   const dispatch = useAppDispatch();
-  const { data, isLoading, error } = useFetch<boolean>(
-    apis.authApi.validateToken,
-    { body: Cookies.get('accessToken') }
-  );
+  const { data, isLoading } = useFetch<boolean>(apis.authApi.validateToken, {
+    body: Cookies.get('accessToken'),
+  });
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (data === false || error) {
-    dispatch(authFeature.authAction.setAuthenticated(false));
-  } else {
-    dispatch(authFeature.authAction.setAuthenticated(true));
+  if (data !== null) {
+    if (data) {
+      dispatch(authFeature.authAction.setAuthenticated(true));
+    } else {
+      dispatch(authFeature.authAction.setAuthenticated(true));
+    }
   }
 
   return children;

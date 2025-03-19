@@ -44,7 +44,10 @@
       "forgotPassword": "Quên mật khẩu?",
       "or": "Hoặc",
       "noAccount": "Bạn chưa có tài khoản?",
-      "signUpNow": "Đăng ký ngay"
+      "signUpNow": "Đăng ký ngay",
+      "getOAuthUrl": "Đang lấy địa chỉ xác thực...",
+      "authenticating": "Đang tiến hành xác thực. Vui lòng đợi trong giây lát...",
+      "failedAuth": "Xác thực và uỷ quyền thất bại. Vui lòng thử lại..."
     }
   },
   "validation": {

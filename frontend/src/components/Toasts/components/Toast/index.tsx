@@ -1,8 +1,10 @@
 import { memo } from 'react';
 import { ToastProps } from './Toast.type';
-import { useAppDispatch } from '@hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@hooks/redux.hook';
 import toastFeature from '@features/toast';
 import './Toast.style.scss';
+import classNames from 'classnames';
+import themeFeature from '@features/theme';
 
 const icons = {
   success: 'fas fa-check-circle',
@@ -13,10 +15,14 @@ const icons = {
 
 function Toast({ id, type, title, description }: ToastProps) {
   const dispatch = useAppDispatch();
+  const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
 
   return (
     <div
-      className={`toast toast--${type}`}
+      className={classNames(
+        `toast toast--${type}`,
+        themeValue === 'light' ? 'light' : 'dark'
+      )}
       style={{
         animation: `slideInLeft ease 0.5s, fadeOut linear 1s 4s forwards`,
       }}

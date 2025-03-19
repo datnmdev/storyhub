@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Schema } from 'yup';
-import { InputError, InputData } from '../type';
+import { InputError, InputData } from '../SignInWithEmailForm.type';
 import { useTranslation } from 'react-i18next';
 
 export const useFormValidation = (

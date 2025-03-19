@@ -85,6 +85,39 @@ export class UserController {
     return res.redirect(redirectTo);
   }
 
+  @Get('sign-in/facebook')
+  async signInWithFacebook(
+    @Query('redirect-to') redirectTo: string,
+    @Res() res: Response
+  ) {
+    const url = await this.userService.signInWithFacebook(redirectTo);
+    return res.redirect(url);
+  }
+
+  @Get('sign-in/facebook/callback')
+  async signInWithFacebookCallback(
+    @Query() query: ParameterDecorator,
+    @Query('state') redirectTo: string,
+    @Res() res: Response
+  ) {    
+    const token = await this.userService.signInWithFacebookCallback(query);
+    if (token) {
+      // Lưu token vào cookies
+      res.cookie('accessToken', token.accessToken, {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === 'prod',
+        sameSite: 'strict',
+      });
+      res.cookie('refreshToken', token.refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'prod',
+        sameSite: 'strict',
+      });
+      return res.redirect(redirectTo);
+    }
+    return res.redirect(redirectTo);
+  }
+
   @Post('validate-token')
   validateToken(@Headers('Authorization') authorization: string) {
     return this.userService.validateToken(authorization);

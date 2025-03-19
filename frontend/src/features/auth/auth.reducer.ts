@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Auth } from './auth.type';
-import { TOKEN_KEY, AUTH_KEY } from '@constants/auth.constants';
+import { AUTH_KEY } from '@constants/user.constants';
+import Cookies from 'js-cookie';
 
 const initialState: Auth = {
   isAuthenticated: false,
@@ -17,15 +18,10 @@ export const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    saveToken: (state, action) => {
-      localStorage.setItem(TOKEN_KEY, JSON.stringify(action.payload));
-    },
-    signIn: (state, action) => {
-      localStorage.setItem(TOKEN_KEY, JSON.stringify(action.payload));
+    signIn: (state) => {
       state.isAuthenticated = true;
     },
     signOut: (state) => {
-      localStorage.removeItem(TOKEN_KEY);
       state.isAuthenticated = false;
     },
   },

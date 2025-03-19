@@ -1,16 +1,17 @@
-import { Role, TOKEN_KEY } from '@constants/auth.constants';
+import { Role } from '@constants/user.constants';
 import paths from '@routers/router.path';
 import { JwtPayload } from '@type/jwt.type';
 import { jwtDecode } from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 export function getHomePage() {
   let homeRoute: string = paths.readerHomePage();
-  const tokenJson = localStorage.getItem(TOKEN_KEY);
+  const tokenJson = Cookies.get('accessToken');
 
   if (tokenJson) {
     const payload = jwtDecode(tokenJson) as JwtPayload;
     switch (payload.role) {
-      case Role.MANAGER:
+      case Role.ADMIN:
         homeRoute = paths.managerDashboardPage();
         break;
 

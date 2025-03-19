@@ -1,16 +1,16 @@
-import { TOKEN_KEY } from '@constants/auth.constants';
 import authFeature from '@features/auth';
-import { Token } from '@features/auth/auth.type';
 import store from '@store/index';
 import axios, { HttpStatusCode } from 'axios';
+import Cookies from 'js-cookie';
 
 export default function axiosInstance(token?: string) {
-  const tokens = JSON.parse(localStorage.getItem(TOKEN_KEY) as string) as Token;
+  const accessToken = Cookies.get('accessToken');
   const axiosInstance = axios.create({
     baseURL: `${import.meta.env.VITE_SERVER_HOST}${import.meta.env.VITE_BASE_URI}`,
     headers: {
-      Authorization: `Bearer ${token || tokens?.accessToken}`,
+      Authorization: `Bearer ${token || accessToken}`,
     },
+    withCredentials: true,
   });
 
   // Cấu hình tự động gọi refresh token và gọi lại api nếu access token hết hạn
@@ -25,19 +25,18 @@ export default function axiosInstance(token?: string) {
           await axios({
             url: `${import.meta.env.VITE_SERVER_HOST}${import.meta.env.VITE_BASE_URI}/auth/refresh-token`,
             method: 'post',
-            data: JSON.parse(localStorage.getItem(TOKEN_KEY) as string),
+            withCredentials: true,
           })
         ).data;
 
         if (refreshToken) {
-          store.dispatch(authFeature.authAction.saveToken(refreshToken));
-          error.config.headers.Authorization = `Bearer ${refreshToken.accessToken}`;
+          error.config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}`;
           return await axios(error.config);
         } else {
           store.dispatch(authFeature.authAction.signOut());
         }
       }
-      return error;
+      return await Promise.reject(error);
     }
   );
 

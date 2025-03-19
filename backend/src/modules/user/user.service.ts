@@ -5,16 +5,14 @@ import { EmailPasswordCredentialDto } from './dto/email-password-credential.dto'
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@/common/jwt/jwt.service';
 import { plainToInstance } from 'class-transformer';
-import { JwtPayload } from '@/common/jwt/jwt.type';
+import { JwtPayload, Token } from '@/common/jwt/jwt.type';
 import { REDIS_CLIENT } from '@/common/redis/redis.constants';
 import { RedisClient } from '@/common/redis/redis.type';
 import KeyGenerator from '@/common/utils/generate-key.util';
 import { FailedSignInException } from '@/common/exceptions/failed-login.exception';
-import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { UnauthorizedException } from '@/common/exceptions/unauthorized.exception';
 import { User } from './entities/user.entity';
 import { ConfigService } from '@/common/config/config.service';
-import { SignOutDto } from './dto/sign-out.dto';
 
 @Injectable()
 export class UserService {
@@ -81,43 +79,50 @@ export class UserService {
     }
   }
 
-  async refreshToken(refreshTokenDto: RefreshTokenDto) {
+  async refreshToken(oldToken: Token) {
     try {
-      const jwtPayload = this.jwtService.verify(
-        refreshTokenDto.refreshToken,
+      const refreshTokenPayload = this.jwtService.verify(
+        oldToken.refreshToken,
         this.configService.getJwtConfig().refreshTokenConfig.secret
       );
+      const accessTokenPayload = this.jwtService.decode(oldToken.accessToken);
       const isTokenBlacklisted = await this.redisClient.get(
-        KeyGenerator.tokenBlacklistKey(jwtPayload.jti)
+        KeyGenerator.tokenBlacklistKey(refreshTokenPayload.jti)
       );
       if (!isTokenBlacklisted) {
         const newToken = this.jwtService.generateToken({
-          id: jwtPayload.id,
-          role: jwtPayload.role,
-          status: jwtPayload.status,
+          id: refreshTokenPayload.id,
+          role: refreshTokenPayload.role,
+          status: refreshTokenPayload.status,
         });
-        // Đưa refresh token cũ vào blacklist
-        await this.redisClient.setEx(
-          KeyGenerator.tokenBlacklistKey(jwtPayload.jti),
-          jwtPayload.exp - Math.ceil(Date.now() / 1000),
-          '1'
-        );
+        // Đưa token cũ vào blacklist
+        await this.redisClient
+          .multi()
+          .setEx(
+            KeyGenerator.tokenBlacklistKey(accessTokenPayload.jti),
+            accessTokenPayload.exp - Math.ceil(Date.now() / 1000),
+            '1'
+          )
+          .setEx(
+            KeyGenerator.tokenBlacklistKey(refreshTokenPayload.jti),
+            refreshTokenPayload.exp - Math.ceil(Date.now() / 1000),
+            '1'
+          )
+          .exec();
         return newToken;
       }
-
       throw new UnauthorizedException();
     } catch (error) {
       throw new UnauthorizedException();
     }
   }
 
-  async signOut(signOutDto: SignOutDto) {
+  async signOut(token: Token) {
     try {
-      const accessTokenPayload = this.jwtService.decode(signOutDto.accessToken);
+      const accessTokenPayload = this.jwtService.decode(token.accessToken);
       const refreshTokenPayload = this.jwtService.decode(
-        signOutDto.refreshToken
+        token.refreshToken
       );
-
       await this.redisClient
         .multi()
         .setEx(
@@ -133,6 +138,8 @@ export class UserService {
         .exec();
       return true;
     } catch (error) {
+      console.log(error);
+      
       return false;
     }
   }

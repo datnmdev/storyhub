@@ -25,7 +25,7 @@ function SignInPage() {
               <li className="grow">
                 <Link
                   className="block text-center w-full py-2.5 bg-[var(--primary)] text-[var(--white)]"
-                  to="#"
+                  to={paths.signInPage()}
                 >
                   {t('reader.signInPage.signIn')}
                 </Link>
@@ -34,7 +34,7 @@ function SignInPage() {
               <li className="grow">
                 <Link
                   className="block text-center w-full py-2.5 hover:text-[var(--primary)]"
-                  to="#"
+                  to={paths.signUpPage()}
                 >
                   {t('reader.signInPage.signUp')}
                 </Link>
@@ -73,7 +73,10 @@ function SignInPage() {
 
               <div className="mt-6 text-center space-x-1">
                 <span>{t('reader.signInPage.noAccount')}</span>
-                <Link className="text-[var(--primary)] hover:opacity-60" to="#">
+                <Link
+                  className="text-[var(--primary)] hover:opacity-60"
+                  to={paths.signUpPage()}
+                >
                   {t('reader.signInPage.signUpNow')}
                 </Link>
               </div>

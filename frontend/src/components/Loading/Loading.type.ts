@@ -1,4 +1,4 @@
 export interface LoadingProps {
-  message?: JSX.Element | string
+  message?: JSX.Element | string;
   backgroundVisible?: 'frog' | 'transparent' | 'default';
 }

@@ -21,7 +21,8 @@
         "history": "Reading History",
         "setting": "Settings",
         "signOut": "Sign Out"
-      }
+      },
+      "signingOut": "Signing Out..."
     },
     "footer": {
       "contact": {
@@ -39,19 +40,58 @@
       "signUp": "Sign Up",
       "email": "Email",
       "password": "Password",
-      "forgotPassword": "Forgot Password?",
+      "forgotPassword": "Forgot password?",
       "or": "Or",
       "noAccount": "Don't have an account?",
       "signUpNow": "Sign up now",
       "getOAuthUrl": "Fetching authentication URL...",
       "authenticating": "Authenticating. Please wait a moment...",
       "failedAuth": "Authentication and authorization failed. Please try again..."
+    },
+    "signUpPage": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "accountType": {
+        "label": "Account Type",
+        "reader": "Reader",
+        "author": "Author"
+      },
+      "email": "Email Address",
+      "name": "Full Name",
+      "dob": "Date of Birth",
+      "gender": {
+        "label": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "phone": "Phone Number",
+      "password": "Password",
+      "repeatPassword": "Repeat Password",
+      "country": {
+        "label": "Country"
+      },
+      "or": "Or",
+      "hadAccount": "Already have an account?",
+      "signInNow": "Sign In Now"
+    },
+    "otpVerificationPage": {
+      "btn": {
+        "goBack": "Go back"
+      },
+      "sentOtpMessage": "The OTP verification code has been sent to the address {{email}}. Please check your inbox to retrieve the verification code.",
+      "otp": "OTP code"
     }
   },
   "validation": {
     "required": "This field is required",
     "email": "Invalid email",
-    "password": "Password must be at least 8 characters long, including at least one uppercase letter, one lowercase letter, one number, and one special character"
+    "password": "Password must be at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character",
+    "dob": "Date of birth must be a past date",
+    "gender": "Invalid gender",
+    "phone": "Invalid phone number",
+    "repeatPassword": "This field must match the password field",
+    "emailExisted": "Email already exists"
   },
   "errorPage": {
     "notFoundPage": {

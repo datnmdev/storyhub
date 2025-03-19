@@ -6,6 +6,7 @@ import KeyGenerator from '../utils/generate-key.util';
 import { JwtService } from '../jwt/jwt.service';
 import { UnauthorizedException } from '../exceptions/unauthorized.exception';
 import { ConfigService } from '../config/config.service';
+import { UserStatus } from '../constants/user.constants';
 
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
@@ -29,8 +30,10 @@ export class AuthorizationMiddleware implements NestMiddleware {
           KeyGenerator.tokenBlacklistKey(jwtPayload.jti)
         );
         if (!isTokenBlacklisted) {
-          req.user = jwtPayload;
-          return next();
+          if (jwtPayload.status === UserStatus.ACTIVATED) {
+            req.user = jwtPayload;
+            return next();
+          }
         }
       }
       return next(new UnauthorizedException());

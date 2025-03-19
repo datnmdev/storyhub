@@ -1,17 +1,27 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Schema } from 'yup';
-import { InputError, InputData } from '../SignInWithEmailForm.type';
 import { useTranslation } from 'react-i18next';
+import { SelectChangeEvent } from '@mui/material';
 
-export const useFormValidation = (
-  initialValues: InputData,
+export interface InputData {
+  [key: string]: any;
+}
+
+export interface InputError {
+  [key: string]: any;
+}
+
+export function useFormValidation<D extends InputData, E extends InputError>(
+  initialValues: D,
   validationSchema: Schema
-) => {
+) {
   const { i18n } = useTranslation();
-  const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState<InputError>({});
+  const [values, setValues] = useState<D>(initialValues);
+  const [errors, setErrors] = useState<E>({} as E);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
+  ) => {
     const { name, value } = e.target;
 
     setValues((prev) => ({
@@ -40,6 +50,26 @@ export const useFormValidation = (
 
   const validateAll = async () => {
     try {
+      const cpError = Object.assign({}, values);
+      Object.keys(cpError).forEach((key) => {
+        validationSchema
+          .validateAt(key, {
+            ...values,
+            [key]: (values as InputData)[key],
+          })
+          .then(() => {
+            setErrors((prev) => ({
+              ...prev,
+              [key]: undefined,
+            }));
+          })
+          .catch((err) => {
+            setErrors((prev) => ({
+              ...prev,
+              [key]: err.message,
+            }));
+          });
+      });
       await validationSchema.validate(values, {
         abortEarly: false,
       });
@@ -55,7 +85,7 @@ export const useFormValidation = (
       validationSchema
         .validateAt(key, {
           ...values,
-          [key]: (values as InputData & { [key: string]: string })[key],
+          [key]: (values as InputData)[key],
         })
         .then(() => {
           setErrors((prev) => ({
@@ -73,4 +103,4 @@ export const useFormValidation = (
   }, [i18n.language]);
 
   return { values, errors, handleChange, validateAll };
-};
+}

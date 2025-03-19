@@ -18,3 +18,15 @@ export enum Role {
   MODERATOR = 'moderator',
   TRANSLATOR = 'translator',
 }
+
+export enum OtpVerificationType {
+  SIGN_IN = 0,
+  SIGN_UP = 1,
+  FORGOT_PASSWORD = 2
+}
+
+export enum Gender {
+  MALE = 'male',
+  FEMALE = 'female',
+  ORTHER = 'orther'
+}

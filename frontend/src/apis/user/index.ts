@@ -1,9 +1,33 @@
+import { RequestInit } from '@apis/api.type';
 import axiosInstance from 'libs/axios';
 
-const userApi = {
-  getProfile: () => {
-    return axiosInstance().get('/user-profile/get-profile');
+const authApi = {
+  signInWithEmailPassword: (options: RequestInit) => {
+    return axiosInstance().post('/auth/sign-in/email-password', options.body);
+  },
+  validateToken: () => {
+    return axiosInstance().post('/auth/validate-token');
+  },
+  refreshToken: (options: RequestInit) => {
+    return axiosInstance().post('/auth/refresh-token', options.body);
+  },
+  signOut: (options: RequestInit) => {
+    return axiosInstance().post('/auth/sign-out', options.body);
+  },
+  signUp: (options: RequestInit) => {
+    return axiosInstance().post('/auth/sign-up', options.body);
+  },
+  validateEmail: (options: RequestInit) => {
+    return axiosInstance().get('/auth/validate-email', {
+      params: options.queries,
+    });
+  },
+  verifyAccount: (options: RequestInit) => {
+    return axiosInstance().post('/auth/verify-account', options.body);
+  },
+  resendOtp: (options: RequestInit) => {
+    return axiosInstance().post('/auth/resend-otp', options.body);
   },
 };
 
-export default userApi;
+export default authApi;

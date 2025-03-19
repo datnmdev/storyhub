@@ -1,4 +1,4 @@
-import { Gender } from '@constants/auth.constants';
+import { Gender } from '@constants/user.constants';
 
 export interface Token {
   accessToken: string;

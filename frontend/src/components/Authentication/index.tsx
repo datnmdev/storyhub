@@ -1,17 +1,17 @@
 import { memo } from 'react';
 import { AuthenticationProps } from './Authentication.type';
-import { TOKEN_KEY } from '@constants/auth.constants';
 import useFetch from '@hooks/fetch.hook';
 import apis from '@apis/index';
 import Loading from '@components/Loading';
 import { useAppDispatch } from '@hooks/redux.hook';
 import authFeature from '@features/auth';
+import Cookies from 'js-cookie';
 
 function Authentication({ children }: AuthenticationProps) {
   const dispatch = useAppDispatch();
   const { data, isLoading, error } = useFetch<boolean>(
     apis.authApi.validateToken,
-    { body: JSON.parse(localStorage.getItem(TOKEN_KEY) as string) }
+    { body: Cookies.get('accessToken') }
   );
 
   if (isLoading) {

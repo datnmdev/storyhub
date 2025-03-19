@@ -11,7 +11,6 @@ import UserSkeleton from './UserSkeleton';
 import authFeature from '@features/auth';
 import UrlUtils from '@utilities/url.util';
 import paths from '@routers/router.path';
-import { TOKEN_KEY } from '@constants/auth.constants';
 import LoadingWrapper from '@components/LoadingWrapper';
 
 function User() {
@@ -30,7 +29,7 @@ function User() {
     setRefetch: setSignOut,
   } = useFetch(
     apis.authApi.signOut,
-    { body: JSON.parse(localStorage.getItem(TOKEN_KEY) as string) },
+    {},
     false
   );
 

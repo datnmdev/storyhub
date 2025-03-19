@@ -7,7 +7,7 @@ import Protected from '@components/Protected';
 import AuthorHomePage from '@pages/AuthorHomePage';
 import ManagerDashboardPage from '@pages/ManagerDashboardPage';
 import ModeratorHomePage from '@pages/ModeratorHomePage';
-import { Role } from '@constants/auth.constants';
+import { Role } from '@constants/user.constants';
 import Authentication from '@components/Authentication';
 import ErrorBoundary from '@components/ErrorBoundary';
 
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       {
         path: paths.managerDashboardPage(),
         element: (
-          <Protected role={Role.MANAGER}>
+          <Protected role={Role.ADMIN}>
             <ReaderLayout>
               <ManagerDashboardPage />
             </ReaderLayout>

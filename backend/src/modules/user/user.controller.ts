@@ -1,20 +1,47 @@
-import { Body, Controller, Headers, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Headers,
+  HttpStatus,
+  Post,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { EmailPasswordCredentialDto } from './dto/email-password-credential.dto';
-import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { UserService } from './user.service';
-import { SignOutDto } from './dto/sign-out.dto';
+import { Request, Response } from 'express';
+import { Token } from '@/common/jwt/jwt.type';
+import { plainToClass } from 'class-transformer';
+import { ConfigService } from '@/common/config/config.service';
 
 @Controller('auth')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    private readonly userService: UserService
+  ) {}
 
   @Post('sign-in/email-password')
   async loginWithEmailPassword(
-    @Body() emailPasswordCredentialDto: EmailPasswordCredentialDto
+    @Body() emailPasswordCredentialDto: EmailPasswordCredentialDto,
+    @Res() res: Response
   ) {
-    return await this.userService.loginWithEmailPassword(
+    const token = await this.userService.loginWithEmailPassword(
       emailPasswordCredentialDto
     );
+    res.cookie('accessToken', token.accessToken, {
+      httpOnly: false,
+      secure: true,
+      sameSite: 'none',
+      maxAge: this.configService.getJwtConfig().accessTokenConfig.expiresIn * 1000,
+    });
+    res.cookie('refreshToken', token.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: this.configService.getJwtConfig().refreshTokenConfig.expiresIn * 1000,
+    });
+    return res.status(HttpStatus.OK).send(true);
   }
 
   @Post('validate-token')
@@ -23,12 +50,39 @@ export class UserController {
   }
 
   @Post('refresh-token')
-  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
-    return await this.userService.refreshToken(refreshTokenDto);
+  async refreshToken(@Req() req: Request, @Res() res: Response) {
+    const oldToken = plainToClass(Token, {
+      accessToken: req.cookies?.accessToken,
+      refreshToken: req.cookies?.refreshToken,
+    } as Token);
+    const newToken = await this.userService.refreshToken(oldToken);
+    res.cookie('accessToken', newToken.accessToken, {
+      httpOnly: false,
+      secure: true,
+      sameSite: 'none',
+      maxAge: this.configService.getJwtConfig().accessTokenConfig.expiresIn * 1000,
+    });
+    res.cookie('refreshToken', newToken.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: this.configService.getJwtConfig().refreshTokenConfig.expiresIn * 1000,
+    });
+    return res.status(HttpStatus.OK).send(true);
   }
 
   @Post('sign-out')
-  async signOut(@Body() signOutDto: SignOutDto) {
-    return await this.userService.signOut(signOutDto);
+  async signOut(@Req() req: Request, @Res() res: Response) {
+    const token = plainToClass(Token, {
+      accessToken: req.cookies?.accessToken,
+      refreshToken: req.cookies?.refreshToken,
+    } as Token);
+    const isSignedOut = await this.userService.signOut(token);
+    if (isSignedOut) {
+      res.clearCookie('accessToken');
+      res.clearCookie('refreshToken');
+      return res.status(HttpStatus.OK).send(true);
+    }
+    return res.status(HttpStatus.OK).send(false);
   }
 }

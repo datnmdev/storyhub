@@ -1,6 +1,10 @@
+import { Role, UserStatus } from "@constants/user.constants";
+
 export interface JwtPayload {
-  accountId: number;
-  role: number;
-  status: number;
+  id: number;
+  role: Role;
+  status: UserStatus;
   iat: number;
+  exp: number;
+  jti: number;
 }

@@ -18,7 +18,7 @@ import { ToastType } from '@constants/toast.constants';
 import paths from '@routers/router.path';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from 'types/jwt.type';
-import { Role } from '@constants/auth.constants';
+import { Role } from '@constants/user.constants';
 import { LocationState } from '@type/reactRouterDom.type';
 
 function SignInWithEmailForm() {
@@ -49,7 +49,7 @@ function SignInWithEmailForm() {
 
   useEffect(() => {
     if (data) {
-      dispatch(authFeature.authAction.signIn(data));
+      dispatch(authFeature.authAction.signIn());
       dispatch(
         toastFeature.toastAction.add({
           type: ToastType.SUCCESS,
@@ -59,7 +59,7 @@ function SignInWithEmailForm() {
       const payload = jwtDecode(data.accessToken) as JwtPayload;
       let route: string;
       switch (payload.role) {
-        case Role.MANAGER:
+        case Role.ADMIN:
           route = paths.managerDashboardPage();
           break;
 
@@ -69,6 +69,10 @@ function SignInWithEmailForm() {
 
         case Role.AUTHOR:
           route = paths.authorHomePage();
+          break;
+
+        case Role.TRANSLATOR:
+          route = '';
           break;
 
         default:

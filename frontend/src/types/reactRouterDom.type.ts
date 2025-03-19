@@ -1,4 +1,4 @@
-import { Role } from '@constants/auth.constants';
+import { Role } from '@constants/user.constants';
 
 export interface LocationState {
   from?: string;

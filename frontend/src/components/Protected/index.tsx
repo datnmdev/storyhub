@@ -5,10 +5,10 @@ import paths from '@routers/router.path';
 import { LocationState } from '@type/reactRouterDom.type';
 import { useAppSelector } from '@hooks/redux.hook';
 import authFeature from '@features/auth';
-import { TOKEN_KEY } from '@constants/auth.constants';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '@type/jwt.type';
 import { ForbiddenError } from '@utilities/error.util';
+import Cookies from 'js-cookie';
 
 function Protected({ children, role }: ProtectedProps) {
   const location: Location<LocationState> = useLocation();
@@ -21,7 +21,7 @@ function Protected({ children, role }: ProtectedProps) {
   }, [isAuthenticated]);
 
   if (isAuthenticated) {
-    const tokenJson = localStorage.getItem(TOKEN_KEY);
+    const tokenJson = Cookies.get('accessToken');
     if (tokenJson) {
       const payload = jwtDecode(tokenJson) as JwtPayload;
       if (payload.role != role) {

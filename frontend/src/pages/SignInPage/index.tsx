@@ -61,7 +61,7 @@ function SignInPage() {
                     boxShadow="0 0 4px var(--gray)"
                     onClick={() => {
                       const params = new URLSearchParams({
-                        url: `${import.meta.env.VITE_HOST}}/${location.state?.from}`,
+                        url: `${import.meta.env.VITE_HOST}/${location.state?.from}`,
                         role: location.state?.role || 'guest',
                       });
                       window.location.href = UrlUtils.generateUrl(
@@ -70,7 +70,9 @@ function SignInPage() {
                     }}
                   />
                   <IconButton
-                    icon={<img width={24} src={FacebookIcon} alt="Facebook Icon" />}
+                    icon={
+                      <img width={24} src={FacebookIcon} alt="Facebook Icon" />
+                    }
                     width={48}
                     height={48}
                     bgColor="var(--white)"

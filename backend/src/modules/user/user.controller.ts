@@ -35,21 +35,7 @@ export class UserController {
     const token = await this.userService.signInWithEmailPassword(
       emailPasswordCredentialDto
     );
-    res.cookie('accessToken', token.accessToken, {
-      httpOnly: false,
-      secure: true,
-      sameSite: 'none',
-      maxAge:
-        this.configService.getJwtConfig().accessTokenConfig.expiresIn * 1000,
-    });
-    res.cookie('refreshToken', token.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge:
-        this.configService.getJwtConfig().refreshTokenConfig.expiresIn * 1000,
-    });
-    return res.status(HttpStatus.OK).send(true);
+    return res.status(HttpStatus.OK).send(token);
   }
 
   @Get('sign-in/google')
@@ -68,21 +54,18 @@ export class UserController {
     @Res() res: Response
   ) {
     const token = await this.userService.signInWithGoogleCallback(query);
+    const queryParams = new URLSearchParams({
+      'access-token': token.accessToken,
+      'refresh-token': token.refreshToken,
+    });
     if (token) {
-      // Lưu token vào cookies
-      res.cookie('accessToken', token.accessToken, {
-        httpOnly: false,
-        secure: process.env.NODE_ENV === 'prod',
-        sameSite: 'strict',
-      });
-      res.cookie('refreshToken', token.refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'prod',
-        sameSite: 'strict',
-      });
-      return res.redirect(redirectTo);
+      return res.redirect(
+        `${redirectTo}&${queryParams}`
+      );
     }
-    return res.redirect(redirectTo);
+    return res.redirect(
+      `${redirectTo}&${queryParams}`
+    );
   }
 
   @Get('sign-in/facebook')
@@ -99,23 +82,22 @@ export class UserController {
     @Query() query: ParameterDecorator,
     @Query('state') redirectTo: string,
     @Res() res: Response
-  ) {    
+  ) {
     const token = await this.userService.signInWithFacebookCallback(query);
+    const queryParams = new URLSearchParams({
+      'access-token': token.accessToken,
+      'refresh-token': token.refreshToken,
+    });
+    console.log(redirectTo);
+    
     if (token) {
-      // Lưu token vào cookies
-      res.cookie('accessToken', token.accessToken, {
-        httpOnly: false,
-        secure: process.env.NODE_ENV === 'prod',
-        sameSite: 'strict',
-      });
-      res.cookie('refreshToken', token.refreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'prod',
-        sameSite: 'strict',
-      });
-      return res.redirect(redirectTo);
+      return res.redirect(
+        `${redirectTo}&${queryParams}`
+      );
     }
-    return res.redirect(redirectTo);
+    return res.redirect(
+      `${redirectTo}&${queryParams}`
+    );
   }
 
   @Post('validate-token')
@@ -130,21 +112,7 @@ export class UserController {
       refreshToken: req.cookies?.refreshToken,
     } as Token);
     const newToken = await this.userService.refreshToken(oldToken);
-    res.cookie('accessToken', newToken.accessToken, {
-      httpOnly: false,
-      secure: true,
-      sameSite: 'none',
-      maxAge:
-        this.configService.getJwtConfig().accessTokenConfig.expiresIn * 1000,
-    });
-    res.cookie('refreshToken', newToken.refreshToken, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-      maxAge:
-        this.configService.getJwtConfig().refreshTokenConfig.expiresIn * 1000,
-    });
-    return res.status(HttpStatus.OK).send(true);
+    return res.status(HttpStatus.OK).send(newToken);
   }
 
   @Post('sign-out')
@@ -155,30 +123,28 @@ export class UserController {
     } as Token);
     const isSignedOut = await this.userService.signOut(token);
     if (isSignedOut) {
-      res.clearCookie('accessToken');
-      res.clearCookie('refreshToken');
       return res.status(HttpStatus.OK).send(true);
     }
     return res.status(HttpStatus.OK).send(false);
   }
 
-  @Post("sign-up")
- 	signUp(@Body() signUpDto: SignUpDto) {
- 		return this.userService.signUp(signUpDto);
- 	}
- 
- 	@Get("validate-email")
- 	validateEmail(@Query() validateEmailDto: ValidateEmailDto) {
- 		return this.userService.validateEmail(validateEmailDto.email);
- 	}
- 
- 	@Post("verify-account")
- 	verifyAccount(@Body() verifyAccountDto: VerifyAccountDto) {
- 		return this.userService.verifyAccount(verifyAccountDto);
- 	}
- 
- 	@Post("resend-otp")
- 	resendOtp(@Body() resendOtpDto: ResendOtpDto) {
- 		return this.userService.resendOtp(resendOtpDto);
- 	}
+  @Post('sign-up')
+  signUp(@Body() signUpDto: SignUpDto) {
+    return this.userService.signUp(signUpDto);
+  }
+
+  @Get('validate-email')
+  validateEmail(@Query() validateEmailDto: ValidateEmailDto) {
+    return this.userService.validateEmail(validateEmailDto.email);
+  }
+
+  @Post('verify-account')
+  verifyAccount(@Body() verifyAccountDto: VerifyAccountDto) {
+    return this.userService.verifyAccount(verifyAccountDto);
+  }
+
+  @Post('resend-otp')
+  resendOtp(@Body() resendOtpDto: ResendOtpDto) {
+    return this.userService.resendOtp(resendOtpDto);
+  }
 }

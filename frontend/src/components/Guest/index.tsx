@@ -18,8 +18,8 @@ function Guest({ children }: GuestProps) {
     if (tokenString) {
       navigate(
         RedirectUtils.getRedirectUriBelongTo(tokenString, {
-          url: location.state.from,
-          role: location.state.role,
+          url: location.state?.from || '',
+          role: location.state?.role || 'guest',
         })
       );
     }

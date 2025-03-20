@@ -112,7 +112,7 @@ export class UserService {
 
         // Thu hồi token google
         await axios.post('https://oauth2.googleapis.com/revoke', {
-          token: access_token
+          token: access_token,
         });
 
         // Kiểm tra và tạo tài khoản mới nêú chưa có
@@ -212,21 +212,23 @@ export class UserService {
           {
             params: {
               fields: 'id,name,picture',
-              access_token
-            }
+              access_token,
+            },
           }
         );
         const userInfo = userInfoResponse.data as any;
         let payload: JwtPayload;
 
         // Vô hiệu hoá token facebook
-        await axios.delete(`https://graph.facebook.com/${userInfo.id}/permissions?access_token=${encodeURIComponent(access_token)}`)
+        await axios.delete(
+          `https://graph.facebook.com/${userInfo.id}/permissions?access_token=${encodeURIComponent(access_token)}`
+        );
 
         // Kiểm tra và tạo tài khoản mới nêú chưa có
         const user = await this.userRepository.findOne({
           where: {
             suid: userInfo.id,
-            authType: AuthType.FACEBOOK
+            authType: AuthType.FACEBOOK,
           },
         });
         if (!user) {
@@ -307,10 +309,9 @@ export class UserService {
           }
         }
       }
-
-      return false;
+      throw new UnauthorizedException();
     } catch (error) {
-      return false;
+      throw new UnauthorizedException();
     }
   }
 
@@ -369,7 +370,7 @@ export class UserService {
           '1'
         )
         .exec();
-      return true;
+      throw true;
     } catch (error) {
       return false;
     }
@@ -389,7 +390,7 @@ export class UserService {
         role: signUpDto.type,
         status: UserStatus.UNACTIVATED,
         createdAt: new Date(),
-      } as User)
+      } as User);
       const newUser = await queryRunner.manager.save(userEntity);
 
       const userProfileEntity = plainToInstance(UserProfile, {
@@ -398,7 +399,7 @@ export class UserService {
         dob: moment(signUpDto.dob).format('YYYY-MM-DD HH:mm:ss'),
         gender: signUpDto.gender,
         phone: signUpDto.phone,
-        countryId: 1
+        countryId: 1,
       } as UserProfile);
       await queryRunner.manager.save(userProfileEntity);
 
@@ -432,12 +433,11 @@ export class UserService {
   }
 
   async validateEmail(email: string) {
-    const user =
-      await this.userRepository.findOne({
-        where: {
-          email,
-        },
-      });
+    const user = await this.userRepository.findOne({
+      where: {
+        email,
+      },
+    });
     if (user) {
       return true;
     }
@@ -472,19 +472,16 @@ export class UserService {
   }
 
   async resendOtp(resendOtpDto: ResendOtpDto) {
-    const user =
-      await this.userRepository.findOne({
-        where: {
-          email: resendOtpDto.email,
-        }
-      });
+    const user = await this.userRepository.findOne({
+      where: {
+        email: resendOtpDto.email,
+      },
+    });
     if (user) {
       switch (resendOtpDto.type) {
         case OtpVerificationType.SIGN_IN:
         case OtpVerificationType.SIGN_UP:
-          if (
-            user.status === UserStatus.UNACTIVATED
-          ) {
+          if (user.status === UserStatus.UNACTIVATED) {
             const jobData: SendOtpData = {
               accountId: user.id,
               otp: randomString.generate({

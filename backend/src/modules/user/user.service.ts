@@ -75,8 +75,8 @@ export class UserService {
   async signInWithGoogle(qp: string) {
     const googleAuthUrl = this.configService.getGoogleConfig().authUrl;
     const params = new URLSearchParams({
-      client_id: process.env.GOOGLE_CLIENT_ID,
-      redirect_uri: process.env.GOOGLE_REDIRECT_URI,
+      client_id: this.configService.getGoogleConfig().clientId,
+      redirect_uri: this.configService.getGoogleConfig().callbackUrl,
       response_type: 'code',
       scope: 'profile email',
       access_type: 'offline',
@@ -109,6 +109,11 @@ export class UserService {
         );
         const userInfo = userInfoResponse.data as any;
         let payload: JwtPayload;
+
+        // Thu hồi token google
+        await axios.post('https://oauth2.googleapis.com/revoke', {
+          token: access_token
+        });
 
         // Kiểm tra và tạo tài khoản mới nêú chưa có
         const user = await this.userRepository.findOne({

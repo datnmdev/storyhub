@@ -1,5 +1,5 @@
-import { RequestInit } from "@apis/api.type";
-import axiosInstance from "libs/axios"
+import { RequestInit } from '@apis/api.type';
+import axiosInstance from 'libs/axios';
 
 export interface Country {
   id: number;
@@ -7,11 +7,11 @@ export interface Country {
 }
 
 const countryApi = {
-    getCountries: (options: RequestInit) => {
-        return axiosInstance().get('/country', {
-          params: options.queries
-        });
-    }
+  getCountries: (options: RequestInit) => {
+    return axiosInstance().get('/country', {
+      params: options.queries,
+    });
+  },
 };
 
 export default countryApi;

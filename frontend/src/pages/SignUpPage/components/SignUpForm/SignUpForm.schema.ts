@@ -1,6 +1,6 @@
 import { Gender, Role } from '@constants/user.constants';
 import i18n from '@i18n/index';
-import { date, number, object, ref, string } from 'yup';
+import { date, object, ref, string } from 'yup';
 
 export function generateValidateSchema() {
   return object({

@@ -25,7 +25,6 @@ import { InputData, InputError } from './SignInWithEmailForm.type';
 import paths from '@routers/router.path';
 import { JwtPayload } from '@type/jwt.type';
 import { jwtDecode } from 'jwt-decode';
-import Cookies from 'js-cookie';
 
 function SignInWithEmailForm() {
   const dispatch = useAppDispatch();
@@ -49,43 +48,45 @@ function SignInWithEmailForm() {
   );
 
   useEffect(() => {
-    if (data) {
-      const payload: JwtPayload = jwtDecode(Cookies.get('accessToken') || '');
-      switch (payload.status) {
-        case UserStatus.ACTIVATED:
-          dispatch(authFeature.authAction.signIn());
-          navigate(
-            `${paths.authRedirectPage()}?${new URLSearchParams({
-              url: location.state?.from ?? '/',
-              role: location.state?.role as Role,
-            }).toString()}`,
-            {
-              replace: true,
-            }
-          );
-          break;
+    if (!isLoading) {
+      if (data) {
+        const payload: JwtPayload = jwtDecode(data.accessToken);
+        switch (payload.status) {
+          case UserStatus.ACTIVATED:
+            dispatch(authFeature.authAction.signIn(data));
+            navigate(
+              `${paths.authRedirectPage()}?${new URLSearchParams({
+                url: location.state?.from ?? '/',
+                role: location.state?.role as Role,
+              }).toString()}`,
+              {
+                replace: true,
+              }
+            );
+            break;
 
-        case UserStatus.UNACTIVATED:
-          navigate(paths.otpVerificationPage(), {
-            state: {
-              type: OtpVerificationType.SIGN_IN,
-              prevData: values,
-              account: {
-                ...payload,
-                id: payload.id,
+          case UserStatus.UNACTIVATED:
+            navigate(paths.otpVerificationPage(), {
+              state: {
+                type: OtpVerificationType.SIGN_IN,
+                prevData: values,
+                account: {
+                  ...payload,
+                  id: payload.id,
+                },
               },
-            },
-          });
-          dispatch(
-            toastFeature.toastAction.add({
-              type: ToastType.INFO,
-              title: t('notification.needToVerifyAccount'),
-            })
-          );
-          break;
+            });
+            dispatch(
+              toastFeature.toastAction.add({
+                type: ToastType.INFO,
+                title: t('notification.needToVerifyAccount'),
+              })
+            );
+            break;
+        }
       }
     }
-  }, [data]);
+  }, [isLoading]);
 
   return (
     <div className="space-y-2">

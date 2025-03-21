@@ -5,7 +5,7 @@ import userApi from './user-profile';
 const apis = {
   authApi,
   userApi,
-  countryApi
+  countryApi,
 };
 
 export default apis;

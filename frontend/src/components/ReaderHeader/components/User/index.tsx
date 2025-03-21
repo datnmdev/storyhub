@@ -50,7 +50,7 @@ function User() {
   }, [profileData]);
 
   useEffect(() => {
-    if (isSignedOut !== null && isSignedOut != false) {
+    if (isSignedOut !== null) {
       dispatch(authFeature.authAction.signOut());
       navigate(paths.readerHomePage());
     }

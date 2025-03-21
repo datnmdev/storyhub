@@ -62,7 +62,7 @@ function SignUp() {
                     boxShadow="0 0 4px var(--gray)"
                     onClick={() => {
                       const params = new URLSearchParams({
-                        url: `${import.meta.env.VITE_HOST}}/${location.state?.from}`,
+                        url: `${import.meta.env.VITE_HOST}/${location.state?.from}`,
                         role: location.state?.role || 'guest',
                       });
                       window.location.href = UrlUtils.generateUrl(

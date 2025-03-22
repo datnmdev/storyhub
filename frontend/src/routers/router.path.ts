@@ -6,6 +6,7 @@ const paths = {
   otpVerificationPage: () => '/otp-verification',
   forgotPasswordPage: () => '/forgot-password',
   resetPasswordPage: () => '/reset-password',
+  walletPage: () => "/wallet",
   managerDashboardPage: () => '/manager',
   authorHomePage: () => '/author',
   moderatorHomePage: () => '/moderator',

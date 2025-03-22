@@ -30,6 +30,9 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { VerifyAccountDto } from './dto/verify-account.dto';
 import { ResendOtpDto } from './dto/resend-otp.dto';
 import * as moment from 'moment';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import * as crypto from 'crypto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Injectable()
 export class UserService {
@@ -498,9 +501,81 @@ export class UserService {
           break;
 
         case OtpVerificationType.FORGOT_PASSWORD:
+          const jobData: SendOtpData = {
+            accountId: user.id,
+            otp: randomString.generate({
+              length: 6,
+              charset: 'numeric',
+            }),
+            to: user.email,
+          };
+          await this.bullService.addJob(
+            JobName.SEND_OTP_TO_RESET_PASSWORD,
+            jobData
+          );
           break;
       }
     }
     return true;
+  }
+
+  async forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+    try {
+      const user = await this.userRepository.findOne({
+        where: {
+          email: forgotPasswordDto.email,
+        },
+      });
+      if (user) {
+        const otp = await this.redisClient.get(
+          KeyGenerator.otpToResetPasswordKey(user.id)
+        );
+        if (forgotPasswordDto.otp === otp) {
+          await this.redisClient.del(
+            KeyGenerator.otpToResetPasswordKey(user.id)
+          );
+          const result = {
+            accountId: user.id,
+            state: crypto.randomBytes(256).toString('hex'),
+          };
+          await this.redisClient.setEx(
+            KeyGenerator.stateToResetPasswordKey(user.id),
+            5 * 60,
+            result.state
+          );
+          return result;
+        }
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async resetPassword(resetPasswordDto: ResetPasswordDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    try {
+      await queryRunner.startTransaction();
+      const state = await this.redisClient.get(
+        KeyGenerator.stateToResetPasswordKey(resetPasswordDto.accountId)
+      );
+      if (resetPasswordDto.state === state) {
+        await queryRunner.manager.update(User, resetPasswordDto.accountId, {
+          password: await bcrypt.hash(resetPasswordDto.newPassword, 10),
+        });
+        await this.redisClient.del(
+          KeyGenerator.stateToResetPasswordKey(resetPasswordDto.accountId)
+        );
+        await queryRunner.commitTransaction();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      return false;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

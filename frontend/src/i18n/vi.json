@@ -79,13 +79,23 @@
     },
     "otpVerificationPage": {
       "btn": {
-        "goBack": "Quay lại",
         "resendOtp": "Yêu cầu gửi lại mã"
       },
       "sentOtpMessage": "Mã xác thực OTP đã được gửi đến địa chỉ {{email}}. Vui lòng kiểm tra hộp thư để lấy mã xác thực",
       "otp": "Mã OTP",
       "notReceiveOtp": "Bạn chưa nhận được mã?",
       "resendRequest": "Bạn có thể yêu cầu gửi lại mã sau {{second}} giây nữa"
+    },
+    "forgotPasswordPage": {
+      "btn": {
+        "goBack": "Quay lại"
+      },
+      "title": "Lấy lại mật khẩu"
+    },
+    "resetPasswordPage": {
+      "title": "Đặt lại mật khẩu",
+      "password": "Mật khẩu mới",
+      "repeatPassword": "Nhập lại mật khẩu mới"
     }
   },
   "validation": {
@@ -119,6 +129,8 @@
     "signUpSuccess": "Đăng ký tài khoản thành công",
     "verifyAccountSuccess": "Xác nhận tài khoản thành công",
     "verifyOtpError": "Mã OTP không chính xác. Vui lòng thử lại",
-    "needToVerifyAccount": "Tài khoản của bạn cần được xác thực"
+    "needToVerifyAccount": "Tài khoản của bạn cần được xác thực",
+    "resetPasswordSuccess": "Đặt lại mật khẩu thành công",
+    "resetPasswordFailed": "Đã có lỗi xảy ra. Vui lòng thử lại"
   }
 }

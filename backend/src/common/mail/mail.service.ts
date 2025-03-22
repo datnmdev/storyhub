@@ -16,4 +16,16 @@ export class MailService {
       },
     });
   }
+
+  async sendOtpToResetPassword(otp: string, to: string) {
+    return this.mailerService.sendMail({
+      to,
+      from: 'no-reply@storyhub.com',
+      subject: 'Lấy lại mật khẩu tại storyhub',
+      template: './reset-password',
+      context: {
+        otp,
+      },
+    });
+  }
 }

@@ -50,8 +50,8 @@ function OtpVerificationPage() {
 
   return (
     <div>
-      <div className="desktop:w-[var(--desktop-container-w)] mx-auto py-8 flex justify-center items-center">
-        <div className="w-[415px] p-8 space-y-4 shadow-[0_0_8px_var(--gray)]">
+      <div className="desktop:w-[var(--desktop-container-w)] tablet:w-[var(--tablet-container-w)] mobile:w-[var(--mobile-container-w)] mx-auto py-8 flex justify-center items-center">
+        <div className="desktop:w-[415px] tablet:w-full mobile:w-full p-8 space-y-4 shadow-[0_0_8px_var(--gray)]">
           <div>
             <img className="w-60 mx-auto" src={Logo} alt="Logo" />
           </div>

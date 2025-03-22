@@ -324,7 +324,6 @@ export class UserService {
         oldToken.refreshToken,
         this.configService.getJwtConfig().refreshTokenConfig.secret
       );
-      const accessTokenPayload = this.jwtService.decode(oldToken.accessToken);
       const isTokenBlacklisted = await this.redisClient.get(
         KeyGenerator.tokenBlacklistKey(refreshTokenPayload.jti)
       );
@@ -335,23 +334,33 @@ export class UserService {
           status: refreshTokenPayload.status,
         });
         // Đưa token cũ vào blacklist
-        await this.redisClient
-          .multi()
-          .setEx(
-            KeyGenerator.tokenBlacklistKey(accessTokenPayload.jti),
-            accessTokenPayload.exp - Math.ceil(Date.now() / 1000),
-            '1'
-          )
-          .setEx(
+        if (oldToken.accessToken) {
+          const accessTokenPayload = this.jwtService.decode(
+            oldToken.accessToken
+          );
+          const seconds = accessTokenPayload.exp - Math.ceil(Date.now() / 1000);
+          if (seconds > 0) {
+            await this.redisClient.setEx(
+              KeyGenerator.tokenBlacklistKey(accessTokenPayload.jti),
+              seconds,
+              '1'
+            );
+          }
+        }
+        const seconds = refreshTokenPayload.exp - Math.ceil(Date.now() / 1000);
+        if (seconds > 0) {
+          await this.redisClient.setEx(
             KeyGenerator.tokenBlacklistKey(refreshTokenPayload.jti),
-            refreshTokenPayload.exp - Math.ceil(Date.now() / 1000),
+            seconds,
             '1'
-          )
-          .exec();
+          );
+        }
         return newToken;
       }
       throw new UnauthorizedException();
     } catch (error) {
+      console.log(error);
+
       throw new UnauthorizedException();
     }
   }

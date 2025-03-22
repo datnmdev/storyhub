@@ -96,6 +96,36 @@
       "title": "Đặt lại mật khẩu",
       "password": "Mật khẩu mới",
       "repeatPassword": "Nhập lại mật khẩu mới"
+    },
+    "walletPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "walletPage": "Ví tiền"
+        }
+      },
+      "sidebar": {
+        "heading": "Ví tiền của tôi",
+        "walletInfo": "Thông tin về ví",
+        "depositeHistory": "Lịch sử nạp tiền",
+        "paymentHistory": "Lịch sử thanh toán"
+      },
+      "content": {
+        "balanceTitle": "Số dư khả dụng",
+        "depositeBtn": "Nạp thêm",
+        "depositePopupTitle": "Nạp tiền",
+        "depositePopup": {
+          "amount": "Số tiền muốn nạp",
+          "bankCode": {
+            "label": "Phương thức thanh toán",
+            "vnpayQl": "Thanh toán qua ứng dụng hỗ trợ VNPAYQR",
+            "vnBank": "Thanh toán qua ATM-Tài khoản ngân hàng nội địa",
+            "intCard": "Thanh toán qua thẻ quốc tế"
+          },
+          "formatedMoney": "Số tiền đã nhập",
+          "waitingPayment": "Đang đợi bạn thanh toán"
+        }
+      }
     }
   },
   "validation": {
@@ -109,7 +139,10 @@
     "repeatPassword": "Trường này phải trùng khớp với trường mật khẩu",
     "emailExisted": "Email đã tồn tại",
     "length": "Trường này phải có độ dài {{length}}",
-    "numberString": "Trường này chỉ bao gồm chữ số"
+    "numberString": "Trường này chỉ bao gồm chữ số",
+    "amount": "Số tiền nạp tối thiểu 10,000 VND",
+    "bankCode": "Phương thức thanh toán không hợp lệ",
+    "number": "Truờng này chỉ bao gồm các chữ số"
   },
   "errorPage": {
     "notFoundPage": {
@@ -131,6 +164,9 @@
     "verifyOtpError": "Mã OTP không chính xác. Vui lòng thử lại",
     "needToVerifyAccount": "Tài khoản của bạn cần được xác thực",
     "resetPasswordSuccess": "Đặt lại mật khẩu thành công",
-    "resetPasswordFailed": "Đã có lỗi xảy ra. Vui lòng thử lại"
+    "resetPasswordFailed": "Đã có lỗi xảy ra. Vui lòng thử lại",
+    "paymentSuccess": "Thanh toán thành công",
+    "paymentFailed": "Thanh toán thất bại",
+    "paymentExpired": "Đã hết thời hạn thanh toán. Vui lòng thử lại"
   }
 }

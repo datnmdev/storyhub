@@ -11,6 +11,9 @@ import { ConfigService } from './common/config/config.service';
 import { MailModule } from './common/mail/mail.module';
 import { BullModule } from './common/bull/bull.module';
 import { CountryModule } from './modules/country/country.module';
+import { GuardModule } from './common/guards/guard.module';
+import { WalletModule } from './modules/wallet/wallet.module';
+import { DepositeTransactionModule } from './modules/deposite-transaction/deposite-transaction.module';
 
 @Module({
   imports: [
@@ -36,14 +39,24 @@ import { CountryModule } from './modules/country/country.module';
     JwtModule,
     MiddlewareModule,
     BullModule,
- 		MailModule,
+    MailModule,
+    GuardModule,
     UserModule,
     UserProfileModule,
-    CountryModule
+    CountryModule,
+    WalletModule,
+    DepositeTransactionModule,
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthorizationMiddleware).forRoutes('user-profile');
+    consumer
+      .apply(AuthorizationMiddleware)
+      .forRoutes(
+        'auth/sign-out',
+        'user-profile',
+        'wallet',
+        'deposite-transaction/create-payment-url'
+      );
   }
 }

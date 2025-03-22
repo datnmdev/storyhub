@@ -10,6 +10,7 @@ export interface InputWithIconProps {
   minLength?: number;
   maxLength?: number;
   length?: number;
+  contentEditable?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onFocus?: FocusEventHandler<HTMLInputElement>;
   onBlur?: FocusEventHandler<HTMLInputElement>;

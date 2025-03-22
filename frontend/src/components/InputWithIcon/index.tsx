@@ -14,7 +14,8 @@ function InputWithIcon({
   minLength,
   onFocus,
   onBlur,
-  onChange,
+  contentEditable = true,
+  onChange = () => {},
 }: InputWithIconProps) {
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
 
@@ -37,6 +38,7 @@ function InputWithIcon({
           max={max}
           maxLength={maxLength}
           minLength={minLength}
+          contentEditable={contentEditable}
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}

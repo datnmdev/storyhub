@@ -16,6 +16,7 @@ import OtpVerificationPage from '@pages/OtpVerificationPage';
 import Guest from '@components/Guest';
 import ForgotPasswordPage from '@pages/ForgotPasswordPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
+import WalletPage from '@pages/WalletPage';
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,16 @@ const router = createBrowserRouter([
               <ResetPasswordPage />
             </ReaderLayout>
           </Guest>
+        ),
+      },
+      {
+        path: paths.walletPage(),
+        element: (
+          <Protected role={Role.READER}>
+            <ReaderLayout>
+              <WalletPage />
+            </ReaderLayout>
+          </Protected>
         ),
       },
       {

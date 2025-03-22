@@ -13,7 +13,7 @@ function Button({
 }: ButtonProps) {
   return (
     <div
-      className="flex justify-center items-center hover:opacity-60 cursor-pointer"
+      className="flex justify-center items-center hover:opacity-60 cursor-pointer select-none"
       style={{
         width,
         height,

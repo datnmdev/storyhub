@@ -10,7 +10,7 @@ const KeyGenerator = {
   },
   stateToResetPasswordKey: (accountId: number) => {
     return `auth:reset-password:state:${accountId}`;
-  },
+  }
 };
 
 export default KeyGenerator;

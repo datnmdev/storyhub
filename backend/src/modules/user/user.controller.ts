@@ -19,6 +19,8 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { ValidateEmailDto } from './dto/validate-email.dto';
 import { VerifyAccountDto } from './dto/verify-account.dto';
 import { ResendOtpDto } from './dto/resend-otp.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('auth')
 export class UserController {
@@ -59,13 +61,9 @@ export class UserController {
       'refresh-token': token.refreshToken,
     });
     if (token) {
-      return res.redirect(
-        `${redirectTo}&${queryParams}`
-      );
+      return res.redirect(`${redirectTo}&${queryParams}`);
     }
-    return res.redirect(
-      `${redirectTo}&${queryParams}`
-    );
+    return res.redirect(`${redirectTo}&${queryParams}`);
   }
 
   @Get('sign-in/facebook')
@@ -89,15 +87,11 @@ export class UserController {
       'refresh-token': token.refreshToken,
     });
     console.log(redirectTo);
-    
+
     if (token) {
-      return res.redirect(
-        `${redirectTo}&${queryParams}`
-      );
+      return res.redirect(`${redirectTo}&${queryParams}`);
     }
-    return res.redirect(
-      `${redirectTo}&${queryParams}`
-    );
+    return res.redirect(`${redirectTo}&${queryParams}`);
   }
 
   @Post('validate-token')
@@ -146,5 +140,15 @@ export class UserController {
   @Post('resend-otp')
   resendOtp(@Body() resendOtpDto: ResendOtpDto) {
     return this.userService.resendOtp(resendOtpDto);
+  }
+
+  @Post('forgot-password')
+  forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+    return this.userService.forgotPassword(forgotPasswordDto);
+  }
+
+  @Post('reset-password')
+  resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    return this.userService.resetPassword(resetPasswordDto);
   }
 }

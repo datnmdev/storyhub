@@ -15,6 +15,8 @@ function useFetch<R>(
 
   useEffect(() => {
     async function callApi() {
+      setData(null);
+      setError(null);
       setLoading(true);
       try {
         const response = await callApiFunc(options);

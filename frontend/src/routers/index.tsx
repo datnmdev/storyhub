@@ -14,6 +14,8 @@ import AuthRedirectPage from '@pages/AuthRedirectPage';
 import SignUpPage from '@pages/SignUpPage';
 import OtpVerificationPage from '@pages/OtpVerificationPage';
 import Guest from '@components/Guest';
+import ForgotPasswordPage from '@pages/ForgotPasswordPage';
+import ResetPasswordPage from '@pages/ResetPasswordPage';
 
 const router = createBrowserRouter([
   {
@@ -68,6 +70,26 @@ const router = createBrowserRouter([
           <Guest>
             <ReaderLayout>
               <OtpVerificationPage />
+            </ReaderLayout>
+          </Guest>
+        ),
+      },
+      {
+        path: paths.forgotPasswordPage(),
+        element: (
+          <Guest>
+            <ReaderLayout>
+              <ForgotPasswordPage />
+            </ReaderLayout>
+          </Guest>
+        ),
+      },
+      {
+        path: paths.resetPasswordPage(),
+        element: (
+          <Guest>
+            <ReaderLayout>
+              <ResetPasswordPage />
             </ReaderLayout>
           </Guest>
         ),

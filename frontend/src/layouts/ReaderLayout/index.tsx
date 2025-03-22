@@ -12,12 +12,12 @@ function ReaderLayout({ children }: PropsWithChildren) {
     <div
       className={classNames(
         themeValue === 'light' ? 'light' : 'dark',
-        'min-h-[100vh] flex flex-col justify-between'
+        'min-h-[100vh] flex flex-col justify-between transition-colors duration-1000 ease-in-out'
       )}
     >
       <ReaderHeader />
 
-      <div className="grow">{children}</div>
+      <div className="grow flex flex-col">{children}</div>
 
       <ReaderFooter />
     </div>

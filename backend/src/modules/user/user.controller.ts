@@ -86,8 +86,6 @@ export class UserController {
       'access-token': token.accessToken,
       'refresh-token': token.refreshToken,
     });
-    console.log(redirectTo);
-
     if (token) {
       return res.redirect(`${redirectTo}&${queryParams}`);
     }

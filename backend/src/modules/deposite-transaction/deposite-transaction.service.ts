@@ -10,7 +10,7 @@ import { CreatePaymentUrlDto } from './dto/create-payment-url.dto';
 import * as qs from 'qs';
 import * as crypto from 'crypto';
 import VnpayUtils from '@/common/utils/vnpay.util';
-import { DataSource, Repository } from 'typeorm';
+import { DataSource, In, Or, Repository } from 'typeorm';
 import { DepositeTransaction } from './entities/deposite-transaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { REDIS_CLIENT } from '@/common/redis/redis.constants';
@@ -22,6 +22,7 @@ import { WalletService } from '../wallet/wallet.service';
 import * as ejs from 'ejs';
 import * as path from 'path';
 import { Wallet } from '../wallet/entities/wallet.entity';
+import { GetDepositeTransHistoryDto } from './dto/get-deposite-transaction-history.dto';
 
 @Injectable()
 export class DepositeTransactionService {
@@ -47,7 +48,7 @@ export class DepositeTransactionService {
       this.configService.getVnpConfig().vnpHashSecret
     );
 
-    let params = {
+    const params = {
       vnp_Version: '2.1.0',
       vnp_Command: 'pay',
       vnp_TmnCode: this.configService.getVnpConfig().vnpTmnCode,
@@ -103,7 +104,7 @@ export class DepositeTransactionService {
         'sha512',
         this.configService.getVnpConfig().vnpHashSecret
       );
-      let signed = hmac
+      const signed = hmac
         .update(
           qs.stringify(VnpayUtils.sortObject(vnpParams), { encode: false })
         )
@@ -234,6 +235,28 @@ export class DepositeTransactionService {
           resolve(html);
         }
       );
+    });
+  }
+
+  getDepositeTransHistory(
+    userId: number,
+    getDepositeTransHistoryDto: GetDepositeTransHistoryDto
+  ) {
+    return this.depositeTransactionRepository.findAndCount({
+      where: {
+        readerId: userId,
+        status: In([
+          DepositeTransactionStatus.SUCCEED,
+          DepositeTransactionStatus.FAILED,
+        ]),
+      },
+      order: {
+        payDate: 'DESC',
+      },
+      take: getDepositeTransHistoryDto.limit,
+      skip:
+        (getDepositeTransHistoryDto.page - 1) *
+        getDepositeTransHistoryDto.limit,
     });
   }
 }

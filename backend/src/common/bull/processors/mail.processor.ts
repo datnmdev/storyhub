@@ -36,7 +36,11 @@ export class MailProcessor {
   async sendOtpToResetPassword(job: Job) {
     try {
       const data: SendOtpData = job.data;
-      await this.redisClient.setEx(KeyGenerator.otpToResetPasswordKey(data.accountId), 5 * 60, data.otp);
+      await this.redisClient.setEx(
+        KeyGenerator.otpToResetPasswordKey(data.accountId),
+        5 * 60,
+        data.otp
+      );
       await this.mailService.sendOtpToResetPassword(data.otp, data.to);
     } catch (error) {
       console.log(error);

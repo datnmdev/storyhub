@@ -15,6 +15,8 @@ import { RolesGuard } from '@/common/guards/roles.guard';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { Role } from '@/common/constants/user.constants';
 import { HandleVnpayIpnDto } from './dto/handle-vnpay-ipn.dto';
+import { User } from '@/common/decorators/user.decorator';
+import { GetDepositeTransHistoryDto } from './dto/get-deposite-transaction-history.dto';
 
 @Controller('deposite-transaction')
 export class DepositeTransactionController {
@@ -46,7 +48,22 @@ export class DepositeTransactionController {
   }
 
   @Get('vnpay-return')
-  handleVnpayReturn(@Query() handleVnpayReturnDto: HandleVnpayIpnDto,) {
-    return this.depositeTransactionService.handleVnpReturn(handleVnpayReturnDto);
+  handleVnpayReturn(@Query() handleVnpayReturnDto: HandleVnpayIpnDto) {
+    return this.depositeTransactionService.handleVnpReturn(
+      handleVnpayReturnDto
+    );
+  }
+
+  @Get('get-deposite-transaction-history')
+  @Roles(Role.READER)
+  @UseGuards(RolesGuard)
+  getDepositeTransHistory(
+    @User('id') userId: number,
+    @Query() getDepositeTransHistoryDto: GetDepositeTransHistoryDto
+  ) {
+    return this.depositeTransactionService.getDepositeTransHistory(
+      userId,
+      getDepositeTransHistoryDto
+    );
   }
 }

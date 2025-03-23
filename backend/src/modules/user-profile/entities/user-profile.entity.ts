@@ -24,7 +24,7 @@ export class UserProfile {
   @Column('enum', {
     name: 'gender',
     enum: ['male', 'female', 'orther'],
-    nullable: true
+    nullable: true,
   })
   gender: 'male' | 'female' | 'orther';
 

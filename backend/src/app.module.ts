@@ -56,7 +56,9 @@ export class AppModule implements NestModule {
         'auth/sign-out',
         'user-profile',
         'wallet',
-        'deposite-transaction/create-payment-url'
+        'deposite-transaction/create-payment-url',
+        'deposite-transaction/get-payment-status',
+        'deposite-transaction/get-deposite-transaction-history'
       );
   }
 }

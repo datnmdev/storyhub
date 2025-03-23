@@ -1,5 +1,5 @@
 export interface SendOtpData {
-  accountId: number
-  otp: string
-  to: string
+  accountId: number;
+  otp: string;
+  to: string;
 }

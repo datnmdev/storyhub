@@ -126,6 +126,21 @@
           "waitingPayment": "Đang đợi bạn thanh toán"
         }
       }
+    },
+    "depositeTransHistoryPage": {
+      "content": {
+        "orderId": "Mã giao dịch",
+        "bankCode": "Mã ngân hàng",
+        "cardType": "Loại thẻ/tài khoản",
+        "amount": "Số tiền",
+        "createDate": "Thời điểm giao dịch",
+        "status": {
+          "title": "Trạng thái",
+          "initialize": "Khởi tạo",
+          "succeed": "Thành công",
+          "failed": "Thất bại"
+        }
+      }
     }
   },
   "validation": {
@@ -168,5 +183,14 @@
     "paymentSuccess": "Thanh toán thành công",
     "paymentFailed": "Thanh toán thất bại",
     "paymentExpired": "Đã hết thời hạn thanh toán. Vui lòng thử lại"
+  },
+  "pagination": {
+    "next": "Sau",
+    "previous": "Trước",
+    "first": "Đầu",
+    "last": "Cuối"
+  },
+  "loading": {
+    "getDepositeTransHistory": "Đang lấy lịch sử nạp tiền..."
   }
 }

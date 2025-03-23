@@ -9,7 +9,7 @@ const apis = {
   userApi,
   countryApi,
   depositeTransactionApi,
-  walletApi
+  walletApi,
 };
 
 export default apis;

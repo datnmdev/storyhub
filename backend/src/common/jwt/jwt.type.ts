@@ -1,4 +1,4 @@
-import { Role, UserStatus } from "../constants/user.constants";
+import { Role, UserStatus } from '../constants/user.constants';
 
 export class Token {
   accessToken: string;

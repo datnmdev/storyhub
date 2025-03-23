@@ -7,18 +7,16 @@ import paths from '@routers/router.path';
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Wallet } from './WalletPage.type';
+import { Wallet } from './ReaderWalletPage.type';
 import NumberUtils from '@utilities/number.util';
 import classNames from 'classnames';
 import { useAppSelector } from '@hooks/redux.hook';
 import themeFeature from '@features/theme';
 import DepositePopup from './components/DepositePopup';
 
-function WalletPage() {
+function ReaderWalletPage() {
   const { t } = useTranslation();
-  const { data: wallet } = useFetch<Wallet>(
-    apis.walletApi.getWallet
-  );
+  const { data: wallet } = useFetch<Wallet>(apis.walletApi.getWallet);
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [isOpenDepositePopup, setOpenDepositePopup] = useState<boolean>(false);
 
@@ -29,7 +27,7 @@ function WalletPage() {
     },
     {
       label: t('reader.walletPage.breadcrumb.items.walletPage'),
-      path: paths.walletPage(),
+      path: paths.readerWalletPage(),
     },
   ];
 
@@ -45,39 +43,45 @@ function WalletPage() {
             {t('reader.walletPage.sidebar.heading')}
           </h3>
           <ul className="desktop:block tablet:flex mobile:flex desktop:mt-2 tablet:mt-2 mobile:mt-2">
-            <li className='grow'>
+            <li className="grow">
               <Link
-                className=" desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] leading-[38px] space-x-2 flex items-center bg-[var(--primary)] text-[var(--white)]"
-                to={paths.walletPage()}
+                className="desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] leading-[38px] space-x-2 flex items-center bg-[var(--primary)] text-[var(--white)]"
+                to={paths.readerWalletPage()}
               >
                 <span className="text-[1.2rem]">
                   <i className="fa-solid fa-wallet"></i>
                 </span>
-                <span className='desktop:block tablet:hidden mobile:hidden'>{t('reader.walletPage.sidebar.walletInfo')}</span>
+                <span className="desktop:block tablet:hidden mobile:hidden">
+                  {t('reader.walletPage.sidebar.walletInfo')}
+                </span>
               </Link>
             </li>
 
-            <li className='grow'>
+            <li className="grow">
               <Link
                 className=" desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] hover:text-[var(--primary)] leading-[38px] space-x-2 flex items-center"
-                to={paths.walletPage()}
+                to={paths.readerDepositeTransHistoryPage()}
               >
                 <span className="text-[1.2rem]">
                   <i className="fa-solid fa-building-columns"></i>
                 </span>
-                <span className='desktop:block tablet:hidden mobile:hidden'>{t('reader.walletPage.sidebar.depositeHistory')}</span>
+                <span className="desktop:block tablet:hidden mobile:hidden">
+                  {t('reader.walletPage.sidebar.depositeHistory')}
+                </span>
               </Link>
             </li>
 
-            <li className='grow'>
+            <li className="grow">
               <Link
                 className=" desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] hover:text-[var(--primary)] leading-[38px] space-x-2 flex items-center"
-                to={paths.walletPage()}
+                to={paths.readerWalletPage()}
               >
                 <span className="text-[1.2rem]">
                   <i className="fa-solid fa-money-bills"></i>
                 </span>
-                <span className='desktop:block tablet:hidden mobile:hidden'>{t('reader.walletPage.sidebar.paymentHistory')}</span>
+                <span className="desktop:block tablet:hidden mobile:hidden">
+                  {t('reader.walletPage.sidebar.paymentHistory')}
+                </span>
               </Link>
             </li>
           </ul>
@@ -116,4 +120,4 @@ function WalletPage() {
   );
 }
 
-export default memo(WalletPage);
+export default memo(ReaderWalletPage);

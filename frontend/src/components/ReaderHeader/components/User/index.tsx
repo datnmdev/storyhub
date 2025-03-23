@@ -116,7 +116,7 @@ function User() {
             <li>
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
-                to={paths.walletPage()}
+                to={paths.readerWalletPage()}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-wallet"></i>

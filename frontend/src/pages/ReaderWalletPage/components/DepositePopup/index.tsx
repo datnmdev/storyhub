@@ -16,7 +16,7 @@ import IconButton from '@components/IconButton';
 import LoadingIcon from '@assets/icons/gifs/loading.gif';
 import MenuItem from '@components/MenuItem';
 import { BankCode } from '@constants/payment.constant';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 
 function DepositePopup({ title, onClose }: DepositePopupProps) {
   const { t } = useTranslation();
@@ -40,8 +40,6 @@ function DepositePopup({ title, onClose }: DepositePopupProps) {
     if (!isLoading) {
       console.log(data);
       if (data) {
-        
-        
         window.location.href = data;
       }
     }
@@ -138,4 +136,4 @@ function DepositePopup({ title, onClose }: DepositePopupProps) {
   );
 }
 
-export default DepositePopup;
+export default memo(DepositePopup);

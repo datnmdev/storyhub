@@ -22,11 +22,11 @@ export enum Role {
 export enum OtpVerificationType {
   SIGN_IN = 0,
   SIGN_UP = 1,
-  FORGOT_PASSWORD = 2
+  FORGOT_PASSWORD = 2,
 }
 
 export enum Gender {
   MALE = 'male',
   FEMALE = 'female',
-  ORTHER = 'orther'
+  ORTHER = 'orther',
 }

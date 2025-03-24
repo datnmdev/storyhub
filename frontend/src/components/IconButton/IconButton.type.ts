@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactElement } from 'react';
+import { CSSProperties, PropsWithChildren, ReactElement } from 'react';
 
 export interface IconButtonProps extends PropsWithChildren {
   icon: ReactElement;
@@ -12,5 +12,6 @@ export interface IconButtonProps extends PropsWithChildren {
   boxShadow?: string;
   padding?: string;
   disable?: boolean;
+  sx?: CSSProperties;
   onClick?: () => void;
 }

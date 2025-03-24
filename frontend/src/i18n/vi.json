@@ -141,6 +141,46 @@
           "failed": "Thất bại"
         }
       }
+    },
+    "homePage": {
+      "topViewSlider": {
+        "title": "Truyện được xem nhiều nhất",
+        "btn": {
+          "readBtn": "Đọc"
+        },
+        "ortherInfo": {
+          "priceCount": "{{value}}đ/chương",
+          "viewCount": "{{value}} lượt",
+          "followerCount": "{{value}} lượt"
+        },
+        "storyType": {
+          "comic": "Truyện tranh",
+          "novel": "Tiểu thuyết"
+        }
+      },
+      "newUpdatedSection": {
+        "title": "Truyện vừa mới cập nhật",
+        "ortherInfo": {
+          "priceCount": "{{value}}đ/c",
+          "viewCount": "{{value}}",
+          "followerCount": "{{value}}",
+          "ratingCount": "{{value}}",
+          "ratingCountText": "{{value}} lượt"
+        },
+        "storyType": {
+          "comic": "Truyện tranh",
+          "novel": "Tiểu thuyết"
+        },
+        "timestamps": {
+          "second": "{{value}} giây trước",
+          "minute": "{{value}} phút trước",
+          "hour": "{{value}} giờ trước",
+          "day": "{{value}} ngày trước",
+          "week": "{{value}} tuần trước",
+          "month": "{{value}} tháng trước",
+          "year": "{{value}} năm trước"
+        }
+      }
     }
   },
   "validation": {

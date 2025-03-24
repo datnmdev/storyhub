@@ -95,4 +95,10 @@ export class ConfigService {
       userInfoUrl: this.nestConfigService.get('FACEBOOK_USER_INFO_URL'),
     };
   }
+
+  getGoogleStorageConfig() {
+    return {
+      bucketName: 'mangatoon-423713.appspot.com',
+    };
+  }
 }

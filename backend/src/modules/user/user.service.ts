@@ -33,6 +33,7 @@ import * as moment from 'moment';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import * as crypto from 'crypto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { UrlPrefix } from '@/common/constants/url-resolver.constants';
 
 @Injectable()
 export class UserService {
@@ -142,7 +143,7 @@ export class UserService {
           const userProfileEntity = plainToInstance(UserProfile, {
             id: newUser.id,
             name: userInfo.name,
-            avatar: userInfo.picture,
+            avatar: UrlPrefix.EXTERNAL_GOOGLE + userInfo.picture,
           });
           await queryRunner.manager.save(userProfileEntity);
 
@@ -252,7 +253,7 @@ export class UserService {
           const userProfileEntity = plainToInstance(UserProfile, {
             id: newUser.id,
             name: userInfo.name,
-            avatar: userInfo.picture.data.url,
+            avatar: UrlPrefix.EXTERNAL_FACEBOOK + userInfo.picture.data.url,
           });
           await queryRunner.manager.save(userProfileEntity);
 

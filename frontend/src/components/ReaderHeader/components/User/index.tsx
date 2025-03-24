@@ -12,6 +12,7 @@ import authFeature from '@features/auth';
 import paths from '@routers/router.path';
 import LoadingWrapper from '@components/LoadingWrapper';
 import { useTranslation } from 'react-i18next';
+import UrlUtils from '@utilities/url.util';
 
 function User() {
   const { t } = useTranslation();
@@ -76,7 +77,11 @@ function User() {
               icon={
                 <img
                   className="w-8 h-8 object-cover object-center rounded-[50%]"
-                  src={profile.avatar ? profile.avatar : DefaultAvatar}
+                  src={
+                    profile.avatar
+                      ? UrlUtils.generateUrl(profile.avatar)
+                      : DefaultAvatar
+                  }
                   alt="Avatar"
                 />
               }
@@ -107,7 +112,7 @@ function User() {
           <ul
             ref={boxRef}
             className={classNames(
-              'absolute top-[calc(100%+14px)] right-0 min-w-80 rounded-[4px] p-2 leading-none animate-fadeIn',
+              'absolute top-[calc(100%+14px)] right-0 min-w-80 rounded-[4px] p-2 leading-none animate-fadeIn z-[2]',
               themeValue === 'light'
                 ? ['light__boxShadow', 'light__bg']
                 : ['dark__boxShadow', 'dark__bg']

@@ -1,8 +1,7 @@
 class PromiseUtils {
   static async sleep(milisecond: number) {
     return new Promise((resolve) => {
-      const timeOutId = setTimeout(() => {
-        clearTimeout(timeOutId);
+      setTimeout(() => {
         resolve(null);
       }, milisecond);
     });

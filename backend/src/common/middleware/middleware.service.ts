@@ -1,4 +1,9 @@
-import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Inject,
+  Injectable,
+  NestMiddleware,
+} from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import { REDIS_CLIENT } from '../redis/redis.constants';
 import { RedisClient } from '../redis/redis.type';
@@ -7,6 +12,9 @@ import { JwtService } from '../jwt/jwt.service';
 import { UnauthorizedException } from '../exceptions/unauthorized.exception';
 import { ConfigService } from '../config/config.service';
 import { UserStatus } from '../constants/user.constants';
+import { UrlCipherService } from '../url-cipher/url-cipher.service';
+import { EncryptedUrl } from '../url-cipher/url-cipher.class';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class AuthorizationMiddleware implements NestMiddleware {
@@ -40,5 +48,17 @@ export class AuthorizationMiddleware implements NestMiddleware {
     } catch (error) {
       return next(new UnauthorizedException());
     }
+  }
+}
+
+@Injectable()
+export class VerifyUrlValidityMiddleware implements NestMiddleware {
+  constructor(private readonly urlCipherService: UrlCipherService) {}
+  async use(req: Request, res: Response, next: NextFunction) {
+    const encryptedUrl: EncryptedUrl = plainToInstance(EncryptedUrl, req.query);
+    if (this.urlCipherService.verify(encryptedUrl)) {
+      return next();
+    }
+    return next(new ForbiddenException());
   }
 }

@@ -7,7 +7,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { GetUploadUrlDto } from './dtos/get-upload-url.dto';
 import { GoogleStorageService } from './google-storage.service';
 
-@Controller('upload')
+@Controller('google-storage')
 export class GoogleStorageController {
   constructor(private readonly googleStorageService: GoogleStorageService) {}
 

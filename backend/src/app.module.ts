@@ -78,7 +78,8 @@ export class AppModule implements NestModule {
         'user-profile',
         'wallet',
         'deposite-transaction/create-payment-url',
-        'deposite-transaction/get-deposite-transaction-history'
+        'deposite-transaction/get-deposite-transaction-history',
+        'google-storage'
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

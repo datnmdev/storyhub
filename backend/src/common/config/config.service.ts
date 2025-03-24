@@ -99,6 +99,9 @@ export class ConfigService {
   getGoogleStorageConfig() {
     return {
       bucketName: 'mangatoon-423713.appspot.com',
+      serviceAccountKeyPath: this.nestConfigService.get(
+        'SERVICE_ACCOUNT_KEY_PATH'
+      ),
     };
   }
 }

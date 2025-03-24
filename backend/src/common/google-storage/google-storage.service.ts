@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { GetSignedUrlConfig, Storage } from '@google-cloud/storage';
-import * as path from 'path';
 import { ConfigService } from '../config/config.service';
 
 @Injectable()
@@ -10,11 +9,8 @@ export class GoogleStorageService {
 
   constructor(private readonly configService: ConfigService) {
     this.storage = new Storage({
-      keyFilename: path.join(
-        process.cwd(),
-        'src/common/google-storage',
-        'service-account.key.json'
-      ),
+      keyFilename:
+        this.configService.getGoogleStorageConfig().serviceAccountKeyPath,
     });
     this.bucketName = this.configService.getGoogleStorageConfig().bucketName;
   }

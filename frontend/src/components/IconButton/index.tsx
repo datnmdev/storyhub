@@ -13,6 +13,7 @@ function IconButton({
   boxShadow,
   padding,
   disable = false,
+  sx,
   onClick,
 }: IconButtonProps) {
   return (
@@ -29,6 +30,7 @@ function IconButton({
         boxShadow,
         padding,
         cursor: disable ? 'not-allowed' : 'pointer',
+        ...sx,
       }}
       onClick={disable ? (e) => e.preventDefault() : onClick}
     >

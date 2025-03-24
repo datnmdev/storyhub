@@ -14,7 +14,7 @@ function Loading({
 
   if (level === 'component') {
     return (
-      <div className="relative w-full h-full bg-transparent z-[1]">
+      <div className="relative w-full h-full bg-transparent z-[999]">
         <div
           className={classNames(
             'absolute top-0 left-0 w-full h-full',
@@ -38,7 +38,7 @@ function Loading({
   }
 
   return (
-    <div className="w-[100vw] h-[100vh] bg-transparent fixed left-0 top-0 z-[1]">
+    <div className="w-[100vw] h-[100vh] bg-transparent fixed left-0 top-0 z-[999]">
       <div
         className={classNames(
           'absolute top-0 left-0 w-full h-full',

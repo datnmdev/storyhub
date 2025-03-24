@@ -42,6 +42,9 @@ lerna-debug.log*
 .env.dev
 .env.prod
 
+# private file
+src/common/google-storage/service-account.key.json
+
 # temp directory
 .temp
 .tmp

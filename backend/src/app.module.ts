@@ -4,7 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from './common/jwt/jwt.module';
 import { RedisModule } from './common/redis/redis.module';
 import { MiddlewareModule } from './common/middleware/middleware.module';
-import { AuthorizationMiddleware } from './common/middleware/middleware.service';
+import {
+  AuthorizationMiddleware,
+  VerifyUrlValidityMiddleware,
+} from './common/middleware/middleware.service';
 import { UserProfileModule } from './modules/user-profile/user-profile.module';
 import { ConfigModule } from './common/config/config.module';
 import { ConfigService } from './common/config/config.service';
@@ -14,6 +17,15 @@ import { CountryModule } from './modules/country/country.module';
 import { GuardModule } from './common/guards/guard.module';
 import { WalletModule } from './modules/wallet/wallet.module';
 import { DepositeTransactionModule } from './modules/deposite-transaction/deposite-transaction.module';
+import { ChapterModule } from './modules/chapter/chapter.module';
+import { UrlCipherModule } from './common/url-cipher/url-cipher.module';
+import { FollowModule } from './modules/follow/follow.module';
+import { PriceModule } from './modules/price/price.module';
+import { RatingModule } from './modules/rating/rating.module';
+import { StoryModule } from './modules/story/story.module';
+import { GoogleStorageModule } from './common/google-storage/google-storage.module';
+import { UrlResolverModule } from './modules/url-resolver/url-resolver.module';
+import { ViewModule } from './modules/view/view.module';
 
 @Module({
   imports: [
@@ -46,6 +58,15 @@ import { DepositeTransactionModule } from './modules/deposite-transaction/deposi
     CountryModule,
     WalletModule,
     DepositeTransactionModule,
+    ChapterModule,
+    UrlCipherModule,
+    GoogleStorageModule,
+    UrlResolverModule,
+    StoryModule,
+    ViewModule,
+    FollowModule,
+    PriceModule,
+    RatingModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -57,8 +78,9 @@ export class AppModule implements NestModule {
         'user-profile',
         'wallet',
         'deposite-transaction/create-payment-url',
-        'deposite-transaction/get-payment-status',
         'deposite-transaction/get-deposite-transaction-history'
-      );
+      )
+      .apply(VerifyUrlValidityMiddleware)
+      .forRoutes('url-resolver');
   }
 }

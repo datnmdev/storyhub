@@ -18,6 +18,8 @@ import ForgotPasswordPage from '@pages/ForgotPasswordPage';
 import ResetPasswordPage from '@pages/ResetPasswordPage';
 import ReaderWalletPage from '@pages/ReaderWalletPage';
 import ReaderDepositeTransHistoryPage from '@pages/ReaderDepositeTransHistoryPage';
+import ReaderStoryInfoPage from '@pages/ReaderStoryInfoPage';
+import ReaderChapterContentPage from '@pages/ReaderChapterContentPage';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
         element: (
           <ReaderLayout>
             <ReaderHomePage />
+          </ReaderLayout>
+        ),
+      },
+      {
+        path: paths.readerStoryInfoPage(),
+        element: (
+          <ReaderLayout>
+            <ReaderStoryInfoPage />
           </ReaderLayout>
         ),
       },
@@ -112,6 +122,16 @@ const router = createBrowserRouter([
           <Protected role={Role.READER}>
             <ReaderLayout>
               <ReaderDepositeTransHistoryPage />
+            </ReaderLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.readerChapterContentPage(),
+        element: (
+          <Protected role={Role.READER}>
+            <ReaderLayout>
+              <ReaderChapterContentPage />
             </ReaderLayout>
           </Protected>
         ),

@@ -82,8 +82,8 @@ function Header() {
 
       {/* Mobile & Tablet */}
       <div className="tablet:w-[var(--tablet-container-w)] mobile:w-[var(--mobile-container-w)] mx-auto desktop:hidden tablet:block mobile:block">
-        <div className="flex justify-between leading-[48px]">
-          <div>
+        <div className="flex justify-between h-12">
+          <div className="flex items-center">
             <div ref={menuIconRef}>
               <IconButton
                 icon={<i className="fa-solid fa-bars"></i>}
@@ -116,7 +116,7 @@ function Header() {
                 </div>
               </div>
 
-              <div ref={navRef}>
+              <div ref={navRef} className="leading-[48px]">
                 <Nav />
               </div>
             </div>

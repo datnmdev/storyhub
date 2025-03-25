@@ -16,6 +16,7 @@ import useFetchAll from '@hooks/fetchAll.hook';
 import apis from '@apis/index';
 import NumberUtils from '@utilities/number.util';
 import { Chapter } from '@apis/chapter';
+import paths from '@routers/router.path';
 
 function StoryItem({ data }: StoryItemProps) {
   const { t } = useTranslation();
@@ -68,6 +69,11 @@ function StoryItem({ data }: StoryItemProps) {
           storyId: data.id,
           page: 1,
           limit: 3,
+          orderBy: JSON.stringify([
+            ['order', 'DESC'],
+            ['updatedAt', 'DESC'],
+            ['id', 'DESC'],
+          ]),
         },
       },
     ],
@@ -88,7 +94,11 @@ function StoryItem({ data }: StoryItemProps) {
     >
       <div className="relative">
         <div>
-          <Link className="block h-[270px] overflow-hidden" to="#">
+          <Link
+            className="block h-[270px] overflow-hidden"
+            to={paths.readerStoryInfoPage(String(data.id))}
+            state={data}
+          >
             <img
               className="w-full h-full object-cover object-center transition-transform duration-300 ease-in hover:scale-150"
               src={UrlUtils.generateUrl(data.coverImage)}
@@ -156,7 +166,11 @@ function StoryItem({ data }: StoryItemProps) {
         </div>
 
         <div>
-          <Link className="hover:text-[var(--primary)]" to="#">
+          <Link
+            className="hover:text-[var(--primary)]"
+            to={paths.readerStoryInfoPage(String(data.id))}
+            state={data}
+          >
             <h3 className="text-[1.2rem] font-[450] line-clamp-1">
               {data.title}
             </h3>
@@ -179,9 +193,7 @@ function StoryItem({ data }: StoryItemProps) {
                 value={NumberUtils.roundToDecimal(
                   responsesData[4].ratingCount === 0
                     ? 0
-                    : (responsesData[4].starCount /
-                        (responsesData[4].ratingCount * 5)) *
-                        5,
+                    : responsesData[4].starCount / responsesData[4].ratingCount,
                   1
                 )}
                 precision={0.1}

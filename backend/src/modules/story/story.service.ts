@@ -15,6 +15,14 @@ export class StoryService {
     private readonly urlCipherService: UrlCipherService
   ) {}
 
+  findOne(id: number): Promise<Story> {
+    return this.storyRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
   async getStoryWithFilter(getStoryWithFilterDto: GetStoryWithFilterDto) {
     const qb = this.storyRepository
       .createQueryBuilder('story')
@@ -102,5 +110,16 @@ export class StoryService {
       }),
       stories[1],
     ];
+  }
+
+  async getGenres(storyId: number) {
+    const story = await this.storyRepository.findOne({
+      where: {
+        id: storyId,
+      },
+      relations: ['genres'],
+    });
+
+    return story.genres;
   }
 }

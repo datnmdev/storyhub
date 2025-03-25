@@ -1,8 +1,8 @@
 import { Chapter } from '@/modules/chapter/entities/chapter.entity';
 import { Country } from '@/modules/country/entities/country.entity';
 import { History } from '@/modules/history/entities/history.entity';
-import { ImageContent } from '@/modules/image-content/entities/image-content.entity';
-import { TextContent } from '@/modules/text-content/entities/text-content.entity';
+import { ImageContent } from '@/modules/chapter/entities/image-content.entity';
+import { TextContent } from '@/modules/chapter/entities/text-content.entity';
 import { User } from '@/modules/user/entities/user.entity';
 import {
   Column,

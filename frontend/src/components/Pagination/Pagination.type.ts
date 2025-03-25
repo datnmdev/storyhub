@@ -5,4 +5,7 @@ export interface Pagination {
   limit: number;
 }
 
-export interface PaginationProps extends MuiPaginationProps {}
+export interface PaginationProps extends MuiPaginationProps {
+  isPrevBtnVisible?: boolean;
+  isNextBtnVisible?: boolean;
+}

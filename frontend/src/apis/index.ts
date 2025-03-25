@@ -9,6 +9,8 @@ import priceApi from './price';
 import ratingApi from './rating';
 import storyApi from './story';
 import viewApi from './view';
+import invoiceApi from './invoice';
+import aliasApi from './alias';
 
 const apis = {
   authApi,
@@ -22,6 +24,8 @@ const apis = {
   ratingApi,
   storyApi,
   viewApi,
+  invoiceApi,
+  aliasApi,
 };
 
 export default apis;

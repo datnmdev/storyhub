@@ -15,6 +15,7 @@ import apis from '@apis/index';
 import UrlUtils from '@utilities/url.util';
 import { StoryType } from '@constants/story.constants';
 import NumberUtils from '@utilities/number.util';
+import paths from '@routers/router.path';
 
 function BeautySlide({ data }: BeautySlideProps) {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ function BeautySlide({ data }: BeautySlideProps) {
           themeValue === 'light' ? 'light__boxShadow' : 'dark__boxShadow'
         )}
       >
-        <div className="grow flex space-x-4 overflow-hidden">
+        <div className="grow flex space-x-4">
           <div className="relative shrink-0">
             <img
               className={classNames(
@@ -103,9 +104,13 @@ function BeautySlide({ data }: BeautySlideProps) {
             </span>
           </div>
 
-          <div className="grow flex flex-col justify-between space-y-2 overflow-hidden">
+          <div className="grow flex flex-col justify-between space-y-2">
             <div className="grow">
-              <Link className="grow hover:text-[var(--primary)]" to="#">
+              <Link
+                className="grow hover:text-[var(--primary)]"
+                to={paths.readerStoryInfoPage(String(data.id))}
+                state={data}
+              >
                 <h3 className="font-semibold text-[1.2rem] line-clamp-1">
                   {data.title}
                 </h3>
@@ -119,14 +124,14 @@ function BeautySlide({ data }: BeautySlideProps) {
               />
             </div>
 
-            <div className="grow desktop:flex tablet:hidden mobile:hidden justify-between items-center">
+            <div className="desktop:flex tablet:hidden mobile:hidden justify-between items-center">
               <div className="flex items-center leading-7">
                 <div className="bg-[var(--primary)] text-[var(--white)] px-4 py-1 rounded-[4px] font-semibold">
                   {responsesData[4].ratingCount === 0
                     ? (0).toFixed(1)
                     : (
                         responsesData[4].starCount /
-                        (responsesData[4].ratingCount * 5)
+                        responsesData[4].ratingCount
                       ).toFixed(1)}
                 </div>
 
@@ -136,9 +141,8 @@ function BeautySlide({ data }: BeautySlideProps) {
                     value={NumberUtils.roundToDecimal(
                       responsesData[4].ratingCount === 0
                         ? 0
-                        : (responsesData[4].starCount /
-                            (responsesData[4].ratingCount * 5)) *
-                            5,
+                        : responsesData[4].starCount /
+                            responsesData[4].ratingCount,
                       1
                     )}
                     precision={0.1}
@@ -184,8 +188,7 @@ function BeautySlide({ data }: BeautySlideProps) {
               {responsesData[4].ratingCount === 0
                 ? (0).toFixed(1)
                 : (
-                    responsesData[4].starCount /
-                    (responsesData[4].ratingCount * 5)
+                    responsesData[4].starCount / responsesData[4].ratingCount
                   ).toFixed(1)}
             </div>
 
@@ -195,9 +198,7 @@ function BeautySlide({ data }: BeautySlideProps) {
                 value={NumberUtils.roundToDecimal(
                   responsesData[4].ratingCount === 0
                     ? 0
-                    : (responsesData[4].starCount /
-                        (responsesData[4].ratingCount * 5)) *
-                        5,
+                    : responsesData[4].starCount / responsesData[4].ratingCount,
                   1
                 )}
                 precision={0.1}

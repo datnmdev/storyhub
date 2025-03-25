@@ -1,14 +1,13 @@
 import Loading from '@components/Loading';
 import RedirectUtils from '@utilities/redirect.util';
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Role } from '@constants/user.constants';
 import { useDispatch } from 'react-redux';
 import authFeature from '@features/auth';
 
 function AuthRedirectPage() {
   const disatch = useDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -23,9 +22,10 @@ function AuthRedirectPage() {
       url: params.get('url') || '',
       role: params.get('role') as Role,
     };
-    navigate(RedirectUtils.getRedirectUriBelongTo(accessToken || '', preUrl), {
-      replace: true,
-    });
+    window.location.href = RedirectUtils.getRedirectUriBelongTo(
+      accessToken || '',
+      preUrl
+    );
   }, []);
 
   return <Loading message="Đang chuyển hướng..." />;

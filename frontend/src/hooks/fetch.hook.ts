@@ -1,13 +1,14 @@
 import { CallApiFunction, RequestInit } from 'apis/api.type';
+import { AxiosError } from 'axios';
 import { useState, useEffect } from 'react';
 
-function useFetch<R>(
+function useFetch<R = any>(
   callApiFunc: CallApiFunction,
   options: RequestInit = {},
   auto: boolean = true
 ) {
   const [data, setData] = useState<R | null>(null);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<AxiosError | null>(null);
   const [isLoading, setLoading] = useState<boolean>(false);
   const [refetch, setRefetch] = useState<{ value: boolean }>({
     value: false,
@@ -26,7 +27,7 @@ function useFetch<R>(
         const result = await response.data;
         setData(result);
       } catch (err) {
-        setError(err as Error);
+        setError(err as AxiosError);
       } finally {
         setLoading(false);
       }

@@ -56,7 +56,7 @@ function SignInWithEmailForm() {
             dispatch(authFeature.authAction.signIn(data));
             navigate(
               `${paths.authRedirectPage()}?${new URLSearchParams({
-                url: location.state?.from ?? '/',
+                url: location.state?.from ?? '',
                 role: location.state?.role as Role,
               }).toString()}`,
               {

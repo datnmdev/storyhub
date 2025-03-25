@@ -12,7 +12,10 @@ import {
 function NewUpdateStorySection() {
   const { t } = useTranslation();
   const [queries, setQueries] = useState<GetNewUpdatedStoriesQueries>({
-    orderBy: [['updated_at', 'DESC']],
+    orderBy: JSON.stringify([
+      ['updated_at', 'DESC'],
+      ['id', 'DESC'],
+    ]),
     page: 1,
     limit: 24,
   });
@@ -71,9 +74,6 @@ function NewUpdateStorySection() {
                   page,
                 })
               }
-              size="small"
-              siblingCount={0}
-              boundaryCount={1}
             />
           </div>
         </div>

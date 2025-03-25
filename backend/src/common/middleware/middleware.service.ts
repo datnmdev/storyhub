@@ -11,7 +11,7 @@ import KeyGenerator from '../utils/generate-key.util';
 import { JwtService } from '../jwt/jwt.service';
 import { UnauthorizedException } from '../exceptions/unauthorized.exception';
 import { ConfigService } from '../config/config.service';
-import { UserStatus } from '../constants/user.constants';
+import { Role, UserStatus } from '../constants/user.constants';
 import { UrlCipherService } from '../url-cipher/url-cipher.service';
 import { EncryptedUrl } from '../url-cipher/url-cipher.class';
 import { plainToInstance } from 'class-transformer';
@@ -30,17 +30,23 @@ export class AuthorizationMiddleware implements NestMiddleware {
       const authorization = req.headers['authorization'];
       if (authorization?.startsWith('Bearer ')) {
         const accessToken = authorization.split('Bearer ')[1];
-        const jwtPayload = this.jwtService.verify(
-          accessToken,
-          this.configService.getJwtConfig().accessTokenConfig.secret
-        );
-        const isTokenBlacklisted = await this.redisClient.get(
-          KeyGenerator.tokenBlacklistKey(jwtPayload.jti)
-        );
-        if (!isTokenBlacklisted) {
-          if (jwtPayload.status === UserStatus.ACTIVATED) {
-            req.user = jwtPayload;
-            return next();
+        const payload = this.jwtService.decode(accessToken);
+        if (payload.role === Role.GUEST) {
+          req.user = payload;
+          return next();
+        } else {
+          this.jwtService.verify(
+            accessToken,
+            this.configService.getJwtConfig().accessTokenConfig.secret
+          );
+          const isTokenBlacklisted = await this.redisClient.get(
+            KeyGenerator.tokenBlacklistKey(payload.jti)
+          );
+          if (!isTokenBlacklisted) {
+            if (payload.status === UserStatus.ACTIVATED) {
+              req.user = payload;
+              return next();
+            }
           }
         }
       }

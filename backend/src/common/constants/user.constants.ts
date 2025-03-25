@@ -17,6 +17,7 @@ export enum Role {
   AUTHOR = 'author',
   MODERATOR = 'moderator',
   TRANSLATOR = 'translator',
+  GUEST = 'guest',
 }
 
 export enum OtpVerificationType {

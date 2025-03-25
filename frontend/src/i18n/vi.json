@@ -181,6 +181,83 @@
           "year": "{{value}} năm trước"
         }
       }
+    },
+    "storyInfoPage": {
+      "storyInfoSection": {
+        "storyType": {
+          "comic": "Truyện tranh",
+          "novel": "Tiểu thuyết"
+        },
+        "ortherInfo": {
+          "priceCount": "{{value}}đ/chương"
+        },
+        "alias": {
+          "label": "Tên khác",
+          "notData": "Đang cập nhật"
+        },
+        "author": "Tác giả",
+        "status": {
+          "label": "Tình trạng",
+          "publishing": "Đang phát hành",
+          "finished": "Đã hoàn thành"
+        },
+        "followerCount": {
+          "label": "Lượt theo dõi",
+          "content": "{{value}}"
+        },
+        "viewCount": {
+          "label": "Lượt xem",
+          "content": "{{value}}"
+        },
+        "country": "Quốc gia",
+        "rating": {
+          "label": "Đánh giá",
+          "content": "{{value}} lượt",
+          "status": {
+            "evaluated": "Bạn đã đánh giá {{value}} sao",
+            "notEvaluated": "Bạn chưa đánh giá"
+          }
+        },
+        "btn": {
+          "readFromBeginning": "Đọc từ đầu",
+          "follow": "Theo dõi",
+          "unfollow": "Bỏ theo dõi"
+        },
+        "note": {
+          "label": "Thông báo từ tác giả",
+          "notData": "Hiện tác giả chưa có thông báo nào..."
+        },
+        "contentIntroduction": {
+          "label": "Giới thiệu nội dung",
+          "notData": "Không có dữ liệu..."
+        }
+      },
+      "chapterListSection": {
+        "title": "Danh sách chương",
+        "header": {
+          "chapterName": "Tên chương",
+          "updatedTime": "Thời gian cập nhật",
+          "viewCount": "Lượt xem",
+          "status": {
+            "label": "Trạng thái",
+            "paid": "Đã thanh toán",
+            "unpaid": "Chưa thanh toán"
+          }
+        },
+        "paymentRemindPopup": {
+          "title": "Xác nhận thanh toán chương",
+          "content": "Bạn sẽ mất <span style='color:red;font-weight:500;'>{{value}}đ</span> để đọc chương này. Bạn có muốn tiếp tục không?",
+          "btn": {
+            "ok": "Tiếp tục",
+            "cancel": "Quay lại"
+          },
+          "loadingWrapper": {
+            "message": "Đang thanh toán. Vui đợi trong giây lát..."
+          },
+          "paymentSuccess": "Thanh toán chương thành công. Chúc bạn đọc truyện vui vẻ...",
+          "paymentFailed": "Bạn không đủ tiền để thanh toán chương này. Vui lòng nạp thêm tiền..."
+        }
+      }
     }
   },
   "validation": {
@@ -222,7 +299,13 @@
     "resetPasswordFailed": "Đã có lỗi xảy ra. Vui lòng thử lại",
     "paymentSuccess": "Thanh toán thành công",
     "paymentFailed": "Thanh toán thất bại",
-    "paymentExpired": "Đã hết thời hạn thanh toán. Vui lòng thử lại"
+    "paymentExpired": "Đã hết thời hạn thanh toán. Vui lòng thử lại",
+    "createRatingSuccess": "Đánh giá truyện thành công",
+    "createRatingFailed": "Đánh giá truyện thất bại. Vui lòng thử lại",
+    "updateRatingSuccess": "Cập nhật đánh giá thành công",
+    "updateRatingFailed": "Cập nhật đánh giá thất bại. Vui lòng thử lại",
+    "followSuccess": "Theo dõi truyện thành công",
+    "unfollowSuccess": "Bỏ theo dõi truyện thành công"
   },
   "pagination": {
     "next": "Sau",

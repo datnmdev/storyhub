@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { UserModule } from './modules/user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from './common/jwt/jwt.module';
@@ -26,6 +31,9 @@ import { StoryModule } from './modules/story/story.module';
 import { GoogleStorageModule } from './common/google-storage/google-storage.module';
 import { UrlResolverModule } from './modules/url-resolver/url-resolver.module';
 import { ViewModule } from './modules/view/view.module';
+import { AliasModule } from './modules/alias/alias.module';
+import { GenreModule } from './modules/genre/genre.module';
+import { InvoiceModule } from './modules/invoice/invoice.module';
 
 @Module({
   imports: [
@@ -67,6 +75,9 @@ import { ViewModule } from './modules/view/view.module';
     FollowModule,
     PriceModule,
     RatingModule,
+    AliasModule,
+    GenreModule,
+    InvoiceModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -75,11 +86,45 @@ export class AppModule implements NestModule {
       .apply(AuthorizationMiddleware)
       .forRoutes(
         'auth/sign-out',
-        'user-profile',
+        'user-profile/get-profile',
         'wallet',
         'deposite-transaction/create-payment-url',
         'deposite-transaction/get-deposite-transaction-history',
-        'google-storage'
+        'google-storage',
+        {
+          path: 'rating',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'rating',
+          method: RequestMethod.PUT,
+        },
+        {
+          path: 'rating',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'follow',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'follow',
+          method: RequestMethod.DELETE,
+        },
+        {
+          path: 'follow',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'invoice',
+          method: RequestMethod.GET,
+        },
+        'chapter/reader/content',
+        'chapter/with-invoice-relation',
+        {
+          path: 'invoice',
+          method: RequestMethod.POST,
+        }
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

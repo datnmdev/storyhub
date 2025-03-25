@@ -62,4 +62,13 @@ export class ViewService {
       await this.dataSource.createQueryBuilder(Story, 'story').getCount(),
     ];
   }
+
+  getViewCountOfChapter(chapterId: number) {
+    return this.viewRepository
+      .createQueryBuilder('view')
+      .where('view.chapter_id = :chapterId', {
+        chapterId,
+      })
+      .getCount();
+  }
 }

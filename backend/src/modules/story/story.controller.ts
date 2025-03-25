@@ -6,8 +6,13 @@ import { StoryService } from './story.service';
 export class StoryController {
   constructor(private readonly storyService: StoryService) {}
 
-  @Get('/filter')
+  @Get('filter')
   getStoryWithFilter(@Query() getStoryWithFilterDto: GetStoryWithFilterDto) {
     return this.storyService.getStoryWithFilter(getStoryWithFilterDto);
+  }
+
+  @Get('get-genres')
+  getGenresOfStory(@Query('storyId') storyId: number) {
+    return this.storyService.getGenres(storyId);
   }
 }

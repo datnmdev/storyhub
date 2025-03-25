@@ -11,6 +11,7 @@ function Breadcrumb({ items = [], separator = '/' }: BreadcrumbProps) {
             <Link
               className="hover:underline hover:text-[var(--primary)]"
               to={item.path}
+              state={item.state}
             >
               {item.label}
             </Link>

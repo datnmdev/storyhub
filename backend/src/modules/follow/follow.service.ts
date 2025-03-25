@@ -18,4 +18,33 @@ export class FollowService {
       })
       .getCount();
   }
+
+  getFollow(userId: number, storyId: number) {
+    return this.followRepository.findOne({
+      where: {
+        storyId,
+        readerId: userId,
+      },
+    });
+  }
+
+  follow(userId: number, storyId: number) {
+    return this.followRepository.save({
+      storyId,
+      readerId: userId,
+    });
+  }
+
+  async unfollow(userId: number, storyId: number) {
+    const result = await this.followRepository.delete({
+      storyId,
+      readerId: userId,
+    });
+
+    if (result.affected && result.affected > 0) {
+      return true;
+    }
+
+    return false;
+  }
 }

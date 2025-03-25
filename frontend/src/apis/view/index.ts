@@ -10,6 +10,11 @@ const viewApi = {
       params: options.queries,
     });
   },
+  getViewCountOfChapter: (options: RequestInit) => {
+    return axiosInstance().get(
+      `/view/count/chapter/${options.params.chapterId}`
+    );
+  },
 };
 
 export default viewApi;

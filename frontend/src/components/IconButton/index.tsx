@@ -18,7 +18,7 @@ function IconButton({
 }: IconButtonProps) {
   return (
     <div
-      className="flex justify-center items-center space-x-1 hover:opacity-60"
+      className="flex justify-center items-center space-x-2 hover:opacity-60"
       style={{
         width,
         height,
@@ -34,7 +34,7 @@ function IconButton({
       }}
       onClick={disable ? (e) => e.preventDefault() : onClick}
     >
-      <span>{icon}</span>
+      <span className="flex items-center">{icon}</span>
       {children && <span>{children}</span>}
     </div>
   );

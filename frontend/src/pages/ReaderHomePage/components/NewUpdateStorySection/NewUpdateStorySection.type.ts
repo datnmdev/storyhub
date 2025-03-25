@@ -1,6 +1,5 @@
 import { Pagination } from '@components/Pagination/Pagination.type';
 import { StoryStatus, StoryType } from '@constants/story.constants';
-import { OrderBy } from '@type/query.type';
 
 export interface Story {
   id: number;
@@ -19,5 +18,5 @@ export interface Story {
 export type GetNewUpdatedStoriesResData = [Story[], number];
 
 export interface GetNewUpdatedStoriesQueries extends Pagination {
-  orderBy: OrderBy;
+  orderBy: string;
 }

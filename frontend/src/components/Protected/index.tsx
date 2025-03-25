@@ -9,37 +9,34 @@ import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '@type/jwt.type';
 import { ForbiddenError } from '@utilities/error.util';
 import Cookies from 'js-cookie';
-import Loading from '@components/Loading';
 
-function Protected({ children, role }: ProtectedProps) {
+function Protected({ children, role, enable = true }: ProtectedProps) {
   const location: Location<LocationState> = useLocation();
   const isAuthenticated = useAppSelector(
     authFeature.authSelector.selectAuthenticated
   );
 
-  if (isAuthenticated === null) {
-    return <Loading />;
-  }
-
-  if (isAuthenticated) {
-    const tokenJson = Cookies.get('accessToken');
-    if (tokenJson) {
-      const payload = jwtDecode(tokenJson) as JwtPayload;
-      if (payload.role != role) {
-        throw ForbiddenError();
+  if (enable) {
+    if (isAuthenticated) {
+      const tokenJson = Cookies.get('accessToken');
+      if (tokenJson) {
+        const payload = jwtDecode(tokenJson) as JwtPayload;
+        if (payload.role != role) {
+          throw ForbiddenError();
+        }
       }
+    } else {
+      return (
+        <Navigate
+          to={paths.signInPage()}
+          replace
+          state={{
+            from: location.pathname,
+            role,
+          }}
+        />
+      );
     }
-  } else {
-    return (
-      <Navigate
-        to={paths.signInPage()}
-        replace
-        state={{
-          from: location.pathname,
-          role,
-        }}
-      />
-    );
   }
 
   return children;

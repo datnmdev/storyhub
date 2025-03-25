@@ -6,7 +6,7 @@ import { PriceService } from './price.service';
 export class PriceController {
   constructor(private readonly priceService: PriceService) {}
 
-  @Get('/current')
+  @Get('current')
   getCurrentPrice(@Query() getCurrrentPriceDto: GetCurrentPriceDto) {
     return this.priceService.getCurrentPrice(getCurrrentPriceDto.storyId);
   }

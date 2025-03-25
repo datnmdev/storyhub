@@ -255,4 +255,13 @@ export class ChapterService {
       chapters[1],
     ];
   }
+
+  getChapterTranslation(chapterId: number) {
+    return this.chapterRepository.findOne({
+      where: {
+        id: chapterId,
+      },
+      relations: ['chapterTranslations', 'chapterTranslations.country'],
+    });
+  }
 }

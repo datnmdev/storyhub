@@ -17,6 +17,7 @@ import paths from '@routers/router.path';
 function PaymentRemindPopup({
   chapter,
   price,
+  selectChapterTransId,
   onClose,
 }: PaymentRemindPopupProps) {
   const { t } = useTranslation();
@@ -48,7 +49,13 @@ function PaymentRemindPopup({
             ),
           })
         );
-        navigate(paths.readerChapterContentPage(chapter.storyId, chapter.id));
+        navigate(
+          paths.readerChapterContentPage(
+            chapter.storyId,
+            chapter.id,
+            selectChapterTransId
+          )
+        );
       } else {
         if (
           createInvoiceError?.response?.status === HttpStatus.PAYMENT_REQUIRED

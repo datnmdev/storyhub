@@ -11,8 +11,9 @@ const paths = {
   readerDepositeTransHistoryPage: () => '/wallet/deposite-transaction-history',
   readerChapterContentPage: (
     storyId: string | number = ':storyId',
-    chapterId: string | number = ':chapterId'
-  ) => `/story/${storyId}/chapter/${chapterId}`,
+    chapterId: string | number = ':chapterId',
+    chapterTransId: string | number = ':chapterTransId'
+  ) => `/story/${storyId}/chapter/${chapterId}/${chapterTransId}`,
   managerDashboardPage: () => '/manager',
   authorHomePage: () => '/author',
   moderatorHomePage: () => '/moderator',

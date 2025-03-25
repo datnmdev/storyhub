@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { GetChapterWithFilterDto } from './dtos/get-chapter-with-filter.dto';
 import { ChapterService } from './chapter.service';
 import { Roles } from '@/common/decorators/roles.decorator';
@@ -41,5 +41,10 @@ export class ChapterController {
       userId,
       getChapterWithFilterDto
     );
+  }
+
+  @Get(':id/translations')
+  getChapterTranslation(@Param('id') chapterId: number) {
+    return this.chapterService.getChapterTranslation(chapterId);
   }
 }

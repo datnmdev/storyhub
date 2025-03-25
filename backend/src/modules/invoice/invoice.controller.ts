@@ -25,7 +25,7 @@ export class InvoiceController {
   @Roles(Role.READER)
   @UseGuards(RolesGuard)
   createInvoice(
-    @User('userId') userId: number,
+    @User('id') userId: number,
     @Body() createInvoiceDto: CreateInvoiceDto
   ) {
     return this.invoiceService.createInvoiceBy(

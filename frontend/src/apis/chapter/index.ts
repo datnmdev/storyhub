@@ -5,7 +5,6 @@ export interface Chapter {
   id: number;
   order: number;
   name: string;
-  content?: string;
   createdAt: string;
   updatedAt: string;
   storyId: number;
@@ -49,6 +48,11 @@ const chapterApi = {
     return axiosInstance().get('/chapter/with-invoice-relation', {
       params: options.queries,
     });
+  },
+  getChapterTranslation: (options: RequestInit) => {
+    return axiosInstance().get(
+      `/chapter/${options.params.chapterId}/translations`
+    );
   },
 };
 

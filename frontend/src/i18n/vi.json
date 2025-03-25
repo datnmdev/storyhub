@@ -256,6 +256,10 @@
           },
           "paymentSuccess": "Thanh toán chương thành công. Chúc bạn đọc truyện vui vẻ...",
           "paymentFailed": "Bạn không đủ tiền để thanh toán chương này. Vui lòng nạp thêm tiền..."
+        },
+        "chapterTransListPopup": {
+          "title": "Danh sách bản dịch của chương",
+          "original": "Bản gốc"
         }
       }
     }

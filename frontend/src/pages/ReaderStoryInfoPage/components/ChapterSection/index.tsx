@@ -17,6 +17,7 @@ import { RequestInit } from '@apis/api.type';
 import Protected from '@components/Protected';
 import { Role } from '@constants/user.constants';
 import NoData from '@components/NoData';
+import ChapterTransListPopup from './components/ChapterTransListPopup';
 
 function ChaperSection() {
   const { t } = useTranslation();
@@ -66,6 +67,9 @@ function ChaperSection() {
   } = useFetchAll(viewCountApis as ApiFuncArray, false);
   const [selectedChapter, setSelectChapter] =
     useState<ChapterWithInvoiceRelation | null>(null);
+  const [selectChapterTransId, setSelectChapterTransId] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
     if (getCurrentPriceReq) {
@@ -124,17 +128,18 @@ function ChaperSection() {
   }, [isGettingViewCounts]);
 
   useEffect(() => {
-    if (selectedChapter) {
+    if (selectChapterTransId !== null && selectedChapter) {
       if (selectedChapter.invoices.length > 0 || currentPrice <= 0) {
         navigate(
           paths.readerChapterContentPage(
             selectedChapter.storyId,
-            selectedChapter.id
+            selectedChapter.id,
+            selectChapterTransId
           )
         );
       }
     }
-  }, [selectedChapter]);
+  }, [selectChapterTransId]);
 
   if (!isRender) {
     return false;
@@ -253,13 +258,23 @@ function ChaperSection() {
         )}
       </div>
 
-      {selectedChapter &&
+      {selectedChapter && (
+        <ChapterTransListPopup
+          selectedChapter={selectedChapter}
+          onClose={() => setSelectChapter(null)}
+          onChange={(chapterTransId) => setSelectChapterTransId(chapterTransId)}
+        />
+      )}
+
+      {selectChapterTransId !== null &&
+        selectedChapter &&
         selectedChapter.invoices.length <= 0 &&
         currentPrice > 0 && (
           <Protected role={Role.READER} enable={!isAuthentication}>
             <PaymentRemindPopup
               chapter={selectedChapter}
               price={currentPrice}
+              selectChapterTransId={selectChapterTransId}
               onClose={() => setSelectChapter(null)}
             />
           </Protected>

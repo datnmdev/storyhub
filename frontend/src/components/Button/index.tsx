@@ -9,6 +9,7 @@ function Button({
   borderRadius = '4px',
   padding = '0',
   children,
+  disabled = false,
   onClick,
 }: ButtonProps) {
   return (
@@ -18,11 +19,12 @@ function Button({
         width,
         height,
         color,
-        backgroundColor: bgColor,
+        backgroundColor: disabled ? 'var(--gray)' : bgColor,
         borderRadius,
+        cursor: disabled ? 'not-allowed' : 'pointer',
         padding,
       }}
-      onClick={onClick}
+      onClick={disabled ? (e) => e.preventDefault() : onClick}
     >
       {children}
     </div>

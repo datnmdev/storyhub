@@ -8,6 +8,7 @@ export interface RequestInit<
   body?: BodyType | any;
   params?: ParamsType | any;
   queries?: QueriesType | any;
+  uri?: string;
 }
 
 export type CallApiFunction = (

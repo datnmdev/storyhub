@@ -39,7 +39,7 @@ function Select({
       value={value}
       onChange={onChange}
       IconComponent={() => (
-        <span className="mr-4 text-[1.2rem]">
+        <span className="mr-2 text-[1.2rem]">
           <i className="fa-solid fa-angle-down"></i>
         </span>
       )}

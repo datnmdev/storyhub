@@ -6,6 +6,7 @@ import { Role } from '@/common/constants/user.constants';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { User } from '@/common/decorators/user.decorator';
 import { GetChapterContentDto } from './dtos/get-chapter-content';
+import { User as UserPayload } from '@/@types/express';
 
 @Controller('chapter')
 export class ChapterController {
@@ -18,15 +19,15 @@ export class ChapterController {
   }
 
   @Get('reader/content')
-  @Roles(Role.READER)
+  @Roles(Role.READER, Role.GUEST)
   @UseGuards(RolesGuard)
   getChapterContent(
-    @User('id') userId: number,
+    @User() user: UserPayload,
     @Query() getChapterContentDto: GetChapterContentDto
   ) {
     return this.chapterService.getChapterContent(
-      userId,
-      getChapterContentDto.chapterTranlationId
+      user,
+      getChapterContentDto.chapterTranslationId
     );
   }
 

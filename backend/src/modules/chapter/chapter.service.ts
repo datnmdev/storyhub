@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Chapter } from './entities/chapter.entity';
 import { Brackets, DataSource, Repository } from 'typeorm';
@@ -12,8 +16,6 @@ import { WalletService } from '../wallet/wallet.service';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { ChapterStatus } from '@/common/constants/chapter.constants';
 import { plainToInstance } from 'class-transformer';
-import { Invoice } from '../invoice/entities/invoice.entity';
-import { Wallet } from '../wallet/entities/wallet.entity';
 import { NotEnoughMoneyException } from '@/common/exceptions/NotEnoughMoneyException';
 import { StoryType } from '@/common/constants/story.constants';
 import { InvoiceService } from '../invoice/invoice.service';
@@ -21,6 +23,9 @@ import { ChapterTranslation } from '../chapter-translation/entities/chapter-tran
 import { ImageContentDto, TextContentDto } from './dtos/get-chapter-content';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
+import { Role } from '@/common/constants/user.constants';
+import { User } from '@/@types/express';
+import { History } from '../history/entities/history.entity';
 
 @Injectable()
 export class ChapterService {
@@ -47,6 +52,7 @@ export class ChapterService {
   async getChapterWithFilter(getChapterWithFilterDto: GetChapterWithFilterDto) {
     const qb = this.chapterRepository
       .createQueryBuilder('chapter')
+      .innerJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')
       .where(
         new Brackets((qb) => {
           if (getChapterWithFilterDto.id) {
@@ -98,93 +104,76 @@ export class ChapterService {
     return [plainToInstance(ChapterInfoPublicDto, chapters[0]), chapters[1]];
   }
 
-  async getChapterContent(userId: number, chapterTranslationId: number) {
+  async getChapterContent(user: User, chapterTranslationId: number) {
     const now = new Date();
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    try {
-      await queryRunner.startTransaction();
-      const chapterTrans = await this.chapterTranslationRepository.findOne({
+    const chapterTranslations = await this.chapterTranslationRepository.findOne(
+      {
         where: {
           id: chapterTranslationId,
         },
         relations: ['chapter', 'chapter.story', 'textContent', 'imageContents'],
-      });
+      }
+    );
 
-      if (chapterTrans) {
-        // Kiểm tra thanh toán hay chưa?
-        const isPaid = await this.invoiceService.getInvoiceBy(
-          userId,
-          chapterTrans.chapterId
-        );
-        if (!isPaid) {
-          const currentPrice = await this.priceService.getPriceAt(
-            chapterTrans.chapter.storyId,
-            now
+    if (chapterTranslations) {
+      const currentPrice = await this.priceService.getPriceAt(
+        chapterTranslations.chapter.storyId,
+        now
+      );
+      if (currentPrice > 0) {
+        if (user.role === Role.READER) {
+          const isPaid = await this.invoiceService.getInvoiceBy(
+            user.id,
+            chapterTranslations.chapterId
           );
-          const readerWallet = await this.walletService.findWalletBy(userId);
-          const authorWallet = await this.walletService.findWalletBy(
-            chapterTrans.chapter.story.authorId
-          );
-          // Kiểm tra ví tiền có đủ tiền không
-          if (Number(readerWallet.balance) >= currentPrice) {
-            const invoiceEntity = plainToInstance(Invoice, {
-              readerId: userId,
-              chapterId: chapterTrans.chapterId,
-              totalAmount: String(currentPrice),
-              createdAt: now,
-            } as Invoice);
-            await queryRunner.manager.save(invoiceEntity);
-            await queryRunner.manager.update(Wallet, userId, {
-              balance: String(Number(readerWallet.balance) - currentPrice),
-            });
-            await queryRunner.manager.update(
-              Wallet,
-              chapterTrans.chapter.story.authorId,
-              {
-                balance: String(
-                  Number(authorWallet.balance) + Math.floor(currentPrice * 0.9)
-                ),
-              }
-            );
-            await queryRunner.commitTransaction();
-          } else {
+          // Kiểm tra thanh toán hay chưa?
+          if (!isPaid) {
             throw new NotEnoughMoneyException();
           }
-        }
-
-        // Kiểm tra loại truyện và trả về nội dung chương
-        if (chapterTrans.chapter.story.type === StoryType.COMIC) {
-          return plainToInstance(ImageContentDto, {
-            ...chapterTrans.chapter,
-            images: chapterTrans.imageContents.map((chapterImage) => ({
-              ...chapterImage,
-              path: UrlResolverUtils.createUrl(
-                'url-resolver',
-                this.urlCipherService.generate(
-                  plainToInstance(UrlCipherPayload, {
-                    url: chapterImage.path,
-                    expireIn: 4 * 60 * 60,
-                    iat: Date.now(),
-                  } as UrlCipherPayload)
-                )
-              ),
-            })),
-          } as ImageContentDto);
         } else {
-          return plainToInstance(TextContentDto, {
-            ...chapterTrans.chapter,
-            content: chapterTrans.textContent.content,
-          });
+          throw new NotEnoughMoneyException();
         }
-      } else {
-        throw new BadRequestException();
       }
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw error;
-    } finally {
-      await queryRunner.release();
+
+      // Lấy vị trí đọc truyện của người dùng
+      const history = await this.dataSource
+        .createQueryBuilder(History, 'history')
+        .where('history.reader_id = :readerId', {
+          readerId: user.id,
+        })
+        .andWhere('history.chapter_translation_id = :chapterTranslationId', {
+          chapterTranslationId: chapterTranslations.id,
+        })
+        .getOne();
+
+      // Kiểm tra loại truyện và trả về nội dung chương
+      if (chapterTranslations.chapter.story.type === StoryType.COMIC) {
+        return plainToInstance(ImageContentDto, {
+          ...chapterTranslations.chapter,
+          history,
+          images: chapterTranslations.imageContents.map((imageContent) => ({
+            ...imageContent,
+            path: UrlResolverUtils.createUrl(
+              '/url-resolver',
+              this.urlCipherService.generate(
+                plainToInstance(UrlCipherPayload, {
+                  url: imageContent.path,
+                  expireIn: 4 * 60 * 60,
+                  iat: Date.now(),
+                } as UrlCipherPayload)
+              )
+            ),
+          })),
+        } as ImageContentDto);
+      } else {
+        return plainToInstance(TextContentDto, {
+          ...chapterTranslations.chapter,
+          history,
+          text: chapterTranslations.textContent,
+        });
+      }
+    } else {
+      throw new NotFoundException();
     }
   }
 
@@ -194,6 +183,8 @@ export class ChapterService {
   ) {
     const qb = this.chapterRepository
       .createQueryBuilder('chapter')
+      .innerJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')
+      .innerJoinAndSelect('chapterTranslations.country', 'country')
       .leftJoinAndSelect(
         'chapter.invoices',
         'invoices',

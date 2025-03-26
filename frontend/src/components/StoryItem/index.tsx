@@ -115,7 +115,7 @@ function StoryItem({ data }: StoryItemProps) {
           )}
         </div>
 
-        <div className="desktop:max-w-max tablet:max-w-max mobile:max-w-[92px] line-clamp-1 absolute top-2 right-2 bg-[var(--primary)] rounded-[4px] text-[0.8rem] py-1 px-2 text-[var(--white)] font-semibold">
+        <div className="desktop:max-w-max tablet:max-w-max mobile:max-w-[64px] line-clamp-1 absolute top-2 right-2 bg-[var(--primary)] rounded-[4px] text-[0.8rem] py-1 px-2 text-[var(--white)] font-semibold">
           {t(
             `reader.homePage.newUpdatedSection.timestamps.${timeAgo(new Date(data.updatedAt), currTime).type}`,
             { value: timeAgo(new Date(data.updatedAt), currTime).value }
@@ -237,7 +237,11 @@ function StoryItem({ data }: StoryItemProps) {
               <li key={chapter.id}>
                 <Link
                   className="w-full flex justify-between items-center space-x-2 py-1 group"
-                  to="#"
+                  to={paths.readerChapterContentPage(
+                    data.id,
+                    chapter.id,
+                    chapter.chapterTranslations[0].id
+                  )}
                 >
                   <div className="line-clamp-1 grow font-[400] group-hover:text-[var(--primary)]">
                     {chapter.name}

@@ -28,6 +28,11 @@ const ratingApi = {
   updateRating: (options: RequestInit) => {
     return axiosInstance().put('/rating', options.body);
   },
+  getTopRatingStory: (options: RequestInit) => {
+    return axiosInstance().get(`/rating/get-top`, {
+      params: options.queries,
+    });
+  },
 };
 
 export default ratingApi;

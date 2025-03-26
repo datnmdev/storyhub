@@ -1,18 +1,23 @@
 import Breadcrumb from '@components/Breadcrumb';
 import { BreadcrumbProps } from '@components/Breadcrumb/Breadcrumb.type';
 import paths from '@routers/router.path';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import SliderSection from './components/SliderSection';
-import NewUpdateStorySection from './components/NewUpdateStorySection';
-import StoryhubChart from './components/StoryhubChart';
+import TopViewSection from './components/TopViewSection';
+import TopRatingSection from './components/TopRatingSection';
+import TopFollowSection from './components/TopFollowSection';
 
-function ReaderHomePage() {
+function ReaderRankPage() {
   const { t } = useTranslation();
 
   const breadcrumbItems: BreadcrumbProps['items'] = [
     {
-      label: t('reader.walletPage.breadcrumb.items.homePage'),
+      label: t('reader.rankPage.breadcrumb.items.homePage'),
       path: paths.readerHomePage(),
+    },
+    {
+      label: t('reader.rankPage.breadcrumb.items.rankPage'),
+      path: paths.readerRankPage(),
     },
   ];
 
@@ -23,18 +28,18 @@ function ReaderHomePage() {
       </div>
 
       <div>
-        <SliderSection />
+        <TopViewSection />
       </div>
 
       <div>
-        <StoryhubChart />
+        <TopRatingSection />
       </div>
 
       <div>
-        <NewUpdateStorySection />
+        <TopFollowSection />
       </div>
     </div>
   );
 }
 
-export default ReaderHomePage;
+export default memo(ReaderRankPage);

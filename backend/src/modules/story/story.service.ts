@@ -6,6 +6,8 @@ import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { GetStoryWithFilterDto } from './dto/get-story-with-filter.dto';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
+import { StoryStatus } from '@/common/constants/story.constants';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class StoryService {
@@ -121,5 +123,47 @@ export class StoryService {
     });
 
     return story.genres;
+  }
+
+  async search(keyword: string) {
+    const results = await this.storyRepository
+      .createQueryBuilder('story')
+      .innerJoinAndSelect('story.author', 'author')
+      .innerJoinAndSelect('story.country', 'country')
+      .innerJoinAndSelect('author.userProfile', 'userProfile')
+      .where(
+        new Brackets((qb) => {
+          qb.where(`MATCH (story.title) AGAINST (:title)`, {
+            title: keyword,
+          });
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          qb.where('story.status = :status1', {
+            status1: StoryStatus.RELEASING,
+          }).orWhere('story.status = :status2', {
+            status2: StoryStatus.COMPLETED,
+          });
+        })
+      )
+      .getManyAndCount();
+
+    return [
+      results[0].map((story) => ({
+        ...story,
+        coverImage: UrlResolverUtils.createUrl(
+          '/url-resolver',
+          this.urlCipherService.generate(
+            plainToInstance(UrlCipherPayload, {
+              url: story.coverImage,
+              expireIn: 4 * 60 * 60,
+              iat: Date.now(),
+            } as UrlCipherPayload)
+          )
+        ),
+      })),
+      results[1],
+    ];
   }
 }

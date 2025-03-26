@@ -82,7 +82,7 @@ function Header() {
 
       {/* Mobile & Tablet */}
       <div className="tablet:w-[var(--tablet-container-w)] mobile:w-[var(--mobile-container-w)] mx-auto desktop:hidden tablet:block mobile:block">
-        <div className="flex justify-between h-12">
+        <div className="flex justify-between h-16 ">
           <div className="flex items-center">
             <div ref={menuIconRef}>
               <IconButton
@@ -122,7 +122,7 @@ function Header() {
             </div>
           </div>
 
-          <div className="flex items-center space-x-1.5">
+          <div className="flex items-center space-x-2.5">
             <SearchButton />
             <ToggleThemeButton />
             <ChangeLangButton />

@@ -22,7 +22,25 @@
         "setting": "Cài đặt",
         "signOut": "Đăng xuất"
       },
-      "signingOut": "Đang đăng xuất..."
+      "signingOut": "Đang đăng xuất...",
+      "searchSection": {
+        "placeholder": "Nhập tên truyện mà bạn muốn tìm kiếm...",
+        "item": {
+          "type": {
+            "label": "Loại:",
+            "comic": "Truyện tranh",
+            "novel": "Tiểu thuyết"
+          },
+          "author": "Tác giả:",
+          "country": "Quốc gia",
+          "status": {
+            "label": "Tình trạng:",
+            "publishing": "Đang phát hành",
+            "finished": "Đã hoàn thành"
+          }
+        },
+        "resultTitle": "Tổng số kết quả tìm thấy:"
+      }
     },
     "footer": {
       "contact": {

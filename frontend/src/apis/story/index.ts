@@ -12,6 +12,11 @@ const storyApi = {
       params: options.queries,
     });
   },
+  search: (options: RequestInit) => {
+    return axiosInstance().get('/story/search', {
+      params: options.queries,
+    });
+  },
 };
 
 export default storyApi;

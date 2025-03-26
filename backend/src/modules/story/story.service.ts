@@ -26,6 +26,118 @@ export class StoryService {
   }
 
   async getStoryWithFilter(getStoryWithFilterDto: GetStoryWithFilterDto) {
+    if (getStoryWithFilterDto.genres) {
+      const qb = this.storyRepository
+        .createQueryBuilder('story')
+        .innerJoin(
+          'story.genres',
+          'genre',
+          getStoryWithFilterDto.genres
+            .map((genreId) => `genre.id = ${genreId}`)
+            .join(' OR ')
+        )
+        .groupBy('story.id')
+        .select(['story.*'])
+        .addSelect('COUNT(*)', 'genreCount')
+        .having('genreCount = :genreCount', {
+          genreCount: getStoryWithFilterDto.genres.length,
+        })
+        .andWhere(
+          new Brackets((qb) => {
+            if (getStoryWithFilterDto.id) {
+              qb.where('story.id = :id', {
+                id: getStoryWithFilterDto.id,
+              });
+            }
+          })
+        )
+        .andWhere(
+          new Brackets((qb) => {
+            if (getStoryWithFilterDto.title) {
+              qb.where('story.title = :title', {
+                title: getStoryWithFilterDto.title,
+              });
+            }
+          })
+        )
+        .andWhere(
+          new Brackets((qb) => {
+            if (getStoryWithFilterDto.type) {
+              getStoryWithFilterDto.type.forEach((type, index) => {
+                qb.orWhere(`story.type = :type${index}`, {
+                  [`type${index}`]: type,
+                });
+              });
+            }
+          })
+        )
+        .andWhere(
+          new Brackets((qb) => {
+            if (getStoryWithFilterDto.status) {
+              getStoryWithFilterDto.status.forEach((status, index) => {
+                qb.orWhere(`story.status = :status${index}`, {
+                  [`status${index}`]: status,
+                });
+              });
+            }
+          })
+        )
+        .andWhere(
+          new Brackets((qb) => {
+            if (getStoryWithFilterDto.countryId) {
+              qb.where('story.country_id = :country_id', {
+                country_id: getStoryWithFilterDto.countryId,
+              });
+            }
+          })
+        )
+        .andWhere(
+          new Brackets((qb) => {
+            if (getStoryWithFilterDto.authorId) {
+              qb.where('story.author_id = :author_id', {
+                author_id: getStoryWithFilterDto.authorId,
+              });
+            }
+          })
+        );
+
+      if (getStoryWithFilterDto.orderBy) {
+        getStoryWithFilterDto.orderBy.forEach((value) => {
+          qb.addOrderBy(`story.${value[0]}`, value[1]);
+        });
+      }
+      qb.limit(getStoryWithFilterDto.limit);
+      qb.offset((getStoryWithFilterDto.page - 1) * getStoryWithFilterDto.limit);
+      const stories = await qb.getRawMany();
+      return [
+        stories.map((story) => {
+          return {
+            id: story.id,
+            title: story.title,
+            description: story.description,
+            note: story.note,
+            coverImage: UrlResolverUtils.createUrl(
+              '/url-resolver',
+              this.urlCipherService.generate(
+                plainToInstance(UrlCipherPayload, {
+                  url: story.cover_image,
+                  expireIn: 4 * 60 * 60,
+                  iat: Date.now(),
+                } as UrlCipherPayload)
+              )
+            ),
+            type: story.type,
+            status: story.status,
+            createdAt: story.created_at,
+            updatedAt: story.updated_at,
+            countryId: story.country_id,
+            authorId: story.author_id,
+          };
+        }),
+        stories.length,
+      ];
+    }
+
     const qb = this.storyRepository
       .createQueryBuilder('story')
       .where(

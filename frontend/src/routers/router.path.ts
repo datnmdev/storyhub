@@ -16,6 +16,7 @@ const paths = {
     chapterId: string | number = ':chapterId',
     chapterTransId: string | number = ':chapterTransId'
   ) => `/story/${storyId}/chapter/${chapterId}/${chapterTransId}`,
+  storyFilterPage: () => '/story-filter',
   managerDashboardPage: () => '/manager',
   authorHomePage: () => '/author',
   moderatorHomePage: () => '/moderator',

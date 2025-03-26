@@ -11,6 +11,7 @@ import storyApi from './story';
 import viewApi from './view';
 import invoiceApi from './invoice';
 import aliasApi from './alias';
+import genreApi from './genre';
 
 const apis = {
   authApi,
@@ -26,6 +27,7 @@ const apis = {
   viewApi,
   invoiceApi,
   aliasApi,
+  genreApi,
 };
 
 export default apis;

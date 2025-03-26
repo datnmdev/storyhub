@@ -21,6 +21,7 @@ import ReaderDepositeTransHistoryPage from '@pages/ReaderDepositeTransHistoryPag
 import ReaderStoryInfoPage from '@pages/ReaderStoryInfoPage';
 import ReaderChapterContentPage from '@pages/ReaderChapterContentPage';
 import ReaderInvoiceHistoryPage from '@pages/ReaderInvoiceHistoryPage';
+import ReaderStoryFilterPage from '@pages/ReaderStoryFilterPage';
 
 const router = createBrowserRouter([
   {
@@ -142,6 +143,14 @@ const router = createBrowserRouter([
         element: (
           <ReaderLayout>
             <ReaderChapterContentPage />
+          </ReaderLayout>
+        ),
+      },
+      {
+        path: paths.storyFilterPage(),
+        element: (
+          <ReaderLayout>
+            <ReaderStoryFilterPage />
           </ReaderLayout>
         ),
       },

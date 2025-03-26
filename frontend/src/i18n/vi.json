@@ -39,6 +39,7 @@
             "finished": "Đã hoàn thành"
           }
         },
+        "title": "Tìm kiếm truyện theo từ khoá",
         "resultTitle": "Tổng số kết quả tìm thấy:"
       }
     },
@@ -304,6 +305,52 @@
         }
       },
       "page": "Trang"
+    },
+    "storyFilterPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "storyFilterPage": "Tìm truyện"
+        }
+      },
+      "filterFormSection": {
+        "title": "Tìm kiếm nâng cao",
+        "btn": {
+          "hideBtn": "Ẩn",
+          "visibleBtn": "Hiện",
+          "resetBtn": "Làm mới",
+          "submitBtn": "Tìm kiếm"
+        },
+        "form": {
+          "all": "Tất cả",
+          "author": "Tác giả",
+          "status": {
+            "label": "Tình trạng",
+            "publishing": "Đang phát hành",
+            "finished": "Đã hoàn thành"
+          },
+          "country": "Quốc gia",
+          "type": {
+            "label": "Loại truyện",
+            "comic": "Truyện tranh",
+            "novel": "Tiểu thuyết"
+          },
+          "orderBy": {
+            "label": "Sắp xếp theo",
+            "datePostedAsscending": "Ngày đăng tăng dần",
+            "datePostedDescending": "Ngày đăng giảm dần",
+            "dateUpdatedAsscending": "Ngày cập nhật tăng dần",
+            "dateUpdatedDescending": "Ngày cập nhật giảm dần"
+          },
+          "genre": "Thể loại truyện"
+        }
+      },
+      "resultSection": {
+        "title": "Kết quả tìm kiếm (tổng cộng {{value}} kết quả)",
+        "loading": {
+          "message": "Đang tìm kiếm thông tin. Vui lòng chờ trong giây lát..."
+        }
+      }
     }
   },
   "validation": {

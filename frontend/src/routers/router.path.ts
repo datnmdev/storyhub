@@ -7,8 +7,10 @@ const paths = {
   otpVerificationPage: () => '/otp-verification',
   forgotPasswordPage: () => '/forgot-password',
   resetPasswordPage: () => '/reset-password',
-  readerWalletPage: () => '/wallet',
-  readerDepositeTransHistoryPage: () => '/wallet/deposite-transaction-history',
+  readerWalletPage: () => '/reader/wallet',
+  readerDepositeTransHistoryPage: () =>
+    '/reader/wallet/deposite-transaction-history',
+  readerInvoiceHistoryPage: () => '/reader/wallet/invoice-history',
   readerChapterContentPage: (
     storyId: string | number = ':storyId',
     chapterId: string | number = ':chapterId',

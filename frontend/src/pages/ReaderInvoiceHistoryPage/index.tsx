@@ -9,27 +9,23 @@ import classNames from 'classnames';
 import { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import {
-  DepositeTransactionStatus,
-  GetDepositeTransactionHistoryRes,
-} from './ReaderDepositeTransHistoryPage.type';
 import { Pagination as PaginationType } from '@components/Pagination/Pagination.type';
 import Pagination from '@components/Pagination';
 import LoadingWrapper from '@components/LoadingWrapper';
 import moment from 'moment';
+import { GetInvoiceHistoryRes } from './ReaderInvoiceHistoryPage.type';
 
-function ReaderDepositeTransHistoryPage() {
+function ReaderInvoiceHistoryPage() {
   const { t } = useTranslation();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [queries, setQueries] = useState<PaginationType>({
     page: 1,
     limit: 16,
   });
-  const { data, isLoading, setRefetch } =
-    useFetch<GetDepositeTransactionHistoryRes>(
-      apis.depositeTransactionApi.getDepositeTransHistory,
-      { queries }
-    );
+  const { data, isLoading, setRefetch } = useFetch<GetInvoiceHistoryRes>(
+    apis.invoiceApi.getInvoice,
+    { queries }
+  );
 
   const breadcrumbItems: BreadcrumbProps['items'] = [
     {
@@ -76,7 +72,7 @@ function ReaderDepositeTransHistoryPage() {
 
             <li className="grow">
               <Link
-                className="desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] leading-[38px] space-x-2 flex items-center bg-[var(--primary)] text-[var(--white)]"
+                className="desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] leading-[38px] space-x-2 flex items-center hover:text-[var(--primary)]"
                 to={paths.readerDepositeTransHistoryPage()}
               >
                 <span className="text-[1.2rem]">
@@ -90,7 +86,7 @@ function ReaderDepositeTransHistoryPage() {
 
             <li className="grow">
               <Link
-                className="desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] hover:text-[var(--primary)] leading-[38px] space-x-2 flex items-center"
+                className="desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] leading-[38px] space-x-2 flex items-center bg-[var(--primary)] text-[var(--white)]"
                 to={paths.readerInvoiceHistoryPage()}
               >
                 <span className="text-[1.2rem]">
@@ -113,7 +109,7 @@ function ReaderDepositeTransHistoryPage() {
           <LoadingWrapper
             level="component"
             isLoading={isLoading}
-            message={t('loading.getDepositeTransHistory')}
+            message={t('loading.getInvoiceHistory')}
           >
             <div
               className={classNames(
@@ -128,85 +124,40 @@ function ReaderDepositeTransHistoryPage() {
                   <thead className="bg-[var(--primary)] text-[var(--white)]">
                     <tr>
                       <th className="py-2 px-4">
-                        {t('reader.depositeTransHistoryPage.content.orderId')}
+                        {t('reader.invoiceHistoryPage.content.invoiceNumber')}
                       </th>
                       <th className="py-2 px-4">
-                        {t('reader.depositeTransHistoryPage.content.bankCode')}
+                        {t('reader.invoiceHistoryPage.content.chapterId')}
                       </th>
                       <th className="py-2 px-4">
-                        {t('reader.depositeTransHistoryPage.content.cardType')}
+                        {t('reader.invoiceHistoryPage.content.totalAmount')}
                       </th>
                       <th className="py-2 px-4">
-                        {t('reader.depositeTransHistoryPage.content.amount')}
-                      </th>
-                      <th className="py-2 px-4">
-                        {t(
-                          'reader.depositeTransHistoryPage.content.createDate'
-                        )}
-                      </th>
-                      <th className="py-2 px-4">
-                        {t(
-                          'reader.depositeTransHistoryPage.content.status.title'
-                        )}
+                        {t('reader.invoiceHistoryPage.content.createdAt')}
                       </th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {data?.[0].map((row) => {
-                      let statusElement;
-                      switch (row.status) {
-                        case DepositeTransactionStatus.SUCCEED:
-                          statusElement = (
-                            <td className="py-2 text-green-500">
-                              {t(
-                                'reader.depositeTransHistoryPage.content.status.succeed'
-                              )}
-                            </td>
-                          );
-                          break;
-
-                        case DepositeTransactionStatus.FAILED:
-                          statusElement = (
-                            <td className="py-2 text-red-500">
-                              {t(
-                                'reader.depositeTransHistoryPage.content.status.failed'
-                              )}
-                            </td>
-                          );
-                          break;
-
-                        default:
-                          statusElement = (
-                            <td className="py-2 text-[var(--primary)]">
-                              {t(
-                                'reader.depositeTransHistoryPage.content.status.initialize'
-                              )}
-                            </td>
-                          );
-                          break;
-                      }
-
                       return (
                         <tr
                           key={row.id}
                           className="text-center border-b-[1px] border-solid border-[var(--gray)]"
                         >
-                          <td className="py-2">{row.orderId}</td>
-                          <td className="py-2">{row.bankCode}</td>
-                          <td className="py-2">{row.cardType}</td>
+                          <td className="py-2">{row.id}</td>
+                          <td className="py-2">{row.chapterId}</td>
                           <td className="py-2 text-red-500">
                             {new Intl.NumberFormat('vi-VN', {
                               style: 'currency',
                               currency: 'VND',
-                            }).format(Number(row.amount) / 100)}
+                            }).format(Number(row.totalAmount))}
                           </td>
                           <td className="py-2">
                             {moment(row.createdAt).format(
                               'DD/MM/YYYY HH:mm:ss'
                             )}
                           </td>
-                          {statusElement}
                         </tr>
                       );
                     })}
@@ -214,17 +165,16 @@ function ReaderDepositeTransHistoryPage() {
                 </table>
               </div>
 
-              <div className="mt-4 flex justify-center items-center">
+              <div className="flex justify-center items-center mt-4">
                 <Pagination
                   count={data?.[1] ? Math.ceil(data[1] / queries.limit) : 0}
                   page={queries.page}
-                  onChange={(e, page) => {
-                    e.preventDefault();
+                  onChange={(_e, page) =>
                     setQueries({
                       ...queries,
                       page,
-                    });
-                  }}
+                    })
+                  }
                 />
               </div>
             </div>
@@ -235,4 +185,4 @@ function ReaderDepositeTransHistoryPage() {
   );
 }
 
-export default memo(ReaderDepositeTransHistoryPage);
+export default memo(ReaderInvoiceHistoryPage);

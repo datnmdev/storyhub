@@ -37,7 +37,7 @@ function ChapterTransListPopup({
           return (
             <div
               key={chapterTrans.id}
-              className="py-2 px-4 border-b-[1px] border-solid border-[var(--gray)] hover:text-[var(--primary)]"
+              className="py-2 px-4 border-b-[1px] border-solid border-[var(--gray)] hover:text-[var(--primary)] cursor-pointer select-none"
               onClick={() => {
                 onChange(chapterTrans.id);
               }}

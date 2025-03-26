@@ -1,12 +1,13 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsInt, IsNotEmpty } from 'class-validator';
 import { ImageContent } from '../entities/image-content.entity';
+import { TextContent } from '../entities/text-content.entity';
 
 export class GetChapterContentDto {
   @Transform(({ value }) => Number(value))
   @IsNotEmpty()
   @IsInt()
-  chapterTranlationId: number;
+  chapterTranslationId: number;
 }
 
 @Exclude()
@@ -27,7 +28,7 @@ export class TextContentDto {
   updatedAt: Date;
 
   @Expose()
-  content: string;
+  text: TextContent;
 
   @Expose()
   storyId: number;

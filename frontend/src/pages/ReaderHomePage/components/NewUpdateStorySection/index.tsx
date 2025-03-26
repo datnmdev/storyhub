@@ -49,22 +49,7 @@ function NewUpdateStorySection() {
             })}
           </div>
 
-          <div className="desktop:flex tablet:flex mobile:hidden justify-center items-center">
-            <Pagination
-              page={queries.page}
-              count={Math.ceil(data[1] / queries.limit)}
-              onChange={(_e, page) =>
-                setQueries({
-                  ...queries,
-                  page,
-                })
-              }
-              siblingCount={1}
-              boundaryCount={1}
-            />
-          </div>
-
-          <div className="desktop:hidden tablet:hidden mobile:flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <Pagination
               page={queries.page}
               count={Math.ceil(data[1] / queries.limit)}

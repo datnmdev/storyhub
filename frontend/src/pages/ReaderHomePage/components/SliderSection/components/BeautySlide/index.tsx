@@ -69,6 +69,7 @@ function BeautySlide({ data }: BeautySlideProps) {
           storyId: data.id,
           page: 1,
           limit: 1,
+          orderBy: JSON.stringify([['order', 'DESC']]),
         },
       },
     ],
@@ -173,7 +174,15 @@ function BeautySlide({ data }: BeautySlideProps) {
                   height={28}
                   borderRadius="4px"
                   bgColor="#48b528"
-                  onClick={() => navigate('#')}
+                  onClick={() =>
+                    navigate(
+                      paths.readerChapterContentPage(
+                        data.id,
+                        responsesData[5][0][0].id,
+                        responsesData[5][0][0].chapterTranslations[0].id
+                      )
+                    )
+                  }
                 >
                   {t('reader.homePage.topViewSlider.btn.readBtn')}
                 </Button>

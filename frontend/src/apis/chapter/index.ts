@@ -1,10 +1,19 @@
 import { RequestInit } from '@apis/api.type';
+import { Country } from '@apis/country';
 import axiosInstance from 'libs/axios';
+
+export interface ChapterTranslation {
+  id: number;
+  chapterId: number;
+  countryId: number;
+  translatorId: number;
+}
 
 export interface Chapter {
   id: number;
   order: number;
   name: string;
+  chapterTranslations: ChapterTranslation[];
   createdAt: string;
   updatedAt: string;
   storyId: number;
@@ -14,21 +23,22 @@ export interface ChapterWithInvoiceRelation extends Chapter {
   invoices: any[];
 }
 
-export interface ChapterImage {
-  id: number;
-  order: number;
-  path: string;
-  chapterId: number;
+export interface TextContent {
+  chapterTranslationId: number;
+  content: string;
 }
 
 export interface ImageContent {
   id: number;
   order: number;
-  name: string;
-  images: ChapterImage[];
-  createdAt: string;
-  updatedAt: string;
-  storyId: number;
+  path: string;
+  chapterTranslationId: number;
+}
+
+export interface ChapterTranslation extends Chapter {
+  images: ImageContent[];
+  text: TextContent;
+  country: Country;
 }
 
 export type GetChapterWithFilterResponseData = [Chapter[], number];
@@ -42,6 +52,11 @@ const chapterApi = {
   getChapterContent: (options: RequestInit) => {
     return axiosInstance().get('/chapter/reader/content', {
       params: options.queries,
+    });
+  },
+  getImage: (options?: RequestInit) => {
+    return axiosInstance().get(options?.uri as string, {
+      responseType: 'blob',
     });
   },
   getChapterWithInvoiceRelation: (options: RequestInit) => {

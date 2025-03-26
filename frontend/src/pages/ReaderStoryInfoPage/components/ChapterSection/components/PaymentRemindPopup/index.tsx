@@ -56,6 +56,7 @@ function PaymentRemindPopup({
             selectChapterTransId
           )
         );
+        window.location.reload();
       } else {
         if (
           createInvoiceError?.response?.status === HttpStatus.PAYMENT_REQUIRED

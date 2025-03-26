@@ -3,6 +3,7 @@ import { getViewCountOfStoryDto } from './dto/get-view-count-of-story.dto';
 import { GetTopStoryDto } from './dto/get-top-story.dto';
 import { ViewService } from './view.service';
 import { GetViewCountOfChapterDto } from './dto/get-view-count-of-chapter.dto';
+import { GetTopViewChartDataDto } from './dto/get-top-view-chart-data.dto';
 
 @Controller('view')
 export class ViewController {
@@ -25,5 +26,10 @@ export class ViewController {
     return this.viewService.getViewCountOfChapter(
       getViewCountOfChapterDto.chapterId
     );
+  }
+
+  @Get('/get-top-view-chart-data')
+  getTopViewChartData(@Query() getTopViewChartDataDto: GetTopViewChartDataDto) {
+    return this.viewService.getTopViewChartData(getTopViewChartDataDto.atTime);
   }
 }

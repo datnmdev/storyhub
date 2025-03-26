@@ -17,6 +17,7 @@ import { Role } from '@/common/constants/user.constants';
 import { GetRatingSummaryDto } from './dto/get-rating-summary.dto';
 import { CreateRatingDto } from './dto/create-rating.dto';
 import { UpdateRatingDto } from './dto/update-rating.dto';
+import { GetTopRatingStoryDto } from './dto/get-top-rating-story.dto';
 
 @Controller('rating')
 export class RatingController {
@@ -57,5 +58,10 @@ export class RatingController {
     @Body() updateRatingDto: UpdateRatingDto
   ) {
     return this.ratingService.update(userId, updateRatingDto);
+  }
+
+  @Get('get-top')
+  getTopRatingStory(@Query() getTopRatingStoryDto: GetTopRatingStoryDto) {
+    return this.ratingService.getTopRatingStory(getTopRatingStoryDto);
   }
 }

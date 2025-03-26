@@ -15,6 +15,11 @@ const viewApi = {
       `/view/count/chapter/${options.params.chapterId}`
     );
   },
+  getTopViewChartData: (options: RequestInit) => {
+    return axiosInstance().get('/view/get-top-view-chart-data', {
+      params: options.queries,
+    });
+  },
 };
 
 export default viewApi;

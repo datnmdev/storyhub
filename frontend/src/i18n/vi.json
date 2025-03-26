@@ -351,6 +351,100 @@
           "message": "Đang tìm kiếm thông tin. Vui lòng chờ trong giây lát..."
         }
       }
+    },
+    "rankPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "rankPage": "Xếp hạng"
+        }
+      },
+      "topViewSection": {
+        "title": "#Xếp hạng theo lượt xem",
+        "chart": {
+          "story": {
+            "status": {
+              "publishing": "Đang phát hành",
+              "finished": "Đã hoàn thành"
+            }
+          }
+        },
+        "topStoryList": {
+          "btn": {
+            "moreBtn": "Xem thêm"
+          },
+          "loading": {
+            "message": "Đang tải dữ liệu..."
+          },
+          "item": {
+            "type": {
+              "label": "Loại:",
+              "comic": "Truyện tranh",
+              "novel": "Tiểu thuyết"
+            },
+            "author": "Tác giả:",
+            "genre": "Thể loại:",
+            "viewCount": {
+              "label": "Tổng lượt xem:",
+              "content": "{{value}} lượt"
+            }
+          }
+        }
+      },
+      "topRatingSection": {
+        "title": "#Xếp hạng theo tỉ lệ đánh giá",
+        "topStoryList": {
+          "btn": {
+            "moreBtn": "Xem thêm"
+          },
+          "loading": {
+            "message": "Đang tải dữ liệu..."
+          },
+          "item": {
+            "type": {
+              "label": "Loại:",
+              "comic": "Truyện tranh",
+              "novel": "Tiểu thuyết"
+            },
+            "author": "Tác giả:",
+            "genre": "Thể loại:",
+            "ratingSummary": {
+              "ratio": {
+                "label": "Tổng điểm:",
+                "content": "{{value}}"
+              },
+              "ratingCount": {
+                "label": "Tổng lượt đánh giá:",
+                "content": "{{value}} lượt"
+              }
+            }
+          }
+        }
+      },
+      "topFollowSection": {
+        "title": "#Xếp hạng theo lượt theo dõi",
+        "topStoryList": {
+          "btn": {
+            "moreBtn": "Xem thêm"
+          },
+          "loading": {
+            "message": "Đang tải dữ liệu..."
+          },
+          "item": {
+            "type": {
+              "label": "Loại:",
+              "comic": "Truyện tranh",
+              "novel": "Tiểu thuyết"
+            },
+            "author": "Tác giả:",
+            "genre": "Thể loại:",
+            "followCount": {
+              "label": "Tổng lượt theo dõi:",
+              "content": "{{value}} lượt"
+            }
+          }
+        }
+      }
     }
   },
   "validation": {

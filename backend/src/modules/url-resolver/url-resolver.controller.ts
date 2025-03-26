@@ -23,48 +23,48 @@ export class UrlResolverController {
   ) {}
 
   @Get()
-  async getData(
-    @Query() getDataDto: GetDataDto,
-    @Res() res: Response,
-    @Next() next: NextFunction
-  ) {
-    const payload = this.urlCipherService.decode(
-      plainToInstance(EncryptedUrl, getDataDto)
-    );
-    let response: any;
-    if (payload.url.startsWith(UrlPrefix.EXTERNAL_TRUYENQQ)) {
-      response = await axios({
-        url: payload.url.substring(UrlPrefix.EXTERNAL_TRUYENQQ.length),
-        method: 'get',
-        headers: {
-          Referer: 'https://truyenqqviet.com/',
-        },
-        responseType: 'stream',
-      });
-    } else if (payload.url.startsWith(UrlPrefix.EXTERNAL_TRUYENFULL)) {
-      response = await axios({
-        url: payload.url.substring(UrlPrefix.EXTERNAL_TRUYENFULL.length),
-        method: 'get',
-        responseType: 'stream',
-      });
-    } else if (payload.url.startsWith(UrlPrefix.EXTERNAL_GOOGLE)) {
-      response = await axios({
-        url: payload.url.substring(UrlPrefix.EXTERNAL_GOOGLE.length),
-        method: 'get',
-        responseType: 'stream',
-      });
-    } else if (payload.url.startsWith(UrlPrefix.INTERNAL_GOOGLE_STORAGE)) {
-      response = await axios({
-        url: await this.googleStorageService.generateSignedUrl(
-          payload.url.substring(UrlPrefix.INTERNAL_GOOGLE_STORAGE.length)
-        ),
-        method: 'get',
-        responseType: 'stream',
-      });
-    } else {
-      return next(new NotFoundException());
+  async getData(@Query() getDataDto: GetDataDto, @Res() res: Response) {
+    try {
+      const payload = this.urlCipherService.decode(
+        plainToInstance(EncryptedUrl, getDataDto)
+      );
+      let response: any;
+      if (payload.url.startsWith(UrlPrefix.EXTERNAL_TRUYENQQ)) {
+        response = await axios({
+          url: payload.url.substring(UrlPrefix.EXTERNAL_TRUYENQQ.length),
+          method: 'get',
+          headers: {
+            Referer: 'https://truyenqqviet.com/',
+          },
+          responseType: 'stream',
+        });
+      } else if (payload.url.startsWith(UrlPrefix.EXTERNAL_TRUYENFULL)) {
+        response = await axios({
+          url: payload.url.substring(UrlPrefix.EXTERNAL_TRUYENFULL.length),
+          method: 'get',
+          responseType: 'stream',
+        });
+      } else if (payload.url.startsWith(UrlPrefix.EXTERNAL_GOOGLE)) {
+        response = await axios({
+          url: payload.url.substring(UrlPrefix.EXTERNAL_GOOGLE.length),
+          method: 'get',
+          responseType: 'stream',
+        });
+      } else if (payload.url.startsWith(UrlPrefix.INTERNAL_GOOGLE_STORAGE)) {
+        response = await axios({
+          url: await this.googleStorageService.generateSignedUrl(
+            payload.url.substring(UrlPrefix.INTERNAL_GOOGLE_STORAGE.length)
+          ),
+          method: 'get',
+          responseType: 'stream',
+        });
+      } else {
+        return res.end();
+      }
+      res.setHeader('Content-Type', response.headers['content-type']);
+      return response.data.pipe(res);
+    } catch (error) {
+      res.end();
     }
-    res.setHeader('Content-Type', response.headers['content-type']);
-    return response.data.pipe(res);
   }
 }

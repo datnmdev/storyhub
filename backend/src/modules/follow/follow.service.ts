@@ -1,13 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { FollowDetail } from './entities/follow-detail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { GetTopFollowStoryDto } from './dto/get-top-follow-story.dto';
+import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
+import { Story } from '../story/entities/story.entity';
+import { plainToInstance } from 'class-transformer';
+import UrlResolverUtils from '@/common/utils/url-resolver.util';
+import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
 
 @Injectable()
 export class FollowService {
   constructor(
     @InjectRepository(FollowDetail)
-    private readonly followRepository: Repository<FollowDetail>
+    private readonly followRepository: Repository<FollowDetail>,
+    private readonly dataSource: DataSource,
+    private readonly urlCipherService: UrlCipherService
   ) {}
 
   getFollowerCount(storyId: number) {
@@ -46,5 +54,77 @@ export class FollowService {
     }
 
     return false;
+  }
+
+  async getListReaderId(storyId: number): Promise<number[]> {
+    const followers = await this.followRepository.find({
+      where: {
+        storyId,
+      },
+      select: ['readerId'],
+    });
+
+    return followers.map((follower) => follower.readerId);
+  }
+
+  async getTopFollowStory(getTopFollowStoryDto: GetTopFollowStoryDto) {
+    const [result] = await this.dataSource.query(
+      `CALL getTopFollowStories(?, ?)`,
+      [getTopFollowStoryDto.page, getTopFollowStoryDto.limit]
+    );
+
+    const genres = [];
+    for (const row of result) {
+      const story = await this.dataSource
+        .createQueryBuilder(Story, 'story')
+        .innerJoinAndSelect('story.genres', 'genres')
+        .where(`story.id = ${row.id}`)
+        .getOne();
+      genres.push(story.genres);
+    }
+
+    const authors = [];
+    for (const row of result) {
+      const story = await this.dataSource
+        .createQueryBuilder(Story, 'story')
+        .innerJoinAndSelect('story.author', 'author')
+        .innerJoinAndSelect('author.userProfile', 'userProfile')
+        .where(`story.id = ${row.id}`)
+        .getOne();
+      authors.push(story.author);
+    }
+
+    return [
+      result.map((row, index) => {
+        return {
+          ...plainToInstance(Story, {
+            id: row.id,
+            title: row.title,
+            description: row.description,
+            note: row.note,
+            coverImage: UrlResolverUtils.createUrl(
+              '/url-resolver',
+              this.urlCipherService.generate(
+                plainToInstance(UrlCipherPayload, {
+                  url: row.cover_image,
+                  expireIn: 4 * 60 * 60,
+                  iat: Date.now(),
+                } as UrlCipherPayload)
+              )
+            ),
+            type: row.type,
+            status: row.status,
+            createdAt: row.created_at,
+            updatedAt: row.updated_at,
+            countryId: row.country_id,
+            authorId: row.author_id,
+            genres: genres[index],
+            author: authors[index],
+          }),
+          followCount: Number(row.followCount),
+        };
+      }),
+      await this.dataSource.createQueryBuilder(Story, 'story').getCount(),
+    ];
   }
 }

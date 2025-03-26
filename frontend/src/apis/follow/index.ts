@@ -20,6 +20,11 @@ const followApi = {
       params: options.queries,
     });
   },
+  getTopFollowStory: (options: RequestInit) => {
+    return axiosInstance().get(`/follow/get-top`, {
+      params: options.queries,
+    });
+  },
 };
 
 export default followApi;

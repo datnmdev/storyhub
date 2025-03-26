@@ -74,7 +74,7 @@ function ReaderWalletPage() {
             <li className="grow">
               <Link
                 className=" desktop:justify-start tablet:justify-center mobile:justify-center px-4 rounded-[4px] hover:text-[var(--primary)] leading-[38px] space-x-2 flex items-center"
-                to={paths.readerWalletPage()}
+                to={paths.readerInvoiceHistoryPage()}
               >
                 <span className="text-[1.2rem]">
                   <i className="fa-solid fa-money-bills"></i>

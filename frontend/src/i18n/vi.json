@@ -142,6 +142,14 @@
         }
       }
     },
+    "invoiceHistoryPage": {
+      "content": {
+        "invoiceNumber": "Số hoá đơn",
+        "chapterId": "Mã chương",
+        "totalAmount": "Tổng tiền",
+        "createdAt": "Thời điểm tạo"
+      }
+    },
     "homePage": {
       "topViewSlider": {
         "title": "Truyện được xem nhiều nhất",
@@ -269,7 +277,7 @@
         "chapterNext": "Chương sau"
       },
       "loadingWrapper": {
-        "message": "Đang tải dữ liệu vui lòng đợi"
+        "message": "Đang tải dữ liệu. Vui lòng đợi trong giây lát..."
       },
       "blockedContent": {
         "content": "Bạn chưa mở khoá chương này. Vui lòng mở khoá để tiếp tục...",
@@ -334,6 +342,7 @@
     "last": "Cuối"
   },
   "loading": {
-    "getDepositeTransHistory": "Đang lấy lịch sử nạp tiền..."
+    "getDepositeTransHistory": "Đang lấy lịch sử nạp tiền...",
+    "getInvoiceHistory": "Đang lấy lịch sử thanh toán..."
   }
 }

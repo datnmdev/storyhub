@@ -618,7 +618,8 @@ function StoryInfoSection() {
                   navigate(
                     paths.readerChapterContentPage(
                       data[9][0][0].storyId,
-                      data[9][0][0].id
+                      data[9][0][0].id,
+                      data[9][0][0].chapterTranslations[0].id
                     )
                   )
                 }

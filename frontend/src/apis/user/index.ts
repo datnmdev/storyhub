@@ -34,6 +34,9 @@ const authApi = {
   resetPassword: (options: RequestInit) => {
     return axiosInstance().post('/auth/reset-password', options.body);
   },
+  getAllAuthor: () => {
+    return axiosInstance().get(`/user/get-all-author`);
+  },
 };
 
 export default authApi;

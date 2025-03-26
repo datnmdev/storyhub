@@ -586,4 +586,13 @@ export class UserService {
       await queryRunner.release();
     }
   }
+
+  getAllAuthor() {
+    return this.userRepository.find({
+      where: {
+        role: Role.AUTHOR,
+      },
+      relations: ['userProfile'],
+    });
+  }
 }

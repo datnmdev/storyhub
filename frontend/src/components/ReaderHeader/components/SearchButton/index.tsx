@@ -141,7 +141,7 @@ function SearchButton() {
             <div className="shrink-0">
               <div className="flex justify-between items-center p-4">
                 <h3 className="font-[450] text-[1.2rem]">
-                  Tìm kiếm truyện theo từ khoá
+                  {t('reader.header.searchSection.title')}
                 </h3>
                 <IconButton
                   icon={<i className="fa-solid fa-times"></i>}

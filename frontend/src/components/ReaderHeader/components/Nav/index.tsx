@@ -41,7 +41,7 @@ function Nav() {
       </Link>
 
       <Link
-        to="/"
+        to={paths.storyFilterPage()}
         className={classNames(
           'desktop:px-2 tablet:px-4 mobile:px-4 cursor-pointer',
           styles.item

@@ -2,12 +2,12 @@ import {
   Body,
   Get,
   Query,
-  Controller,
   Headers,
   HttpStatus,
   Post,
   Req,
   Res,
+  Controller,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Token } from '@/common/jwt/jwt.type';
@@ -23,7 +23,7 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('auth')
-export class UserController {
+export class AuthController {
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UserService
@@ -148,5 +148,15 @@ export class UserController {
   @Post('reset-password')
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.userService.resetPassword(resetPasswordDto);
+  }
+}
+
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get('get-all-author')
+  getAllAuthor() {
+    return this.userService.getAllAuthor();
   }
 }

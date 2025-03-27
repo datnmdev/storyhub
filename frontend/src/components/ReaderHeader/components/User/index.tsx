@@ -134,7 +134,7 @@ function User() {
             <li>
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
-                to="#"
+                to={paths.readerFollowManagementPage()}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-heart"></i>

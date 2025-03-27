@@ -124,6 +124,14 @@ export class AppModule implements NestModule {
         {
           path: 'invoice',
           method: RequestMethod.POST,
+        },
+        {
+          path: 'follow/filter',
+          method: RequestMethod.GET,
+        },
+        {
+          path: 'follow/all',
+          method: RequestMethod.DELETE,
         }
       )
       .apply(VerifyUrlValidityMiddleware)

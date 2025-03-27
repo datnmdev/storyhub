@@ -1,4 +1,5 @@
 {
+  "noData": "Không tìm thấy dữ liệu nào...",
   "reader": {
     "header": {
       "nav": {
@@ -47,7 +48,7 @@
       "contact": {
         "heading": "Thông tin liên hệ",
         "email": "htkh.story@gmail.com",
-        "phone": "0378450500",
+        "phone": "+84123456789",
         "address": "97 Đ. Man Thiện, Hiệp Phú, Quận 9, Hồ Chí Minh 70000"
       },
       "about": {
@@ -445,6 +446,29 @@
           }
         }
       }
+    },
+    "followManagementPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "followManagementPage": "Theo dõi"
+        }
+      },
+      "followManagementSection": {
+        "title": "Danh sách theo dõi",
+        "btn": {
+          "deleteAllBtn": "Bỏ tất cả",
+          "readingBtn": "Đọc"
+        },
+        "loading": {
+          "message": "Đang lấy danh sách theo dõi...",
+          "handlingReqMessage": "Đang xử lý yêu cầu..."
+        },
+        "item": {
+          "followedAt": "Theo dõi vào lúc {{value}}",
+          "newestChapter": "Chương mới nhất:"
+        }
+      }
     }
   },
   "validation": {
@@ -477,7 +501,7 @@
   "notification": {
     "signInWithEmailPasswordFailure": "Địa chỉ email hoặc mật khẩu không đúng",
     "loginSuccess": "Đăng nhập thành công",
-    "undefinedError": "Đã có lỗi không xác định xảy ra, hãy vui lòng thử lại",
+    "undefinedError": "Đã có lỗi xảy ra, hãy vui lòng thử lại",
     "signUpSuccess": "Đăng ký tài khoản thành công",
     "verifyAccountSuccess": "Xác nhận tài khoản thành công",
     "verifyOtpError": "Mã OTP không chính xác. Vui lòng thử lại",
@@ -492,7 +516,8 @@
     "updateRatingSuccess": "Cập nhật đánh giá thành công",
     "updateRatingFailed": "Cập nhật đánh giá thất bại. Vui lòng thử lại",
     "followSuccess": "Theo dõi truyện thành công",
-    "unfollowSuccess": "Bỏ theo dõi truyện thành công"
+    "unfollowSuccess": "Bỏ theo dõi truyện thành công",
+    "deleteAllFollowSuccess": "Bỏ theo dõi tất cả các bộ truyện thành công"
   },
   "pagination": {
     "next": "Sau",

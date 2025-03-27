@@ -87,6 +87,10 @@ export class AppModule implements NestModule {
       .forRoutes(
         'auth/sign-out',
         'user-profile/get-profile',
+        {
+          path: 'user-profile',
+          method: RequestMethod.PUT,
+        },
         'wallet',
         'deposite-transaction/create-payment-url',
         'deposite-transaction/get-deposite-transaction-history',

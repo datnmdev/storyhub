@@ -12,6 +12,7 @@ import viewApi from './view';
 import invoiceApi from './invoice';
 import aliasApi from './alias';
 import genreApi from './genre';
+import uploadApi from './upload';
 
 const apis = {
   authApi,
@@ -28,6 +29,7 @@ const apis = {
   invoiceApi,
   aliasApi,
   genreApi,
+  uploadApi,
 };
 
 export default apis;

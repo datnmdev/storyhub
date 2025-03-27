@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Auth } from './auth.type';
 import { AUTH_KEY } from '@constants/user.constants';
 import Cookies from 'js-cookie';
+import authThunk from './auth.thunk';
 
 const initialState: Auth = {
   isAuthenticated: null,
@@ -38,6 +39,11 @@ export const authSlice = createSlice({
       Cookies.remove('refreshToken');
       state.isAuthenticated = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(authThunk.getProfile.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
   },
 });
 

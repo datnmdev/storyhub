@@ -1,6 +1,7 @@
 import { User } from '@/common/decorators/user.decorator';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import { UserProfileService } from './user-profile.service';
+import { UpdateProfileDto } from './dtos/update-profile.dto';
 
 @Controller('user-profile')
 export class UserProfileController {
@@ -14,5 +15,13 @@ export class UserProfileController {
   @Get(':id/get-info')
   async getProfileUserInfo(@Param('id') id: number) {
     return await this.userProfileService.getProfile(id);
+  }
+
+  @Put()
+  updateProfile(
+    @User('id') userId: number,
+    @Body() updateProfileDto: UpdateProfileDto
+  ) {
+    return this.userProfileService.updateProfile(userId, updateProfileDto);
   }
 }

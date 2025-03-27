@@ -8,6 +8,9 @@ const userApi = {
   getUserProfileInfo: (options: RequestInit) => {
     return axiosInstance().get(`/user-profile/${options.params.id}/get-info`);
   },
+  updateProfile: (options: RequestInit) => {
+    return axiosInstance().put('/user-profile', options.body);
+  },
 };
 
 export default userApi;

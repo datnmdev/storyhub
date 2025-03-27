@@ -8,6 +8,7 @@ function Select({
   name,
   value,
   border = '1px solid var(--gray)',
+  sx = {},
   onChange,
   children,
 }: SelectProps) {
@@ -55,6 +56,7 @@ function Select({
         '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
           borderColor: 'var(--primary)',
         },
+        ...sx,
       }}
     >
       {children}

@@ -97,7 +97,11 @@ function User() {
               icon={
                 <img
                   className="w-5 h-5 object-cover object-center rounded-[50%]"
-                  src={profile.avatar ? profile.avatar : DefaultAvatar}
+                  src={
+                    profile.avatar
+                      ? UrlUtils.generateUrl(profile.avatar)
+                      : DefaultAvatar
+                  }
                   alt="Avatar"
                 />
               }
@@ -158,7 +162,7 @@ function User() {
             <li>
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
-                to="#"
+                to={paths.readerPersonalProfilePage()}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-gear"></i>

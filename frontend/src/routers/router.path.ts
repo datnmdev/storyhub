@@ -19,6 +19,7 @@ const paths = {
   ) => `/story/${storyId}/chapter/${chapterId}/${chapterTransId}`,
   storyFilterPage: () => '/story-filter',
   readerFollowManagementPage: () => '/reader/follow-management',
+  readerPersonalProfilePage: () => '/reader/setting/personal-profile',
   managerDashboardPage: () => '/manager',
   authorHomePage: () => '/author',
   moderatorHomePage: () => '/moderator',

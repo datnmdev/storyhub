@@ -24,6 +24,7 @@ import ReaderInvoiceHistoryPage from '@pages/ReaderInvoiceHistoryPage';
 import ReaderStoryFilterPage from '@pages/ReaderStoryFilterPage';
 import ReaderRankPage from '@pages/ReaderRankPage';
 import ReaderFollowManagementPage from '@pages/ReaderFollowManagementPage';
+import ReaderPersonalProfilePage from '@pages/ReaderPersonalProfilePage';
 
 const router = createBrowserRouter([
   {
@@ -170,6 +171,16 @@ const router = createBrowserRouter([
           <Protected role={Role.READER}>
             <ReaderLayout>
               <ReaderFollowManagementPage />
+            </ReaderLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.readerPersonalProfilePage(),
+        element: (
+          <Protected role={Role.READER}>
+            <ReaderLayout>
+              <ReaderPersonalProfilePage />
             </ReaderLayout>
           </Protected>
         ),

@@ -9,6 +9,7 @@ export interface RequestInit<
   params?: ParamsType | any;
   queries?: QueriesType | any;
   uri?: string;
+  headers?: Record<string, string>;
 }
 
 export type CallApiFunction = (

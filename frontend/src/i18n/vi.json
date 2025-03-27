@@ -1,5 +1,9 @@
 {
   "noData": "Không tìm thấy dữ liệu nào...",
+  "avatarUpload": {
+    "uploadImageNote": "Ảnh không được quá 10 MB và ở định dạng PNG, JPG, JPEG hoặc GIF",
+    "changeAvatarBtn": "Thay đổi"
+  },
   "reader": {
     "header": {
       "nav": {
@@ -469,6 +473,55 @@
           "newestChapter": "Chương mới nhất:"
         }
       }
+    },
+    "personalProfilePage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "readerPersonalProfilePage": "Cài đặt"
+        }
+      },
+      "sidebar": {
+        "heading": "Cài đặt",
+        "personalProfileManagement": "Hồ sơ cá nhân",
+        "changePassword": "Đổi mật khẩu"
+      },
+      "personalProfileForm": {
+        "accountInfoSection": {
+          "heading": "Thông tin tài khoản",
+          "id": "ID",
+          "createdAt": "Ngày tạo",
+          "status": {
+            "label": "Tình trạng",
+            "unactivated": "Chưa kích hoạt",
+            "activated": "Đã kích hoạt",
+            "locked": "Đã bị khoá",
+            "deleted": "Không khả dụng"
+          }
+        },
+        "userInfoSection": {
+          "heading": "Thông tin cá nhân",
+          "name": "Họ và tên",
+          "dob": "Ngày sinh",
+          "gender": {
+            "label": "Giới tính",
+            "male": "Nam",
+            "female": "Nữ",
+            "orther": "Khác"
+          },
+          "phone": "Số điện thoại"
+        },
+        "submitBtn": "Lưu thay đổi",
+        "resetBtn": "Làm mới",
+        "loading": {
+          "loadingProfileInfo": {
+            "message": "Đang lấy thông tin hồ sơ cá nhân..."
+          },
+          "updatingProfile": {
+            "message": "Đang lưu lại hồ sơ cá nhân..."
+          }
+        }
+      }
     }
   },
   "validation": {
@@ -517,7 +570,9 @@
     "updateRatingFailed": "Cập nhật đánh giá thất bại. Vui lòng thử lại",
     "followSuccess": "Theo dõi truyện thành công",
     "unfollowSuccess": "Bỏ theo dõi truyện thành công",
-    "deleteAllFollowSuccess": "Bỏ theo dõi tất cả các bộ truyện thành công"
+    "deleteAllFollowSuccess": "Bỏ theo dõi tất cả các bộ truyện thành công",
+    "updateProfileSuccess": "Cập nhật hồ sơ cá nhân thành công",
+    "updateProfileFailed": "Đã có lỗi xảy ra trong quá trình lưu thông tin hồ sơ cá nhân. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",

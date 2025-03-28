@@ -1,7 +1,7 @@
 import ErrorMessage from '@components/ErrorMessage';
 import IconButton from '@components/IconButton';
 import InputWithIcon from '@components/InputWithIcon';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import LoadingIcon from '@assets/icons/gifs/loading.gif';
 import { useTranslation } from 'react-i18next';
 import { useFormValidation } from '@hooks/validate.hook';
@@ -27,15 +27,13 @@ function OtpVerificationForm() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { t } = useTranslation();
+  const [defaultInputData] = useState({
+    otp: '',
+  });
   const { values, handleChange, errors, validateAll } = useFormValidation<
     InputData,
     InputError
-  >(
-    {
-      otp: '',
-    },
-    generateValidateSchema()
-  );
+  >(defaultInputData, generateValidateSchema());
   const {
     data: isVerifiedAccount,
     isLoading: isVerifyingAccount,

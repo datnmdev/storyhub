@@ -136,7 +136,9 @@ export class AppModule implements NestModule {
         {
           path: 'follow/all',
           method: RequestMethod.DELETE,
-        }
+        },
+        'auth/verify-change-password-info',
+        'auth/change-password'
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

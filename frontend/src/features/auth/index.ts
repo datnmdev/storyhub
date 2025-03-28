@@ -7,7 +7,7 @@ const authFeature = {
   authReducer,
   authSelector,
   authAction,
-  authThunk
+  authThunk,
 };
 
 export default authFeature;

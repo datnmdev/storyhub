@@ -34,6 +34,8 @@ import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import * as crypto from 'crypto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { UrlPrefix } from '@/common/constants/url-resolver.constants';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { VerifyChangePasswordInfoDto } from './dto/verify-change-password-info.dto';
 
 @Injectable()
 export class UserService {
@@ -522,6 +524,20 @@ export class UserService {
             jobData
           );
           break;
+
+        case OtpVerificationType.CHANGE_PASSWORD:
+          await this.bullService.addJob(
+            JobName.SEND_OTP_TO_VERIFY_CHANGE_PASSWORD,
+            {
+              accountId: user.id,
+              otp: randomString.generate({
+                length: 6,
+                charset: 'numeric',
+              }),
+              to: user.email,
+            }
+          );
+          break;
       }
     }
     return true;
@@ -594,5 +610,63 @@ export class UserService {
       },
       relations: ['userProfile'],
     });
+  }
+
+  async verifyChangePasswordInfo(
+    userId: number,
+    verifyChangePasswordInfoDto: VerifyChangePasswordInfoDto
+  ) {
+    const emailPasswordCredential = await this.userRepository.findOneBy({
+      id: userId,
+    });
+    if (emailPasswordCredential) {
+      if (
+        await bcrypt.compare(
+          verifyChangePasswordInfoDto.oldPassword,
+          emailPasswordCredential.password
+        )
+      ) {
+        await this.bullService.addJob(
+          JobName.SEND_OTP_TO_VERIFY_CHANGE_PASSWORD,
+          {
+            accountId: userId,
+            otp: randomString.generate({
+              length: 6,
+              charset: 'numeric',
+            }),
+            to: emailPasswordCredential.email,
+          }
+        );
+        return {
+          ...verifyChangePasswordInfoDto,
+          email: emailPasswordCredential.email,
+        };
+      }
+    }
+    return false;
+  }
+
+  async changePassword(userId: number, changePasswordDto: ChangePasswordDto) {
+    const verifyChangePasswordInfoJson = await this.redisClient.get(
+      KeyGenerator.verifyChangePasswordInfoKey(userId)
+    );
+    if (verifyChangePasswordInfoJson !== null) {
+      const verifyChangePasswordInfo = JSON.parse(verifyChangePasswordInfoJson);
+      if (verifyChangePasswordInfo.otp === changePasswordDto.otp) {
+        await this.userRepository.update(
+          {
+            id: userId,
+          },
+          {
+            password: await bcrypt.hash(changePasswordDto.newPassword, 10),
+          }
+        );
+        await this.redisClient.del(
+          KeyGenerator.verifyChangePasswordInfoKey(userId)
+        );
+        return true;
+      }
+    }
+    return false;
   }
 }

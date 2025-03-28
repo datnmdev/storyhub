@@ -25,6 +25,7 @@ import ReaderStoryFilterPage from '@pages/ReaderStoryFilterPage';
 import ReaderRankPage from '@pages/ReaderRankPage';
 import ReaderFollowManagementPage from '@pages/ReaderFollowManagementPage';
 import ReaderPersonalProfilePage from '@pages/ReaderPersonalProfilePage';
+import ReaderChangePasswordPage from '@pages/ReaderChangePasswordPage';
 
 const router = createBrowserRouter([
   {
@@ -181,6 +182,16 @@ const router = createBrowserRouter([
           <Protected role={Role.READER}>
             <ReaderLayout>
               <ReaderPersonalProfilePage />
+            </ReaderLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.readerChangePasswordPage(),
+        element: (
+          <Protected role={Role.READER}>
+            <ReaderLayout>
+              <ReaderChangePasswordPage />
             </ReaderLayout>
           </Protected>
         ),

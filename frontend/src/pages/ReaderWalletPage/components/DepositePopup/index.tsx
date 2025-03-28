@@ -16,20 +16,18 @@ import IconButton from '@components/IconButton';
 import LoadingIcon from '@assets/icons/gifs/loading.gif';
 import MenuItem from '@components/MenuItem';
 import { BankCode } from '@constants/payment.constant';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 
 function DepositePopup({ title, onClose }: DepositePopupProps) {
   const { t } = useTranslation();
+  const [defaultInputData] = useState({
+    amount: '',
+    bankCode: '-1',
+  });
   const { values, handleChange, errors, validateAll } = useFormValidation<
     InputData,
     InputError
-  >(
-    {
-      amount: '',
-      bankCode: '-1',
-    },
-    generateValidateSchema()
-  );
+  >(defaultInputData, generateValidateSchema());
   const { data, isLoading, error, setRefetch } = useFetch<string>(
     apis.depositeTransactionApi.createPaymentUrl,
     { body: values },

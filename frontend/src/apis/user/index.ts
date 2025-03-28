@@ -37,6 +37,15 @@ const authApi = {
   getAllAuthor: () => {
     return axiosInstance().get(`/user/get-all-author`);
   },
+  verifyChangePasswordInfo: (options: RequestInit) => {
+    return axiosInstance().post(
+      '/auth/verify-change-password-info',
+      options.body
+    );
+  },
+  changePassword: (options: RequestInit) => {
+    return axiosInstance().post('/auth/change-password', options.body);
+  },
 };
 
 export default authApi;

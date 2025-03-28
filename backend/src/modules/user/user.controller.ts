@@ -21,6 +21,9 @@ import { VerifyAccountDto } from './dto/verify-account.dto';
 import { ResendOtpDto } from './dto/resend-otp.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { User } from '@/common/decorators/user.decorator';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { VerifyChangePasswordInfoDto } from './dto/verify-change-password-info.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -148,6 +151,25 @@ export class AuthController {
   @Post('reset-password')
   resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
     return this.userService.resetPassword(resetPasswordDto);
+  }
+
+  @Post('verify-change-password-info')
+  verifyChangePasswordInfo(
+    @User('id') userId: number,
+    @Body() verifyChangePasswordInfoDto: VerifyChangePasswordInfoDto
+  ) {
+    return this.userService.verifyChangePasswordInfo(
+      userId,
+      verifyChangePasswordInfoDto
+    );
+  }
+
+  @Post('change-password')
+  changePassword(
+    @User('id') userId: number,
+    @Body() changePasswordDto: ChangePasswordDto
+  ) {
+    return this.userService.changePassword(userId, changePasswordDto);
   }
 }
 

@@ -20,6 +20,7 @@ const paths = {
   storyFilterPage: () => '/story-filter',
   readerFollowManagementPage: () => '/reader/follow-management',
   readerPersonalProfilePage: () => '/reader/setting/personal-profile',
+  readerChangePasswordPage: () => '/reader/setting/change-password',
   managerDashboardPage: () => '/manager',
   authorHomePage: () => '/author',
   moderatorHomePage: () => '/moderator',

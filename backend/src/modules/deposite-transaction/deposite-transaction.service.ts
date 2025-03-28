@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import * as moment from 'moment';
-import { CreatePaymentUrlDto } from './dto/create-payment-url.dto';
+import { CreatePaymentUrlDto } from './dtos/create-payment-url.dto';
 import * as qs from 'qs';
 import * as crypto from 'crypto';
 import VnpayUtils from '@/common/utils/vnpay.util';
@@ -15,14 +15,14 @@ import { DepositeTransaction } from './entities/deposite-transaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { REDIS_CLIENT } from '@/common/redis/redis.constants';
 import { RedisClient } from '@/common/redis/redis.type';
-import { HandleVnpayIpnDto } from './dto/handle-vnpay-ipn.dto';
+import { HandleVnpayIpnDto } from './dtos/handle-vnpay-ipn.dto';
 import { plainToInstance } from 'class-transformer';
 import { DepositeTransactionStatus } from '@/common/constants/deposite-transaction.constants';
 import { WalletService } from '../wallet/wallet.service';
 import * as ejs from 'ejs';
 import * as path from 'path';
 import { Wallet } from '../wallet/entities/wallet.entity';
-import { GetDepositeTransHistoryDto } from './dto/get-deposite-transaction-history.dto';
+import { GetDepositeTransHistoryDto } from './dtos/get-deposite-transaction-history.dto';
 
 @Injectable()
 export class DepositeTransactionService {

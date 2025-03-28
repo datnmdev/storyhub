@@ -7,17 +7,17 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { GetRatingCountDto } from './dto/get-rating-count.dto';
-import { GetRatingDto } from './dto/get-rating.dto';
+import { GetRatingCountDto } from './dtos/get-rating-count.dto';
+import { GetRatingDto } from './dtos/get-rating.dto';
 import { RatingService } from './rating.service';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { User } from '@/common/decorators/user.decorator';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { Role } from '@/common/constants/user.constants';
-import { GetRatingSummaryDto } from './dto/get-rating-summary.dto';
-import { CreateRatingDto } from './dto/create-rating.dto';
-import { UpdateRatingDto } from './dto/update-rating.dto';
-import { GetTopRatingStoryDto } from './dto/get-top-rating-story.dto';
+import { GetRatingSummaryDto } from './dtos/get-rating-summary.dto';
+import { CreateRatingDto } from './dtos/create-rating.dto';
+import { UpdateRatingDto } from './dtos/update-rating.dto';
+import { GetTopRatingStoryDto } from './dtos/get-top-rating-story.dto';
 
 @Controller('rating')
 export class RatingController {

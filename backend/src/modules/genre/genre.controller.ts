@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { GetGenreWithFilterDto } from './dto/get-genre-with-filter.dto';
+import { GetGenreWithFilterDto } from './dtos/get-genre-with-filter.dto';
 import { GenreService } from './genre.service';
 
 @Controller('genre')

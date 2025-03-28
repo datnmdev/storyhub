@@ -59,7 +59,7 @@ function ReaderPersonalProfilePage() {
               </Link>
             </li>
 
-            <li 
+            <li
               className="grow"
               hidden={profile?.user?.authType != AuthType.EMAIL_PASSWORD}
             >

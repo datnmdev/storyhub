@@ -51,9 +51,9 @@ function Loading({
         )}
       ></div>
 
-      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center z-[1]">
+      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center z-[1] p-4">
         <img className="w-24" src={LoadingIcon} alt="Loading Icon" />
-        <div className="font-[500] animate-[fadeIn_2.5s_linear_0s_both_infinite]">
+        <div className="font-[500] animate-[fadeIn_2.5s_linear_0s_both_infinite] text-center">
           {message}
         </div>
       </div>

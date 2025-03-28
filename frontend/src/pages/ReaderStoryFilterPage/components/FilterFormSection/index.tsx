@@ -12,7 +12,7 @@ import {
 } from './FilterFormSection.type';
 import { StoryStatus, StoryType } from '@constants/story.constants';
 
-const defaultInputData: FilterInputData = {
+export const defaultInputData: FilterInputData = {
   authorId: undefined,
   status: JSON.stringify([StoryStatus.RELEASING, StoryStatus.COMPLETED]),
   countryId: undefined,
@@ -26,7 +26,11 @@ const defaultInputData: FilterInputData = {
   limit: 24,
 };
 
-function FilterFormSection({ onChange, onSubmit }: FilterFormSectionProps) {
+function FilterFormSection({
+  value,
+  onChange,
+  onSubmit,
+}: FilterFormSectionProps) {
   const { t } = useTranslation();
   const { data: authors } = useFetch(apis.authApi.getAllAuthor);
   const { data: countries } = useFetch(apis.countryApi.getCountries, {
@@ -42,7 +46,7 @@ function FilterFormSection({ onChange, onSubmit }: FilterFormSectionProps) {
     },
   });
   const [isHidden, setHidden] = useState(false);
-  const [inputData, setInputData] = useState<FilterInputData>(defaultInputData);
+  const [inputData, setInputData] = useState<FilterInputData>(value);
   const [selectedValues, setSelectedValues] = useState<number[]>([]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +78,20 @@ function FilterFormSection({ onChange, onSubmit }: FilterFormSectionProps) {
     if (onChange) {
       onChange(inputData);
     }
-  }, [inputData]);
+  }, [
+    inputData.type,
+    inputData.status,
+    inputData.orderBy,
+    inputData.page,
+    inputData.limit,
+    inputData.genres,
+    inputData.countryId,
+    inputData.authorId,
+  ]);
+
+  useEffect(() => {
+    setInputData(value);
+  }, [value]);
 
   return (
     <div>

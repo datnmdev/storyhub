@@ -10,6 +10,7 @@ export interface FilterInputData extends Pagination {
 }
 
 export interface FilterFormSectionProps {
+  value: FilterInputData;
   onChange?: (data: FilterInputData) => void;
   onSubmit?: () => void;
 }

@@ -36,7 +36,7 @@ export class GetStoryWithFilterDto extends Pagination {
   @IsOptional()
   @IsArray()
   @ArrayElementsIn([StoryStatus.RELEASING, StoryStatus.COMPLETED])
-  status: string[];
+  status: string[] = [StoryStatus.RELEASING, StoryStatus.COMPLETED];
 
   @Transform(({ value }) => Number(value))
   @IsOptional()

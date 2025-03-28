@@ -34,6 +34,7 @@ import { ViewModule } from './modules/view/view.module';
 import { AliasModule } from './modules/alias/alias.module';
 import { GenreModule } from './modules/genre/genre.module';
 import { InvoiceModule } from './modules/invoice/invoice.module';
+import { HistoryModule } from './modules/history/history.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { InvoiceModule } from './modules/invoice/invoice.module';
     AliasModule,
     GenreModule,
     InvoiceModule,
+    HistoryModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -138,7 +140,8 @@ export class AppModule implements NestModule {
           method: RequestMethod.DELETE,
         },
         'auth/verify-change-password-info',
-        'auth/change-password'
+        'auth/change-password',
+        'history'
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

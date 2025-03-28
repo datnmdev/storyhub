@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { View } from './entities/view.entity';
 import { DataSource, Repository } from 'typeorm';
-import { GetTopStoryDto } from './dto/get-top-story.dto';
+import { GetTopStoryDto } from './dtos/get-top-story.dto';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
 import { plainToInstance } from 'class-transformer';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';

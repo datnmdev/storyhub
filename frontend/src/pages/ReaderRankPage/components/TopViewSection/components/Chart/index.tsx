@@ -224,8 +224,6 @@ function Chart() {
   useEffect(() => {
     if (!isLoading) {
       if (data) {
-        console.log(data);
-
         setOptions({
           ...Object.assign({}, options),
           series: [

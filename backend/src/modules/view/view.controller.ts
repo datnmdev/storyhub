@@ -1,9 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { getViewCountOfStoryDto } from './dto/get-view-count-of-story.dto';
-import { GetTopStoryDto } from './dto/get-top-story.dto';
+import { getViewCountOfStoryDto } from './dtos/get-view-count-of-story.dto';
+import { GetTopStoryDto } from './dtos/get-top-story.dto';
 import { ViewService } from './view.service';
-import { GetViewCountOfChapterDto } from './dto/get-view-count-of-chapter.dto';
-import { GetTopViewChartDataDto } from './dto/get-top-view-chart-data.dto';
+import { GetViewCountOfChapterDto } from './dtos/get-view-count-of-chapter.dto';
+import { GetTopViewChartDataDto } from './dtos/get-top-view-chart-data.dto';
 
 @Controller('view')
 export class ViewController {

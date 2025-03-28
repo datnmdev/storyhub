@@ -7,6 +7,7 @@ import classNames from 'classnames';
 function Popup({
   title = 'Cửa sổ popup',
   width = 420,
+  maxHeight = 420,
   minHeight = 48,
   children,
   onClose,
@@ -23,7 +24,7 @@ function Popup({
       ></div>
       <div
         className={classNames(
-          'rounded-[8px] z-[1] p-4 animate-fadeIn',
+          'rounded-[8px] z-[1] p-4 animate-fadeIn overflow-hidden flex flex-col',
           themeValue === 'light'
             ? 'light light__boxShadow'
             : 'dark dark__boxShadow'
@@ -32,6 +33,7 @@ function Popup({
           width,
           maxWidth: window.innerWidth - 32,
           minHeight,
+          maxHeight,
         }}
       >
         <div className="flex justify-between items-center">
@@ -45,7 +47,7 @@ function Popup({
           </div>
         </div>
 
-        <div className="grow mt-4">{children}</div>
+        <div className="grow mt-4 overflow-auto">{children}</div>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsInt, IsNotEmpty } from 'class-validator';
 import { ImageContent } from '../entities/image-content.entity';
 import { TextContent } from '../entities/text-content.entity';
+import { History } from '@/modules/history/entities/history.entity';
 
 export class GetChapterContentDto {
   @Transform(({ value }) => Number(value))
@@ -31,6 +32,9 @@ export class TextContentDto {
   text: TextContent;
 
   @Expose()
+  history: History;
+
+  @Expose()
   storyId: number;
 }
 
@@ -53,6 +57,9 @@ export class ImageContentDto {
 
   @Expose()
   images: ImageContent[];
+
+  @Expose()
+  history: History;
 
   @Expose()
   storyId: number;

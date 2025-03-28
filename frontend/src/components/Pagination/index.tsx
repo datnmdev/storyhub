@@ -39,7 +39,7 @@ function Pagination(props: PaginationProps) {
           } else if (type === 'previous' && props.isPrevBtnVisible) {
             children = (
               <button
-                className="space-x-3 hover:text-[var(--primary)] w-[72px]"
+                className="space-x-3 hover:text-[var(--primary)] min-w-[72px]"
                 type="button"
                 {...item}
                 style={{
@@ -56,7 +56,7 @@ function Pagination(props: PaginationProps) {
           } else if (type === 'next' && props.isNextBtnVisible) {
             children = (
               <button
-                className="space-x-3 hover:text-[var(--primary)] w-[72px]"
+                className="space-x-3 hover:text-[var(--primary)] min-w-[72px]"
                 type="button"
                 {...item}
                 style={{

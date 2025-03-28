@@ -2,7 +2,7 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Invoice } from './entities/invoice.entity';
 import { Brackets, DataSource, Repository } from 'typeorm';
-import { GetInvoiceDto } from './dto/get-invoice.dto';
+import { GetInvoiceDto } from './dtos/get-invoice.dto';
 import { PriceService } from '../price/price.service';
 import { ChapterService } from '../chapter/chapter.service';
 import { WalletService } from '../wallet/wallet.service';

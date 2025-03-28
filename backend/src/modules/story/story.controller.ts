@@ -1,7 +1,7 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { GetStoryWithFilterDto } from './dto/get-story-with-filter.dto';
+import { GetStoryWithFilterDto } from './dtos/get-story-with-filter.dto';
 import { StoryService } from './story.service';
-import { SearchStoryDto } from './dto/search-story.dto';
+import { SearchStoryDto } from './dtos/search-story.dto';
 
 @Controller('story')
 export class StoryController {

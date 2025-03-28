@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Story } from './entities/story.entity';
 import { Brackets, Repository } from 'typeorm';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
-import { GetStoryWithFilterDto } from './dto/get-story-with-filter.dto';
+import { GetStoryWithFilterDto } from './dtos/get-story-with-filter.dto';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
 import { StoryStatus } from '@/common/constants/story.constants';

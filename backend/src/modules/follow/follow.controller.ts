@@ -7,17 +7,17 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { GetFollowerCountDto } from './dto/get-follower-count.dto';
+import { GetFollowerCountDto } from './dtos/get-follower-count.dto';
 import { FollowService } from './follow.service';
 import { Roles } from '@/common/decorators/roles.decorator';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { User } from '@/common/decorators/user.decorator';
-import { GetFollowDto } from './dto/get-follow.dto';
+import { GetFollowDto } from './dtos/get-follow.dto';
 import { Role } from '@/common/constants/user.constants';
-import { FollowDto } from './dto/follow.dto';
-import { UnfollowDto } from './dto/unfollow.dto';
-import { GetTopFollowStoryDto } from './dto/get-top-follow-story.dto';
-import { GetFollowWithFilterDto } from './dto/get-follow-with-filter.dto';
+import { FollowDto } from './dtos/follow.dto';
+import { UnfollowDto } from './dtos/unfollow.dto';
+import { GetTopFollowStoryDto } from './dtos/get-top-follow-story.dto';
+import { GetFollowWithFilterDto } from './dtos/get-follow-with-filter.dto';
 
 @Controller('follow')
 export class FollowController {

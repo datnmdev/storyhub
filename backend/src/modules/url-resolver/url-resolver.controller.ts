@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { NextFunction, Response } from 'express';
-import { GetDataDto } from './dto/get-data.dto';
+import { GetDataDto } from './dtos/get-data.dto';
 import { plainToInstance } from 'class-transformer';
 import { EncryptedUrl } from '@/common/url-cipher/url-cipher.class';
 import { UrlPrefix } from '@/common/constants/url-resolver.constants';

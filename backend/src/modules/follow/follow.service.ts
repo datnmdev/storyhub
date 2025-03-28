@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Brackets, DataSource, Repository } from 'typeorm';
 import { FollowDetail } from './entities/follow-detail.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GetTopFollowStoryDto } from './dto/get-top-follow-story.dto';
+import { GetTopFollowStoryDto } from './dtos/get-top-follow-story.dto';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { Story } from '../story/entities/story.entity';
 import { plainToInstance } from 'class-transformer';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
-import { GetFollowWithFilterDto } from './dto/get-follow-with-filter.dto';
+import { GetFollowWithFilterDto } from './dtos/get-follow-with-filter.dto';
 import { ChapterInfoPublicDto } from '../chapter/dtos/get-chapter-with-filter.dto';
 
 @Injectable()

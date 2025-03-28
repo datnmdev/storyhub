@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
-import { GetGenreWithFilterDto } from './dto/get-genre-with-filter.dto';
+import { GetGenreWithFilterDto } from './dtos/get-genre-with-filter.dto';
 import { Genre } from './entities/genre.entity';
 
 @Injectable()

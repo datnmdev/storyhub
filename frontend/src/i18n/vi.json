@@ -8,7 +8,7 @@
     "header": {
       "nav": {
         "home": "TRANG CHỦ",
-        "novel": "TRUYỆN CHỮ",
+        "novel": "TIỂU THUYẾT",
         "comic": "TRUYỆN TRANH",
         "search": "TÌM TRUYỆN",
         "rank": "XẾP HẠNG"
@@ -141,7 +141,7 @@
         "depositePopup": {
           "amount": "Số tiền muốn nạp",
           "bankCode": {
-            "label": "Phương thức thanh toán",
+            "label": "Loại tài khoản/thẻ thanh toán",
             "vnpayQl": "Thanh toán qua ứng dụng hỗ trợ VNPAYQR",
             "vnBank": "Thanh toán qua ATM-Tài khoản ngân hàng nội địa",
             "intCard": "Thanh toán qua thẻ quốc tế"
@@ -277,7 +277,7 @@
           }
         },
         "paymentRemindPopup": {
-          "title": "Xác nhận thanh toán chương",
+          "title": "Xác nhận mua chương",
           "content": "Bạn sẽ mất <span style='color:red;font-weight:500;'>{{value}}đ</span> để đọc chương này. Bạn có muốn tiếp tục không?",
           "btn": {
             "ok": "Tiếp tục",
@@ -562,6 +562,35 @@
           "title": "Xác thực việc thay đổi mật khẩu"
         }
       }
+    },
+    "readingHistoryPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "readingHistoryPage": "Lịch Sử Đọc Truyện"
+        }
+      },
+      "readingHistorySection": {
+        "title": "Lịch sử đọc truyện",
+        "btn": {
+          "deleteAllBtn": "Xoá tất cả",
+          "continueReadingBtn": "Đọc tiếp",
+          "reviewDetailBtn": "Xem chi tiết"
+        },
+        "loading": {
+          "message": "Đang lấy lịch sử đọc truyện...",
+          "handlingReqMessage": "Đang xử lý yêu cầu..."
+        },
+        "item": {
+          "mostRecentlyReadingTimeAt": "Lần đọc gần nhất vào lúc {{value}}",
+          "mostRecentlyReadedChapter": "Chương đọc gần nhất:"
+        },
+        "reviewDetailReadingHistoryPopup": {
+          "title": "Lịch sử đọc truyện của từng chương",
+          "mostRecentlyReadingTimeAt": "Lần đọc gần nhất vào lúc {{value}}",
+          "firstReadingTimeAt": "Lần đọc đầu tiên vào lúc {{value}}"
+        }
+      }
     }
   },
   "validation": {
@@ -577,7 +606,7 @@
     "length": "Trường này phải có độ dài {{length}}",
     "numberString": "Trường này chỉ bao gồm chữ số",
     "amount": "Số tiền nạp tối thiểu 10,000 VND",
-    "bankCode": "Phương thức thanh toán không hợp lệ",
+    "bankCode": "Loại tài khoản/thẻ thanh toán không hợp lệ",
     "number": "Truờng này chỉ bao gồm các chữ số"
   },
   "errorPage": {
@@ -615,7 +644,10 @@
     "updateProfileFailed": "Đã có lỗi xảy ra trong quá trình lưu thông tin hồ sơ cá nhân. Vui lòng thử lại",
     "verifyChangePasswordFailed": "Mật khẩu hiện tại không đúng",
     "changePasswordSuccess": "Đổi mật khẩu thành công",
-    "changePasswordFailed": "Đã có lỗi xảy ra trong quá trình đồi mật khẩu. Vui lòng thử lại"
+    "changePasswordFailed": "Đã có lỗi xảy ra trong quá trình đồi mật khẩu. Vui lòng thử lại",
+    "deleteAllReadingHistorySuccess": "Xoá tất cả lịch sử đọc truyện thành công",
+    "deleteReadingHistoryByStoryIdSuccess": "Xoá lịch sử đọc của bộ truyện thành công",
+    "deleteReadingHistoryByChapterIdSuccess": "Xoá lịch sử đọc của chương thành công"
   },
   "pagination": {
     "next": "Sau",
@@ -625,6 +657,7 @@
   },
   "loading": {
     "getDepositeTransHistory": "Đang lấy lịch sử nạp tiền...",
-    "getInvoiceHistory": "Đang lấy lịch sử thanh toán..."
+    "getInvoiceHistory": "Đang lấy lịch sử thanh toán...",
+    "scrollPosition": "Đang chuyển đến vị trí đã đọc gần nhất. Vui lòng chời trong giây lát"
   }
 }

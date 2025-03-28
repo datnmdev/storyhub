@@ -38,6 +38,7 @@ export interface ImageContent {
 export interface ChapterTranslation extends Chapter {
   images: ImageContent[];
   text: TextContent;
+  history: any;
   country: Country;
 }
 

@@ -2,7 +2,8 @@ import colors from '@assets/colors';
 import { ButtonProps } from './Button.type';
 
 function Button({
-  width = 120,
+  width,
+  minWidth,
   height = 38,
   color = colors.white,
   bgColor = colors.primary,
@@ -16,7 +17,13 @@ function Button({
     <div
       className="flex justify-center items-center hover:opacity-60 cursor-pointer select-none"
       style={{
-        width,
+        width:
+          width !== undefined
+            ? width
+            : minWidth !== undefined
+              ? undefined
+              : 120,
+        minWidth,
         height,
         color,
         backgroundColor: disabled ? 'var(--gray)' : bgColor,

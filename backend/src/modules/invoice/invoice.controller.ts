@@ -4,8 +4,8 @@ import { RolesGuard } from '@/common/guards/roles.guard';
 import { User } from '@/common/decorators/user.decorator';
 import { InvoiceService } from './invoice.service';
 import { Role } from '@/common/constants/user.constants';
-import { GetInvoiceDto } from './dto/get-invoice.dto';
-import { CreateInvoiceDto } from './dto/create-invoice.dto';
+import { GetInvoiceDto } from './dtos/get-invoice.dto';
+import { CreateInvoiceDto } from './dtos/create-invoice.dto';
 
 @Controller('invoice')
 export class InvoiceController {

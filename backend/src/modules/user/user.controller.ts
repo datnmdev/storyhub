@@ -14,16 +14,16 @@ import { Token } from '@/common/jwt/jwt.type';
 import { plainToClass } from 'class-transformer';
 import { ConfigService } from '@/common/config/config.service';
 import { UserService } from './user.service';
-import { SignInWithEmailPasswordDto } from './dto/sign-in-with-email-password.dto';
-import { SignUpDto } from './dto/sign-up.dto';
-import { ValidateEmailDto } from './dto/validate-email.dto';
-import { VerifyAccountDto } from './dto/verify-account.dto';
-import { ResendOtpDto } from './dto/resend-otp.dto';
-import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { ResetPasswordDto } from './dto/reset-password.dto';
+import { SignInWithEmailPasswordDto } from './dtos/sign-in-with-email-password.dto';
+import { SignUpDto } from './dtos/sign-up.dto';
+import { ValidateEmailDto } from './dtos/validate-email.dto';
+import { VerifyAccountDto } from './dtos/verify-account.dto';
+import { ResendOtpDto } from './dtos/resend-otp.dto';
+import { ForgotPasswordDto } from './dtos/forgot-password.dto';
+import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { User } from '@/common/decorators/user.decorator';
-import { ChangePasswordDto } from './dto/change-password.dto';
-import { VerifyChangePasswordInfoDto } from './dto/verify-change-password-info.dto';
+import { ChangePasswordDto } from './dtos/change-password.dto';
+import { VerifyChangePasswordInfoDto } from './dtos/verify-change-password-info.dto';
 
 @Controller('auth')
 export class AuthController {

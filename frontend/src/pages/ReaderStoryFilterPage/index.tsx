@@ -3,7 +3,9 @@ import { BreadcrumbProps } from '@components/Breadcrumb/Breadcrumb.type';
 import paths from '@routers/router.path';
 import { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import FilterFormSection from './components/FilterFormSection';
+import FilterFormSection, {
+  defaultInputData,
+} from './components/FilterFormSection';
 import { FilterInputData } from './components/FilterFormSection/FilterFormSection.type';
 import useFetch from '@hooks/fetch.hook';
 import apis from '@apis/index';
@@ -11,14 +13,23 @@ import { RequestInit } from '@apis/api.type';
 import LoadingWrapper from '@components/LoadingWrapper';
 import StoryItem from '@components/StoryItem';
 import Pagination from '@components/Pagination';
+import { useLocation } from 'react-router-dom';
 
 function ReaderStoryFilterPage() {
   const { t } = useTranslation();
+  const location = useLocation();
   const [isSumit, setSubmit] = useState({
     value: false,
   });
-  const [requestInit, setRequestInit] =
-    useState<RequestInit<undefined, undefined, FilterInputData>>();
+  const [inputData, setInputData] = useState(defaultInputData);
+  const [requestInit, setRequestInit] = useState<
+    RequestInit<undefined, undefined, FilterInputData>
+  >({
+    queries: {
+      page: 1,
+      limit: 18,
+    },
+  });
   const { data, isLoading, setRefetch } = useFetch(
     apis.storyApi.getStoryWithFilter,
     requestInit,
@@ -37,6 +48,27 @@ function ReaderStoryFilterPage() {
   ];
 
   useEffect(() => {
+    if (location.state) {
+      setInputData(() => ({
+        ...inputData,
+        type: JSON.stringify([location.state.storyType]),
+      }));
+      setSubmit({
+        value: true,
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    setRequestInit({
+      queries: {
+        ...requestInit.queries,
+        ...inputData,
+      },
+    });
+  }, [inputData]);
+
+  useEffect(() => {
     if (isSumit.value) {
       setRefetch({
         value: true,
@@ -52,11 +84,8 @@ function ReaderStoryFilterPage() {
 
       <div>
         <FilterFormSection
-          onChange={(data) =>
-            setRequestInit({
-              queries: data,
-            })
-          }
+          value={inputData}
+          onChange={(data) => setInputData(data)}
           onSubmit={() =>
             setSubmit({
               value: true,

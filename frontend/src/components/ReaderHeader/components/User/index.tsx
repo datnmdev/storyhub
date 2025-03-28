@@ -126,6 +126,7 @@ function User() {
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
                 to={paths.readerWalletPage()}
+                onClick={() => setHiddenBox(true)}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-wallet"></i>
@@ -139,6 +140,7 @@ function User() {
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
                 to={paths.readerFollowManagementPage()}
+                onClick={() => setHiddenBox(true)}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-heart"></i>
@@ -150,7 +152,8 @@ function User() {
             <li>
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
-                to="#"
+                to={paths.readerHistoryPage()}
+                onClick={() => setHiddenBox(true)}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-check-to-slot"></i>
@@ -163,6 +166,7 @@ function User() {
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
                 to={paths.readerPersonalProfilePage()}
+                onClick={() => setHiddenBox(true)}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-gear"></i>
@@ -174,11 +178,12 @@ function User() {
             <li>
               <div
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
-                onClick={() =>
+                onClick={() => {
+                  setHiddenBox(true);
                   setSignOut({
                     value: true,
-                  })
-                }
+                  });
+                }}
               >
                 <span className="text-[1.6rem]">
                   <i className="fa-solid fa-right-from-bracket"></i>

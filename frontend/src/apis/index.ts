@@ -13,6 +13,7 @@ import invoiceApi from './invoice';
 import aliasApi from './alias';
 import genreApi from './genre';
 import uploadApi from './upload';
+import historyApi from './history';
 
 const apis = {
   authApi,
@@ -30,6 +31,7 @@ const apis = {
   aliasApi,
   genreApi,
   uploadApi,
+  historyApi,
 };
 
 export default apis;

@@ -1,7 +1,7 @@
 import { Inject, Injectable, Res } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository, Transaction } from 'typeorm';
-import { SignInWithEmailPasswordDto } from './dto/sign-in-with-email-password.dto';
+import { SignInWithEmailPasswordDto } from './dtos/sign-in-with-email-password.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@/common/jwt/jwt.service';
 import { plainToInstance } from 'class-transformer';
@@ -26,16 +26,16 @@ import { BullService } from '@/common/bull/bull.service';
 import { JobName } from '@/common/constants/bull.constants';
 import * as randomString from 'randomstring';
 import { SendOtpData } from '@/common/types/mail.type';
-import { SignUpDto } from './dto/sign-up.dto';
-import { VerifyAccountDto } from './dto/verify-account.dto';
-import { ResendOtpDto } from './dto/resend-otp.dto';
+import { SignUpDto } from './dtos/sign-up.dto';
+import { VerifyAccountDto } from './dtos/verify-account.dto';
+import { ResendOtpDto } from './dtos/resend-otp.dto';
 import * as moment from 'moment';
-import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { ForgotPasswordDto } from './dtos/forgot-password.dto';
 import * as crypto from 'crypto';
-import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { UrlPrefix } from '@/common/constants/url-resolver.constants';
-import { ChangePasswordDto } from './dto/change-password.dto';
-import { VerifyChangePasswordInfoDto } from './dto/verify-change-password-info.dto';
+import { ChangePasswordDto } from './dtos/change-password.dto';
+import { VerifyChangePasswordInfoDto } from './dtos/verify-change-password-info.dto';
 
 @Injectable()
 export class UserService {

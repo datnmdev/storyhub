@@ -11,6 +11,9 @@ const KeyGenerator = {
   stateToResetPasswordKey: (accountId: number) => {
     return `auth:reset-password:state:${accountId}`;
   },
+  verifyChangePasswordInfoKey: (userId: number) => {
+    return `change-password:verify-info:${userId}`;
+  },
 };
 
 export default KeyGenerator;

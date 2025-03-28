@@ -1,5 +1,5 @@
 import InputWithIcon from '@components/InputWithIcon';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import KeyIcon from '@assets/icons/static/key.png';
 import { useTranslation } from 'react-i18next';
 import { Link, Location, useLocation, useNavigate } from 'react-router-dom';
@@ -25,25 +25,25 @@ import { InputData, InputError } from './SignInWithEmailForm.type';
 import paths from '@routers/router.path';
 import { JwtPayload } from '@type/jwt.type';
 import { jwtDecode } from 'jwt-decode';
+import { RequestInit } from '@apis/api.type';
 
 function SignInWithEmailForm() {
   const dispatch = useAppDispatch();
   const location: Location<LocationState> = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [defaultInputData] = useState({
+    email: '',
+    password: '',
+  });
   const { values, handleChange, errors, validateAll } = useFormValidation<
     InputData,
     InputError
-  >(
-    {
-      email: '',
-      password: '',
-    },
-    generateValidateSchema()
-  );
+  >(defaultInputData, generateValidateSchema());
+  const [signInRequest, setSignInRequest] = useState<RequestInit>();
   const { data, isLoading, error, setRefetch } = useFetch<Token>(
     apis.authApi.signInWithEmailPassword,
-    { body: values },
+    signInRequest,
     false
   );
 
@@ -147,6 +147,11 @@ function SignInWithEmailForm() {
           borderRadius="50%"
           onClick={async () => {
             if (await validateAll()) {
+              setSignInRequest(() => ({
+                body: {
+                  ...values,
+                },
+              }));
               setRefetch({
                 value: true,
               });

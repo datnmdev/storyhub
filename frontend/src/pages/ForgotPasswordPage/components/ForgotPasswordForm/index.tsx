@@ -1,7 +1,7 @@
 import ErrorMessage from '@components/ErrorMessage';
 import IconButton from '@components/IconButton';
 import InputWithIcon from '@components/InputWithIcon';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import LoadingIcon from '@assets/icons/gifs/loading.gif';
 import { generateValidateSchema } from './ForgotPasswordForm.schema';
 import useFetch from '@hooks/fetch.hook';
@@ -16,15 +16,13 @@ import paths from '@routers/router.path';
 function ForgotPasswordForm() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [defaultInputData] = useState({
+    email: '',
+  });
   const { values, handleChange, errors, validateAll } = useFormValidation<
     InputData,
     InputError
-  >(
-    {
-      email: '',
-    },
-    generateValidateSchema()
-  );
+  >(defaultInputData, generateValidateSchema());
   const { data, isLoading, error, setRefetch } = useFetch<boolean>(
     apis.authApi.resendOtp,
     {

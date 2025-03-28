@@ -8,6 +8,8 @@ export class BullService {
   constructor(@InjectQueue(QueueName.MAIL) private mailQueue: Queue) {}
 
   addJob(name: JobName, data: any) {
-    return this.mailQueue.add(name, data);
+    return this.mailQueue.add(name, data, {
+      attempts: 10,
+    });
   }
 }

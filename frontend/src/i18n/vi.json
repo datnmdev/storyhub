@@ -522,6 +522,46 @@
           }
         }
       }
+    },
+    "changePasswordPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "readerPersonalProfilePage": "Cài đặt"
+        }
+      },
+      "sidebar": {
+        "heading": "Cài đặt",
+        "personalProfileManagement": "Hồ sơ cá nhân",
+        "changePassword": "Đổi mật khẩu"
+      },
+      "changePasswordForm": {
+        "oldPassword": {
+          "label": "Mật khẩu hiện tại",
+          "placeholder": "Nhập mật khẩu hiện tại..."
+        },
+        "newPassword": {
+          "label": "Mật khẩu mới",
+          "placeholder": "Nhập mật khẩu mới..."
+        },
+        "repeatNewPassword": {
+          "label": "Xác nhận lại mật khẩu",
+          "placeholder": "Nhập lại mật khẩu mới..."
+        },
+        "submitBtn": "Áp dụng",
+        "resetBtn": "Làm mới",
+        "loading": {
+          "verifyInfo": {
+            "message": "Đang xác thực thông tin..."
+          },
+          "apply": {
+            "message": "Đang áp dụng mật khẩu mới. Vui lòng đợi..."
+          }
+        },
+        "verifyOtpToChangePasswordPopup": {
+          "title": "Xác thực việc thay đổi mật khẩu"
+        }
+      }
     }
   },
   "validation": {
@@ -572,7 +612,10 @@
     "unfollowSuccess": "Bỏ theo dõi truyện thành công",
     "deleteAllFollowSuccess": "Bỏ theo dõi tất cả các bộ truyện thành công",
     "updateProfileSuccess": "Cập nhật hồ sơ cá nhân thành công",
-    "updateProfileFailed": "Đã có lỗi xảy ra trong quá trình lưu thông tin hồ sơ cá nhân. Vui lòng thử lại"
+    "updateProfileFailed": "Đã có lỗi xảy ra trong quá trình lưu thông tin hồ sơ cá nhân. Vui lòng thử lại",
+    "verifyChangePasswordFailed": "Mật khẩu hiện tại không đúng",
+    "changePasswordSuccess": "Đổi mật khẩu thành công",
+    "changePasswordFailed": "Đã có lỗi xảy ra trong quá trình đồi mật khẩu. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",

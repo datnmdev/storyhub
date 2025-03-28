@@ -1,5 +1,5 @@
 import InputWithIcon from '@components/InputWithIcon';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import KeyIcon from '@assets/icons/static/key.png';
 import ErrorMessage from '@components/ErrorMessage';
 import IconButton from '@components/IconButton';
@@ -22,16 +22,14 @@ function ResetPasswordForm() {
   const navigate = useNavigate();
   const location: Location<ForgotPasswordResponseData> = useLocation();
   const { t } = useTranslation();
+  const [defaultInputData] = useState({
+    password: '',
+    repeatPassword: '',
+  });
   const { values, handleChange, errors, validateAll } = useFormValidation<
     InputData,
     InputError
-  >(
-    {
-      password: '',
-      repeatPassword: '',
-    },
-    generateValidateSchema()
-  );
+  >(defaultInputData, generateValidateSchema());
   const { data, isLoading, error, setRefetch } = useFetch<boolean>(
     apis.authApi.resetPassword,
     {

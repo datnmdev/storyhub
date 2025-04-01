@@ -1,4 +1,4 @@
-import { MouseEventHandler, PropsWithChildren } from 'react';
+import { CSSProperties, MouseEventHandler, PropsWithChildren } from 'react';
 
 export interface ButtonProps extends PropsWithChildren {
   width?: number;
@@ -10,4 +10,5 @@ export interface ButtonProps extends PropsWithChildren {
   padding?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
   disabled?: boolean;
+  sx?: CSSProperties;
 }

@@ -4,6 +4,28 @@
     "uploadImageNote": "Ảnh không được quá 10 MB và ở định dạng PNG, JPG, JPEG hoặc GIF",
     "changeAvatarBtn": "Thay đổi"
   },
+  "comment": {
+    "title": "Bình luận ({{value}})",
+    "reply": "Trả lời",
+    "reviewReplies": "Xem {{value}} phản hồi",
+    "delete": "Xoá",
+    "edit": "Chỉnh sửa",
+    "placeholder": "Ghi những cảm xúc của bạn vào đây...",
+    "loading": {
+      "message": "Đang tải bình luận"
+    },
+    "save": "Lưu",
+    "exit": "Thoát"
+  },
+  "timeAgo": {
+    "second": "{{value}} giây trước",
+    "minute": "{{value}} phút trước",
+    "hour": "{{value}} giờ trước",
+    "day": "{{value}} ngày trước",
+    "week": "{{value}} tuần trước",
+    "month": "{{value}} tháng trước",
+    "year": "{{value}} năm trước"
+  },
   "reader": {
     "header": {
       "nav": {
@@ -647,7 +669,12 @@
     "changePasswordFailed": "Đã có lỗi xảy ra trong quá trình đồi mật khẩu. Vui lòng thử lại",
     "deleteAllReadingHistorySuccess": "Xoá tất cả lịch sử đọc truyện thành công",
     "deleteReadingHistoryByStoryIdSuccess": "Xoá lịch sử đọc của bộ truyện thành công",
-    "deleteReadingHistoryByChapterIdSuccess": "Xoá lịch sử đọc của chương thành công"
+    "deleteReadingHistoryByChapterIdSuccess": "Xoá lịch sử đọc của chương thành công",
+    "createCommentSuccess": "Tạo bình luận thành công",
+    "deleteCommentSuccess": "Xoá bình luận thành công",
+    "deleteCommentFailed": "Xoá bình luận không thành công. Vui lòng thử lại",
+    "updateCommentSuccess": "Chỉnh sửa bình luận thành công",
+    "updateCommentFailed": "Chỉnh sửa bình luận không thành công. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",

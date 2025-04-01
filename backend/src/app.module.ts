@@ -35,6 +35,8 @@ import { AliasModule } from './modules/alias/alias.module';
 import { GenreModule } from './modules/genre/genre.module';
 import { InvoiceModule } from './modules/invoice/invoice.module';
 import { HistoryModule } from './modules/history/history.module';
+import { CommentModule } from './modules/comment/comment.module';
+import { CommentInteractionModule } from './modules/comment-interaction/comment-interaction.module';
 
 @Module({
   imports: [
@@ -80,6 +82,8 @@ import { HistoryModule } from './modules/history/history.module';
     GenreModule,
     InvoiceModule,
     HistoryModule,
+    CommentModule,
+    CommentInteractionModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -141,7 +145,20 @@ export class AppModule implements NestModule {
         },
         'auth/verify-change-password-info',
         'auth/change-password',
-        'history'
+        'history',
+        {
+          path: 'comment',
+          method: RequestMethod.POST,
+        },
+        {
+          path: 'comment',
+          method: RequestMethod.PUT,
+        },
+        {
+          path: 'comment',
+          method: RequestMethod.DELETE,
+        },
+        'comment-interaction'
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

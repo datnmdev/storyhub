@@ -9,6 +9,8 @@ import apis from '@apis/index';
 import { useParams } from 'react-router-dom';
 import { Story } from '@pages/ReaderHomePage/components/NewUpdateStorySection/NewUpdateStorySection.type';
 import ChapterSection from './components/ChapterSection';
+import CommentSection from './components/CommentSection';
+import { CommentType } from '@constants/comment.constants';
 
 function ReaderStoryInfoPage() {
   const { t } = useTranslation();
@@ -52,6 +54,13 @@ function ReaderStoryInfoPage() {
 
       <div>
         <ChapterSection />
+      </div>
+
+      <div>
+        <CommentSection
+          type={CommentType.STORY_COMMENT}
+          storyId={Number(storyId)}
+        />
       </div>
     </div>
   );

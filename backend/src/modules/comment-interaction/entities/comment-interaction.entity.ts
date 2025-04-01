@@ -13,13 +13,13 @@ export class CommentInteraction {
   commentId: number;
 
   @Column('enum', {
-    name: 'interactionType',
-    enum: ['like', 'disllike'],
+    name: 'interaction_type',
+    enum: ['like', 'dislike'],
   })
-  interactionType: 'like' | 'disllike';
+  interactionType: 'like' | 'dislike';
 
   @ManyToOne(() => Comment, (comment) => comment.commentInteractions, {
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     onUpdate: 'NO ACTION',
   })
   @JoinColumn([{ name: 'comment_id', referencedColumnName: 'id' }])

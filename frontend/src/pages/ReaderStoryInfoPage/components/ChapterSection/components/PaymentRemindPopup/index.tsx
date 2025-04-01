@@ -1,5 +1,5 @@
 import Popup from '@components/Popup';
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentRemindPopupProps } from './PaymentRemindPopup.type';
 import NumberUtils from '@utilities/number.util';
@@ -13,6 +13,8 @@ import toastFeature from '@features/toast';
 import { ToastType } from '@constants/toast.constants';
 import { useNavigate } from 'react-router-dom';
 import paths from '@routers/router.path';
+import Protected from '@components/Protected';
+import { Role } from '@constants/user.constants';
 
 function PaymentRemindPopup({
   chapter,
@@ -23,6 +25,7 @@ function PaymentRemindPopup({
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [enableProtected, setEnableProtected] = useState(false);
   const {
     data: isCreated,
     error: createInvoiceError,
@@ -98,17 +101,20 @@ function PaymentRemindPopup({
         />
 
         <div className="flex justify-end space-x-2 mt-2">
-          <Button
-            onClick={() =>
-              setReCreateInvoice({
-                value: true,
-              })
-            }
-          >
-            {t(
-              'reader.storyInfoPage.chapterListSection.paymentRemindPopup.btn.ok'
-            )}
-          </Button>
+          <Protected role={Role.READER} enable={enableProtected}>
+            <Button
+              onClick={() => {
+                setEnableProtected(true);
+                setReCreateInvoice({
+                  value: true,
+                });
+              }}
+            >
+              {t(
+                'reader.storyInfoPage.chapterListSection.paymentRemindPopup.btn.ok'
+              )}
+            </Button>
+          </Protected>
 
           <Button onClick={onClose}>
             {t(

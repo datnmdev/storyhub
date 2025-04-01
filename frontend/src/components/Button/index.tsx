@@ -11,6 +11,7 @@ function Button({
   padding = '0',
   children,
   disabled = false,
+  sx,
   onClick,
 }: ButtonProps) {
   return (
@@ -30,6 +31,7 @@ function Button({
         borderRadius,
         cursor: disabled ? 'not-allowed' : 'pointer',
         padding,
+        ...sx,
       }}
       onClick={disabled ? (e) => e.preventDefault() : onClick}
     >

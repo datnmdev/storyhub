@@ -42,10 +42,10 @@ function IconPicker({
         iconBoxRef.current.style.width = `${window.innerWidth - 48}px`;
       }
     }
-  }, [containerRef.current, iconBoxRef.current]);
+  }, [isOpen]);
 
   return (
-    <div ref={containerRef} className="relative inline-block z-[1]">
+    <div ref={containerRef} className="relative inline-block z-[2]">
       <div
         className="w-[32px] h-[32px] flex justify-center items-center text-[1.2rem] cursor-pointer hover:bg-[var(--gray)] rounded-full transition-colors duration-300"
         onClick={() => setOpen(!isOpen)}

@@ -92,15 +92,15 @@ function DepositePopup({ title, onClose }: DepositePopupProps) {
             <MenuItem value="-1" disabled>
               {t('reader.walletPage.content.depositePopup.bankCode.label')}
             </MenuItem>
-            <MenuItem value={String(BankCode.VNPAYQR)}>
+            {/* <MenuItem value={String(BankCode.VNPAYQR)}>
               {t('reader.walletPage.content.depositePopup.bankCode.vnpayQl')}
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem value={String(BankCode.VNBANK)}>
               {t('reader.walletPage.content.depositePopup.bankCode.vnBank')}
             </MenuItem>
-            <MenuItem value={String(BankCode.INTCARD)}>
+            {/* <MenuItem value={String(BankCode.INTCARD)}>
               {t('reader.walletPage.content.depositePopup.bankCode.intCard')}
-            </MenuItem>
+            </MenuItem> */}
           </SelectWithIcon>
           {errors.bankCode && <ErrorMessage message={errors.bankCode} />}
         </div>

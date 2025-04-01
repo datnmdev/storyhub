@@ -281,7 +281,7 @@ function Comment({ data, onDeleted }: CommentProps) {
       <div className="grow">
         <div
           className={classNames(
-            'min-h-[88px] p-4 rounded-[8px] space-x-4',
+            'min-h-[88px] p-4 rounded-[8px]',
             themeValue === 'light'
               ? 'bg-[var(--light-gray)]'
               : 'bg-inherit border-[1px] border-solid border-[var(--white)]'
@@ -306,7 +306,7 @@ function Comment({ data, onDeleted }: CommentProps) {
             )}
           </div>
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center mt-2">
             <div className="flex items-center">
               <div>
                 <IconPicker

@@ -110,83 +110,81 @@ function CommentEditor(
             : 'dark border-[1px] border-solid border-[var(--white)]'
         )}
       >
-        <div>
-          <div className="relative">
-            <div
-              ref={inputRef}
-              className={classNames(
-                'relative w-full min-h-[80px] outline-none bg-transparent z-[1] whitespace-pre-line break-all'
-              )}
-              contentEditable={true}
-            />
-
-            {!hiddenPlaceholder && (
-              <div className="w-full h-full absolute top-0 left-0 z-[0] text-[var(--dark-gray)]">
-                {t('comment.placeholder')}
-              </div>
+        <div className="relative">
+          <div
+            ref={inputRef}
+            className={classNames(
+              'relative w-full min-h-[80px] outline-none bg-transparent z-[1] whitespace-pre-line break-all'
             )}
-          </div>
+            contentEditable={true}
+          />
 
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              <div>
-                <IconPicker
-                  data={[
-                    SmileIcon,
-                    ActivityIcon,
-                    AnimalIcon,
-                    CuisineIcon,
-                    FlagIcon,
-                    ObjectIcon,
-                    PlaceIcon,
-                    SymbolIcon,
-                  ]}
-                  onClickedItem={(data) => inputRef.current?.appendChild(data)}
-                />
-              </div>
+          {!hiddenPlaceholder && (
+            <div className="w-full h-full absolute top-0 left-0 z-[0] text-[var(--dark-gray)]">
+              {t('comment.placeholder')}
+            </div>
+          )}
+        </div>
 
-              <div>
-                <IconPicker
-                  activatedIcon={<i className="fa-solid fa-gift"></i>}
-                  unactivatedIcon={<i className="fa-solid fa-gift"></i>}
-                  fontSize={40}
-                  data={[
-                    TrollFaceGifs,
-                    CheekyRabbitGifs,
-                    YoyoMonkeyGifs,
-                    BabySoldierGifs,
-                    TozokiRabbitGifs,
-                    EmoGifs,
-                    OnionGifs,
-                    PandaGifs,
-                  ]}
-                  onClickedItem={(data) => inputRef.current?.appendChild(data)}
-                />
-              </div>
+        <div className="flex justify-between items-center mt-2">
+          <div className="flex items-center">
+            <div>
+              <IconPicker
+                data={[
+                  SmileIcon,
+                  ActivityIcon,
+                  AnimalIcon,
+                  CuisineIcon,
+                  FlagIcon,
+                  ObjectIcon,
+                  PlaceIcon,
+                  SymbolIcon,
+                ]}
+                onClickedItem={(data) => inputRef.current?.appendChild(data)}
+              />
             </div>
 
             <div>
-              <IconButton
-                sx={{
-                  cursor: inputData == '' ? 'not-allowed' : 'pointer',
-                  color: inputData == '' ? 'var(--gray)' : 'inherit',
-                }}
-                icon={
-                  !isSubmitting ? (
-                    <div className="w-[32px] h-[32px] flex justify-center items-center hover:text-[var(--primary)] rounded-[50%]">
-                      <i className="fa-solid fa-paper-plane text-[1.2rem]"></i>
-                    </div>
-                  ) : (
-                    <img
-                      className="w-[32px] h-[32px] object-cover object-center"
-                      src={PrimaryLoading}
-                      alt="Loading"
-                    />
-                  )
-                }
-                onClick={() => inputData != '' && onSubmit && onSubmit()}
+              <IconPicker
+                activatedIcon={<i className="fa-solid fa-gift"></i>}
+                unactivatedIcon={<i className="fa-solid fa-gift"></i>}
+                fontSize={40}
+                data={[
+                  TrollFaceGifs,
+                  CheekyRabbitGifs,
+                  YoyoMonkeyGifs,
+                  BabySoldierGifs,
+                  TozokiRabbitGifs,
+                  EmoGifs,
+                  OnionGifs,
+                  PandaGifs,
+                ]}
+                onClickedItem={(data) => inputRef.current?.appendChild(data)}
               />
             </div>
+          </div>
+
+          <div>
+            <IconButton
+              sx={{
+                cursor: inputData == '' ? 'not-allowed' : 'pointer',
+                color: inputData == '' ? 'var(--gray)' : 'inherit',
+              }}
+              icon={
+                !isSubmitting ? (
+                  <div className="w-[32px] h-[32px] flex justify-center items-center hover:text-[var(--primary)] rounded-[50%]">
+                    <i className="fa-solid fa-paper-plane text-[1.2rem]"></i>
+                  </div>
+                ) : (
+                  <img
+                    className="w-[32px] h-[32px] object-cover object-center"
+                    src={PrimaryLoading}
+                    alt="Loading"
+                  />
+                )
+              }
+              onClick={() => inputData != '' && onSubmit && onSubmit()}
+            />
           </div>
         </div>
       </div>

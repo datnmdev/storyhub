@@ -37,6 +37,7 @@ export const authSlice = createSlice({
     signOut: (state) => {
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
+      state.user = null;
       state.isAuthenticated = false;
     },
   },

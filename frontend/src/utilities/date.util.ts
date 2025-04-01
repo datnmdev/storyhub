@@ -14,9 +14,10 @@ export interface TimeAgo {
 }
 
 export function timeAgo(date: Date, currentTime: Date = new Date()): TimeAgo {
-  const diffInSeconds = Math.floor(
+  let diffInSeconds = Math.floor(
     (currentTime.getTime() - date.getTime()) / 1000
   );
+  diffInSeconds = diffInSeconds >= 0 ? diffInSeconds : 0;
   const diffInMinutes = Math.floor(diffInSeconds / 60);
   const diffInHours = Math.floor(diffInMinutes / 60);
   const diffInDays = Math.floor(diffInHours / 24);

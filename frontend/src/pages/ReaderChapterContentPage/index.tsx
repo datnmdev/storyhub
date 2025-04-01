@@ -12,6 +12,8 @@ import Navigator from './components/Navigator';
 import ImageContentSection from './components/ImageContentSection';
 import { StoryType } from '@constants/story.constants';
 import TextContentSection from './components/TextContentSection';
+import CommentSection from './components/CommentSection';
+import { CommentType } from '@constants/comment.constants';
 
 function ReaderChapterContentPage() {
   const { t } = useTranslation();
@@ -104,6 +106,13 @@ function ReaderChapterContentPage() {
         <div className="mt-2">
           <Navigator />
         </div>
+      </div>
+
+      <div>
+        <CommentSection
+          type={CommentType.CHAPTER_COMMENT}
+          chapterId={Number(chapterId)}
+        />
       </div>
     </div>
   );

@@ -14,6 +14,8 @@ import aliasApi from './alias';
 import genreApi from './genre';
 import uploadApi from './upload';
 import historyApi from './history';
+import commentApi from './comment';
+import commentInteraction from './commentInteraction';
 
 const apis = {
   authApi,
@@ -32,6 +34,8 @@ const apis = {
   genreApi,
   uploadApi,
   historyApi,
+  commentApi,
+  commentInteraction,
 };
 
 export default apis;

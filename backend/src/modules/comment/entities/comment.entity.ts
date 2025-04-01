@@ -62,7 +62,7 @@ export class Comment {
   chapter: Chapter;
 
   @ManyToOne(() => Comment, (comment) => comment.comments, {
-    onDelete: 'NO ACTION',
+    onDelete: 'CASCADE',
     onUpdate: 'NO ACTION',
   })
   @JoinColumn([{ name: 'parent_id', referencedColumnName: 'id' }])

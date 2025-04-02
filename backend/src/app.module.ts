@@ -37,6 +37,8 @@ import { InvoiceModule } from './modules/invoice/invoice.module';
 import { HistoryModule } from './modules/history/history.module';
 import { CommentModule } from './modules/comment/comment.module';
 import { CommentInteractionModule } from './modules/comment-interaction/comment-interaction.module';
+import { SocketModule } from './modules/socket/socket.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
@@ -84,6 +86,8 @@ import { CommentInteractionModule } from './modules/comment-interaction/comment-
     HistoryModule,
     CommentModule,
     CommentInteractionModule,
+    SocketModule,
+    NotificationModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -155,7 +159,7 @@ export class AppModule implements NestModule {
           method: RequestMethod.PUT,
         },
         {
-          path: 'comment',
+          path: 'comment/:id',
           method: RequestMethod.DELETE,
         },
         'comment-interaction'

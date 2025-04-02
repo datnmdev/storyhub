@@ -1,6 +1,6 @@
-import { Inject, Injectable, Res } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, Repository, Transaction } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { SignInWithEmailPasswordDto } from './dtos/sign-in-with-email-password.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@/common/jwt/jwt.service';

@@ -1,4 +1,5 @@
 import authFeature from '@features/auth';
+import socketFeature from '@features/socket';
 import store from '@store/index';
 import axios, { HttpStatusCode } from 'axios';
 import Cookies from 'js-cookie';
@@ -42,6 +43,11 @@ export default function axiosInstance(token?: string) {
             sameSite: 'None',
             expires: 2592000 / (60 * 60 * 24),
           });
+          store.dispatch(
+            socketFeature.socketAction.setCreateNewConnection({
+              isCreateNewConnection: true,
+            })
+          );
           error.config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}`;
           return await axios(error.config);
         } else {

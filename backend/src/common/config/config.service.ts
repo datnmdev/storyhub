@@ -52,12 +52,6 @@ export class ConfigService {
     };
   }
 
-  getWebsocketConfig() {
-    return {
-      port: Number(this.nestConfigService.get('PORT_WS')),
-    };
-  }
-
   getVnpConfig() {
     return {
       vnpTmnCode: this.nestConfigService.get('VNP_TMN_CODE'),
@@ -102,6 +96,12 @@ export class ConfigService {
       serviceAccountKeyPath: this.nestConfigService.get(
         'SERVICE_ACCOUNT_KEY_PATH'
       ),
+    };
+  }
+
+  getSocketGatewayConfig() {
+    return {
+      port: Number(this.nestConfigService.get('SOCKET_GATEWAY_PORT')),
     };
   }
 }

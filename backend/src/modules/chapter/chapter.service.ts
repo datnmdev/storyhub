@@ -1,8 +1,4 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Chapter } from './entities/chapter.entity';
 import { Brackets, DataSource, Repository } from 'typeorm';
@@ -12,14 +8,13 @@ import {
   GetChapterWithFilterDto,
 } from './dtos/get-chapter-with-filter.dto';
 import { PriceService } from '../price/price.service';
-import { WalletService } from '../wallet/wallet.service';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { ChapterStatus } from '@/common/constants/chapter.constants';
 import { plainToInstance } from 'class-transformer';
-import { NotEnoughMoneyException } from '@/common/exceptions/NotEnoughMoneyException';
+import { NotEnoughMoneyException } from '@/common/exceptions/not-enough-money-exception';
 import { StoryType } from '@/common/constants/story.constants';
 import { InvoiceService } from '../invoice/invoice.service';
-import { ChapterTranslation } from '../chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from './entities/chapter-translation.entity';
 import { ImageContentDto, TextContentDto } from './dtos/get-chapter-content';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
@@ -36,7 +31,6 @@ export class ChapterService {
     private readonly chapterTranslationRepository: Repository<ChapterTranslation>,
     private readonly priceService: PriceService,
     private readonly dataSource: DataSource,
-    private readonly walletService: WalletService,
     private readonly urlCipherService: UrlCipherService,
     private readonly invoiceService: InvoiceService
   ) {}

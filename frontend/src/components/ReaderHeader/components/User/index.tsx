@@ -13,6 +13,7 @@ import paths from '@routers/router.path';
 import LoadingWrapper from '@components/LoadingWrapper';
 import { useTranslation } from 'react-i18next';
 import UrlUtils from '@utilities/url.util';
+import socketFeature from '@features/socket';
 
 function User() {
   const { t } = useTranslation();
@@ -183,6 +184,11 @@ function User() {
                   setSignOut({
                     value: true,
                   });
+                  dispatch(
+                    socketFeature.socketAction.setCreateNewConnection({
+                      isCreateNewConnection: true,
+                    })
+                  );
                 }}
               >
                 <span className="text-[1.6rem]">

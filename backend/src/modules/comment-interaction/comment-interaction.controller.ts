@@ -1,18 +1,9 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 import { User } from '@/common/decorators/user.decorator';
 import { CommentInteractionService } from './comment-interaction.service';
 import { GetInteractionDto } from './dtos/get-interaction.dto';
 import { GetInteractionCountDto } from './dtos/get-interaction-count.dto';
 import { CreateInteractionDto } from './dtos/create-interaction.dto';
-import { UpdateInteractionDto } from './dtos/update-interaction.dto';
 import { DeleteInteractionDto } from './dtos/delete-interaction.dto';
 
 @Controller('comment-interaction')

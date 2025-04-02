@@ -22,6 +22,7 @@ const paths = {
   readerPersonalProfilePage: () => '/reader/setting/personal-profile',
   readerChangePasswordPage: () => '/reader/setting/change-password',
   readerHistoryPage: () => '/reader/reading-history',
+  readerNotificationPage: () => '/reader/notification',
   managerDashboardPage: () => '/manager',
   authorHomePage: () => '/author',
   moderatorHomePage: () => '/moderator',

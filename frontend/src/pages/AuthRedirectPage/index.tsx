@@ -5,9 +5,10 @@ import { useLocation } from 'react-router-dom';
 import { Role } from '@constants/user.constants';
 import { useDispatch } from 'react-redux';
 import authFeature from '@features/auth';
+import socketFeature from '@features/socket';
 
 function AuthRedirectPage() {
-  const disatch = useDispatch();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
@@ -16,7 +17,12 @@ function AuthRedirectPage() {
     const refreshToken = params.get('refresh-token');
 
     if (accessToken && refreshToken) {
-      disatch(authFeature.authAction.signIn({ accessToken, refreshToken }));
+      dispatch(authFeature.authAction.signIn({ accessToken, refreshToken }));
+      dispatch(
+        socketFeature.socketAction.setCreateNewConnection({
+          isCreateNewConnection: true,
+        })
+      );
     }
     const preUrl = {
       url: params.get('url') || '',

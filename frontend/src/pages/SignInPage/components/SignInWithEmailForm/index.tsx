@@ -26,6 +26,7 @@ import paths from '@routers/router.path';
 import { JwtPayload } from '@type/jwt.type';
 import { jwtDecode } from 'jwt-decode';
 import { RequestInit } from '@apis/api.type';
+import socketFeature from '@features/socket';
 
 function SignInWithEmailForm() {
   const dispatch = useAppDispatch();
@@ -54,6 +55,11 @@ function SignInWithEmailForm() {
         switch (payload.status) {
           case UserStatus.ACTIVATED:
             dispatch(authFeature.authAction.signIn(data));
+            dispatch(
+              socketFeature.socketAction.setCreateNewConnection({
+                isCreateNewConnection: true,
+              })
+            );
             navigate(
               `${paths.authRedirectPage()}?${new URLSearchParams({
                 url: location.state?.from ?? '',

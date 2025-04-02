@@ -6,7 +6,7 @@ import { Chapter } from './entities/chapter.entity';
 import { PriceModule } from '../price/price.module';
 import { WalletModule } from '../wallet/wallet.module';
 import { InvoiceModule } from '../invoice/invoice.module';
-import { ChapterTranslation } from '../chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from './entities/chapter-translation.entity';
 import { ImageContent } from './entities/image-content.entity';
 import { TextContent } from './entities/text-content.entity';
 

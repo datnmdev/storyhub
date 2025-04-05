@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { NotificationUser } from '../../notification-user/entities/notification-user.entity';
+import { NotificationUser } from './notification-user.entity';
 
 @Entity('notification', { schema: 'storyhub' })
 export class Notification {

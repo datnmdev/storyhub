@@ -12,7 +12,7 @@ import { Invoice } from '../../invoice/entities/invoice.entity';
 import { ModerationRequest } from '../../moderation-request/entities/moderation-request';
 import { TranslationTask } from '../../translation-task/entities/translation-task.entity';
 import { View } from '../../view/entities/view.entity';
-import { ChapterTranslation } from '@/modules/chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 import { Comment } from '@/modules/comment/entities/comment.entity';
 
 @Index('FK_chapter_story_idx', ['storyId'], {})

@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
-import { ChapterTranslation } from '@/modules/chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 
 @Index('id_UNIQUE', ['id'], { unique: true })
 @Index('FK_history_reader_idx', ['readerId'], {})

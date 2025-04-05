@@ -2,7 +2,7 @@ import { Pagination } from '@/common/class/pagination.class';
 import { JsonToObject } from '@/common/decorators/transform.decorator';
 import { IsOrderBy } from '@/common/decorators/validation.decorator';
 import { OrderBy } from '@/common/types/typeorm.type';
-import { ChapterTranslation } from '@/modules/chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 import { Invoice } from '@/modules/invoice/entities/invoice.entity';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsInt, IsNumber, IsOptional, IsString } from 'class-validator';

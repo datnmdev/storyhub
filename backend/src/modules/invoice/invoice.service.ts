@@ -8,7 +8,7 @@ import { ChapterService } from '../chapter/chapter.service';
 import { WalletService } from '../wallet/wallet.service';
 import { plainToClass } from 'class-transformer';
 import { Wallet } from '../wallet/entities/wallet.entity';
-import { NotEnoughMoneyException } from '@/common/exceptions/NotEnoughMoneyException';
+import { NotEnoughMoneyException } from '@/common/exceptions/not-enough-money-exception';
 import { StoryService } from '../story/story.service';
 
 @Injectable()

@@ -1,4 +1,4 @@
-import { ChapterTranslation } from '@/modules/chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 import { Column, Entity, Index, JoinColumn, OneToOne } from 'typeorm';
 
 @Index(

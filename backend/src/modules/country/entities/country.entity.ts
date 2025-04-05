@@ -1,4 +1,4 @@
-import { ChapterTranslation } from '@/modules/chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 import { Story } from '@/modules/story/entities/story.entity';
 import { TranslationTask } from '@/modules/translation-task/entities/translation-task.entity';
 import { UserProfile } from '@/modules/user-profile/entities/user-profile.entity';

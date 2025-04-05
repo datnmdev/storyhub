@@ -8,18 +8,18 @@ import {
 import { History } from '../../history/entities/history.entity';
 import { Invoice } from '../../invoice/entities/invoice.entity';
 import { ModerationRequest } from '../../moderation-request/entities/moderation-request';
-import { NotificationUser } from '../../notification-user/entities/notification-user.entity';
 import { RatingDetail } from '../../rating/entities/rating-detail.entity';
 import { Story } from '../../story/entities/story.entity';
 import { TranslationTask } from '../../translation-task/entities/translation-task.entity';
 import { Wallet } from '../../wallet/entities/wallet.entity';
 import { UserProfile } from '@/modules/user-profile/entities/user-profile.entity';
-import { ChapterTranslation } from '@/modules/chapter-translation/entities/chapter-translation.entity';
+import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 import { Comment } from '@/modules/comment/entities/comment.entity';
 import { CommentInteraction } from '@/modules/comment-interaction/entities/comment-interaction.entity';
 import { DepositeTransaction } from '@/modules/deposite-transaction/entities/deposite-transaction.entity';
 import { Employee } from '@/modules/employee/entities/employee.entity';
 import { FollowDetail } from '@/modules/follow/entities/follow-detail.entity';
+import { NotificationUser } from '@/modules/notification/entities/notification-user.entity';
 
 @Entity('user', { schema: 'storyhub' })
 export class User {

@@ -34,7 +34,6 @@ export class SocketModule implements OnGatewayConnection, OnGatewayDisconnect {
         new ConcreteNotificationSubscriber(client)
       );
     }
-    console.log('connect:::', this.notificationPublisher.getSubscribers().map((subscriber: ConcreteNotificationSubscriber) => subscriber.getClient().user));
   }
 
   handleDisconnect(client: Socket) {
@@ -46,6 +45,5 @@ export class SocketModule implements OnGatewayConnection, OnGatewayDisconnect {
             subscriber.getClient() === client
         )
     );
-    console.log('disconnect:::', this.notificationPublisher.getSubscribers().map((subscriber: ConcreteNotificationSubscriber) => subscriber.getClient().user));
   }
 }

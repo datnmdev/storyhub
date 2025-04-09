@@ -162,7 +162,8 @@ export class AppModule implements NestModule {
           path: 'comment/:id',
           method: RequestMethod.DELETE,
         },
-        'comment-interaction'
+        'comment-interaction',
+        'notification'
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

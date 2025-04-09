@@ -5,10 +5,21 @@ import { JobName, QueueName } from '../constants/bull.constants';
 
 @Injectable()
 export class BullService {
-  constructor(@InjectQueue(QueueName.MAIL) private mailQueue: Queue) {}
+  constructor(
+    @InjectQueue(QueueName.MAIL)
+    private readonly mailQueue: Queue,
+    @InjectQueue(QueueName.NOTIFICATION)
+    private readonly notificationQueue: Queue
+  ) {}
 
-  addJob(name: JobName, data: any) {
+  addMailJob(name: JobName, data: any) {
     return this.mailQueue.add(name, data, {
+      attempts: 10,
+    });
+  }
+
+  addNotificationJob(name: JobName, data: any) {
+    return this.notificationQueue.add(name, data, {
       attempts: 10,
     });
   }

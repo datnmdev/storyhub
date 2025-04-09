@@ -15,7 +15,8 @@ import genreApi from './genre';
 import uploadApi from './upload';
 import historyApi from './history';
 import commentApi from './comment';
-import commentInteraction from './commentInteraction';
+import commentInteractionApi from './commentInteraction';
+import notificationApi from './notification';
 
 const apis = {
   authApi,
@@ -35,7 +36,8 @@ const apis = {
   uploadApi,
   historyApi,
   commentApi,
-  commentInteraction,
+  commentInteractionApi,
+  notificationApi,
 };
 
 export default apis;

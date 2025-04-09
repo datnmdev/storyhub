@@ -37,7 +37,7 @@ export class NotificationUser {
   @ManyToOne(
     () => Notification,
     (notification) => notification.notificationUsers,
-    { onDelete: 'NO ACTION', onUpdate: 'NO ACTION' }
+    { onDelete: 'CASCADE', onUpdate: 'NO ACTION' }
   )
   @JoinColumn([{ name: 'notification_id', referencedColumnName: 'id' }])
   notification: Notification;

@@ -1,4 +1,5 @@
 import authFeature from '@features/auth';
+import notificationFeature from '@features/notification';
 import socketFeature from '@features/socket';
 import themeFeature from '@features/theme';
 import toastFeature from '@features/toast';
@@ -10,6 +11,7 @@ const store = configureStore({
     theme: themeFeature.themeReducer,
     auth: authFeature.authReducer,
     toast: toastFeature.toastReducer,
+    notification: notificationFeature.notificationReducer,
   },
 });
 

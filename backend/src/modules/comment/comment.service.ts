@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Brackets, Equal, Repository } from 'typeorm';
+import { Brackets, DataSource, Equal, Repository } from 'typeorm';
 import { CommentType } from '@/common/constants/comment.constants';
 import { Comment } from './entities/comment.entity';
 import UrlResolverUtils from '@/common/utils/url-resolver.util';
@@ -10,13 +10,19 @@ import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
 import { GetCommentWithFilterDto } from './dtos/get-comment-with-filter.dto';
 import { CreateCommentDto } from './dtos/create-comment.dto';
 import * as _ from 'lodash';
+import { BullService } from '@/common/bull/bull.service';
+import { JobName } from '@/common/constants/bull.constants';
+import { Notification } from '../notification/entities/notification.entity';
+import { NotificationType } from '@/common/constants/notification.constants';
 
 @Injectable()
 export class CommentService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentRepository: Repository<Comment>,
-    private readonly urlCipherService: UrlCipherService
+    private readonly urlCipherService: UrlCipherService,
+    private readonly bullService: BullService,
+    private readonly dataSource: DataSource
   ) {}
 
   async getCommentWithFilter(getCommentWithFilterDto: GetCommentWithFilterDto) {
@@ -119,8 +125,8 @@ export class CommentService {
     ];
   }
 
-  createComment(userId: number, createCommentDto: CreateCommentDto) {
-    return this.commentRepository.save({
+  async createComment(userId: number, createCommentDto: CreateCommentDto) {
+    const commentEnitiy = this.commentRepository.create({
       type: createCommentDto.type,
       content: createCommentDto.content,
       parentId: createCommentDto.parentId,
@@ -134,6 +140,55 @@ export class CommentService {
           : null,
       readerId: userId,
     });
+    const newComment = await this.commentRepository.save(commentEnitiy);
+
+    if (newComment.parentId !== undefined) {
+      const parent = await this.commentRepository.findOne({
+        where: {
+          id: newComment.parentId,
+        },
+      });
+      if (parent.readerId != userId) {
+        const responseComment = await this.commentRepository.findOne({
+          where: {
+            id: newComment.id,
+          },
+          relations: [
+            'story',
+            'chapter',
+            'chapter.chapterTranslations',
+            'chapter.story',
+            'reader',
+            'reader.userProfile',
+            'parent',
+          ],
+        });
+        await this.bullService.addNotificationJob(
+          JobName.SEND_COMMENT_NOTIFICATION,
+          {
+            ...responseComment,
+            reader: {
+              ..._.omit(responseComment.reader, ['password']),
+              userProfile: {
+                ...responseComment.reader.userProfile,
+                avatar: responseComment.reader.userProfile.avatar
+                  ? UrlResolverUtils.createUrl(
+                      '/url-resolver',
+                      this.urlCipherService.generate({
+                        url: responseComment.reader.userProfile.avatar,
+                        expireIn: 30 * 60 * 60,
+                        iat: Date.now(),
+                      })
+                    )
+                  : responseComment.reader.userProfile.avatar,
+              },
+            },
+          }
+        );
+      }
+    }
+
+    return newComment;
   }
 
   updateComment(id: number, content: string) {
@@ -143,9 +198,25 @@ export class CommentService {
     });
   }
 
-  deleteComment(id: number) {
-    return this.commentRepository.delete({
-      id,
-    });
+  async deleteComment(id: number) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      await queryRunner.manager.delete(Notification, {
+        type: NotificationType.COMMENT_NOTIFICATION,
+        referenceId: id,
+      });
+      const deleteCommentResult = await queryRunner.manager.delete(Comment, {
+        id,
+      });
+      await queryRunner.commitTransaction();
+      return deleteCommentResult;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

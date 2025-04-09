@@ -4,12 +4,16 @@ import {
   useEffect,
   useState,
   PropsWithChildren,
+  useRef,
 } from 'react';
 import { io, Socket } from 'socket.io-client';
 import Cookies from 'js-cookie';
 import { useAppSelector } from '@hooks/redux.hook';
 import socketFeature from '@features/socket';
 import { SocketState } from '@features/socket/socket.reducer';
+import store from '@store/index';
+import notificationFeature from '@features/notification';
+import NotificationRingtone from '@assets/audio/notification_ringtone.mp3';
 
 const WebSocketContext = createContext<Socket | null>(null);
 
@@ -18,6 +22,7 @@ function WebSocketProvider({ children }: PropsWithChildren) {
   const socketState: SocketState = useAppSelector(
     socketFeature.socketSelector.selectAll
   );
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     if (socketState.isCreateNewConnection) {
@@ -51,9 +56,34 @@ function WebSocketProvider({ children }: PropsWithChildren) {
     }
   }, [socketState]);
 
+  useEffect(() => {
+    if (socket) {
+      store.dispatch(
+        notificationFeature.notificationThunk.getAllNotification()
+      );
+      store.dispatch(
+        notificationFeature.notificationThunk.getAllUnSeenNotifications()
+      );
+      socket.on('notification', () => {
+        store.dispatch(
+          notificationFeature.notificationThunk.getAllNotification()
+        );
+        store.dispatch(
+          notificationFeature.notificationThunk.getAllUnSeenNotifications()
+        );
+        if (audioRef.current) {
+          audioRef.current.play().catch((error) => {
+            console.error('Error playing audio:', error);
+          });
+        }
+      });
+    }
+  }, [socket]);
+
   return (
     <WebSocketContext.Provider value={socket}>
       {children}
+      <audio ref={audioRef} src={NotificationRingtone} preload="auto" hidden />
     </WebSocketContext.Provider>
   );
 }

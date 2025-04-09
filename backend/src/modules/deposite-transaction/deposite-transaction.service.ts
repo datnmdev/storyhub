@@ -13,8 +13,6 @@ import VnpayUtils from '@/common/utils/vnpay.util';
 import { DataSource, In, Or, Repository } from 'typeorm';
 import { DepositeTransaction } from './entities/deposite-transaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { REDIS_CLIENT } from '@/common/redis/redis.constants';
-import { RedisClient } from '@/common/redis/redis.type';
 import { HandleVnpayIpnDto } from './dtos/handle-vnpay-ipn.dto';
 import { plainToInstance } from 'class-transformer';
 import { DepositeTransactionStatus } from '@/common/constants/deposite-transaction.constants';
@@ -23,17 +21,18 @@ import * as ejs from 'ejs';
 import * as path from 'path';
 import { Wallet } from '../wallet/entities/wallet.entity';
 import { GetDepositeTransHistoryDto } from './dtos/get-deposite-transaction-history.dto';
+import { BullService } from '@/common/bull/bull.service';
+import { JobName } from '@/common/constants/bull.constants';
 
 @Injectable()
 export class DepositeTransactionService {
   constructor(
     private readonly dataSource: DataSource,
     private readonly configService: ConfigService,
-    @Inject(REDIS_CLIENT)
-    private readonly redisClient: RedisClient,
     @InjectRepository(DepositeTransaction)
     private readonly depositeTransactionRepository: Repository<DepositeTransaction>,
-    private readonly walletService: WalletService
+    private readonly walletService: WalletService,
+    private readonly bullService: BullService
   ) {}
 
   async createPaymentUrl(
@@ -149,6 +148,16 @@ export class DepositeTransactionService {
                     ),
                   });
                   await queryRunner.commitTransaction();
+
+                  await this.bullService.addNotificationJob(
+                    JobName.SEND_DEPOSITE_TRANSACTION_NOTIFICATION,
+                    await this.depositeTransactionRepository.findOne({
+                      where: {
+                        id: depositeTransaction.id,
+                      },
+                    })
+                  );
+
                   return {
                     RspCode: '00',
                     Message: 'Success',

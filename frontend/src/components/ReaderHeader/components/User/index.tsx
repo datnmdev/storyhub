@@ -14,12 +14,16 @@ import LoadingWrapper from '@components/LoadingWrapper';
 import { useTranslation } from 'react-i18next';
 import UrlUtils from '@utilities/url.util';
 import socketFeature from '@features/socket';
+import notificationFeature from '@features/notification';
 
 function User() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
+  const allUnSeenNotifications = useAppSelector(
+    notificationFeature.notificationSelector.selectAllUnSeenNotifications
+  );
   const [hiddenBox, setHiddenBox] = useState<boolean>(true);
   const boxRef = useRef<HTMLUListElement | null>(null);
   const { data: profileData, isLoading: isGettingProfile } = useFetch(
@@ -123,6 +127,28 @@ function User() {
                 : ['dark__boxShadow', 'dark__bg']
             )}
           >
+            <li>
+              <Link
+                className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center justify-between"
+                to={paths.readerNotificationPage()}
+                onClick={() => setHiddenBox(true)}
+              >
+                <div className="flex items-center space-x-2">
+                  <span className="text-[1.6rem]">
+                    <i className="fa-solid fa-bell"></i>
+                  </span>
+
+                  <span>{t('reader.header.user.notification')}</span>
+                </div>
+
+                <span className="h-6 min-w-8 rounded-[4px] bg-red-500 text-white flex justify-center items-center">
+                  {allUnSeenNotifications.total > 99
+                    ? '99+'
+                    : allUnSeenNotifications.total}
+                </span>
+              </Link>
+            </li>
+
             <li>
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"

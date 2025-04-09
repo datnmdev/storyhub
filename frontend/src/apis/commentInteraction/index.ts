@@ -6,7 +6,7 @@ export interface CommentInteractionCountResponse {
   dislikeCount: number;
 }
 
-const commentInteraction = {
+const commentInteractionApi = {
   getCommentInteraction: (options: RequestInit) => {
     return axiosInstance().get('/comment-interaction', {
       params: options.queries,
@@ -30,4 +30,4 @@ const commentInteraction = {
   },
 };
 
-export default commentInteraction;
+export default commentInteractionApi;

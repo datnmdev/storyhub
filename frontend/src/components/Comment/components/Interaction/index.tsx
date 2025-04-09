@@ -17,7 +17,7 @@ function Interaction({ comment }: InteractionProps) {
     data: commentInteractionCountRes,
     setRefetch: setReGetCommentInteractionCount,
   } = useFetch<CommentInteractionCountResponse>(
-    apis.commentInteraction.getCommentInteractionCount,
+    apis.commentInteractionApi.getCommentInteractionCount,
     {
       queries: {
         commentId: comment.id,
@@ -26,7 +26,7 @@ function Interaction({ comment }: InteractionProps) {
   );
   const { data: commentInteractionRes, setRefetch: setReGetInteraction } =
     useFetch(
-      apis.commentInteraction.getCommentInteraction,
+      apis.commentInteractionApi.getCommentInteraction,
       {
         queries: {
           commentId: comment.id,
@@ -45,7 +45,7 @@ function Interaction({ comment }: InteractionProps) {
     isLoading: isCreatingCommentInteraction,
     setRefetch: setReCreateCommentInteraction,
   } = useFetch(
-    apis.commentInteraction.createCommentInteraction,
+    apis.commentInteractionApi.createCommentInteraction,
     createCommentInteractionReq,
     false
   );
@@ -54,7 +54,7 @@ function Interaction({ comment }: InteractionProps) {
     isLoading: isDeletingCommentInteraction,
     setRefetch: setReDeleteCommentInteraction,
   } = useFetch(
-    apis.commentInteraction.deleteCommentInteraction,
+    apis.commentInteractionApi.deleteCommentInteraction,
     {
       queries: {
         commentId: comment.id,

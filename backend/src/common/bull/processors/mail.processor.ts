@@ -26,10 +26,10 @@ export class MailProcessor {
         data.otp
       );
       await this.mailService.sendOtpToVerifyAccount(data.otp, data.to);
+      return true;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
-    return null;
   }
 
   @Process(JobName.SEND_OTP_TO_RESET_PASSWORD)
@@ -42,10 +42,10 @@ export class MailProcessor {
         data.otp
       );
       await this.mailService.sendOtpToResetPassword(data.otp, data.to);
+      return true;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
-    return null;
   }
 
   @Process(JobName.SEND_OTP_TO_VERIFY_CHANGE_PASSWORD)
@@ -64,9 +64,9 @@ export class MailProcessor {
         job.data.otp,
         job.data.to
       );
+      return true;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
-    return null;
   }
 }

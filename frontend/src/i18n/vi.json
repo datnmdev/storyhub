@@ -1,5 +1,14 @@
 {
   "noData": "Không tìm thấy dữ liệu nào...",
+  "timestamps": {
+    "second": "{{value}} giây trước",
+    "minute": "{{value}} phút trước",
+    "hour": "{{value}} giờ trước",
+    "day": "{{value}} ngày trước",
+    "week": "{{value}} tuần trước",
+    "month": "{{value}} tháng trước",
+    "year": "{{value}} năm trước"
+  },
   "avatarUpload": {
     "uploadImageNote": "Ảnh không được quá 10 MB và ở định dạng PNG, JPG, JPEG hoặc GIF",
     "changeAvatarBtn": "Thay đổi"
@@ -47,7 +56,8 @@
         "follow": "Truyện theo dõi",
         "history": "Lịch sử đọc",
         "setting": "Cài đặt",
-        "signOut": "Đăng xuất"
+        "signOut": "Đăng xuất",
+        "notification": "Thông báo"
       },
       "signingOut": "Đang đăng xuất...",
       "searchSection": {
@@ -611,6 +621,43 @@
           "title": "Lịch sử đọc truyện của từng chương",
           "mostRecentlyReadingTimeAt": "Lần đọc gần nhất vào lúc {{value}}",
           "firstReadingTimeAt": "Lần đọc đầu tiên vào lúc {{value}}"
+        }
+      }
+    },
+    "notificationPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "notificationPage": "Thông báo"
+        }
+      },
+      "notificationSection": {
+        "title": "Thông báo",
+        "btn": {
+          "deleteAllBtn": "Xoá tất cả",
+          "moreBtn": "Xem thêm",
+          "allNotificationsBtn": "Tất cả",
+          "allUnSeenNotificationsBtn": "Chưa xem"
+        },
+        "loading": {
+          "message": "Đang lấy danh sách thông báo...",
+          "handlingReqMessage": "Đang xử lý yêu cầu..."
+        },
+        "items": {
+          "depositeTransactionNotification": {
+            "content": "Bạn vừa nạp thành công <b>{{value}}</b> VND vào ví"
+          },
+          "commentNotification": {
+            "storyType": {
+              "comic": "truyện tranh",
+              "novel": "tiểu thuyết"
+            },
+            "content1": "Độc giả <b>{{responserName}}</b> vừa phản hồi một bình luận của bạn trong cuốn {{storyType}} <b>{{storyTitle}}</b>",
+            "content2": "Độc giả <b>{{responserName}}</b> vừa phản hồi một bình luận của bạn ở chương <b>{{chapterName}}</b> trong cuốn {{storyType}} <b>{{storyTitle}}</b>"
+          },
+          "options": {
+            "delete": "Xoá"
+          }
         }
       }
     }

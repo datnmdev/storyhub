@@ -9,6 +9,8 @@ import { BullService } from './bull.service';
 import { MailProcessor } from './processors/mail.processor';
 import { ConfigService } from '../config/config.service';
 import { ExpressAdapter } from '@bull-board/express';
+import { NotificationModule } from '@/modules/notification/notification.module';
+import { NotificationProcessor } from './processors/notification.processor';
 
 @Module({
   imports: [
@@ -23,21 +25,33 @@ import { ExpressAdapter } from '@bull-board/express';
       }),
       inject: [ConfigService],
     }),
-    _BullModule.registerQueue({
-      name: QueueName.MAIL,
-    }),
+    _BullModule.registerQueue(
+      {
+        name: QueueName.MAIL,
+      },
+      {
+        name: QueueName.NOTIFICATION,
+      }
+    ),
     BullBoardModule.forRoot({
       route: '/queues',
       adapter: ExpressAdapter,
     }),
-    BullBoardModule.forFeature({
-      name: QueueName.MAIL,
-      adapter: BullAdapter,
-    }),
+    BullBoardModule.forFeature(
+      {
+        name: QueueName.MAIL,
+        adapter: BullAdapter,
+      },
+      {
+        name: QueueName.NOTIFICATION,
+        adapter: BullAdapter,
+      }
+    ),
     MailModule,
     RedisModule,
+    NotificationModule,
   ],
-  providers: [BullService, MailProcessor],
+  providers: [BullService, MailProcessor, NotificationProcessor],
   exports: [BullService],
 })
 export class BullModule {}

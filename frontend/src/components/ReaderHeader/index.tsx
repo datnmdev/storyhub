@@ -14,6 +14,7 @@ import User from './components/User';
 import IconButton from '@components/IconButton';
 import themeFeature from '@features/theme';
 import { useEffect, useRef } from 'react';
+import NotificationButton from './components/NotificationButton';
 
 function Header() {
   const { t } = useTranslation();
@@ -68,6 +69,14 @@ function Header() {
           <SearchButton />
           <ToggleThemeButton />
           <ChangeLangButton />
+          <div
+            className="pl-2"
+            style={{
+              display: isAuthenticated ? 'block' : 'none',
+            }}
+          >
+            <NotificationButton />
+          </div>
           <div className="pl-2">
             {!isAuthenticated ? (
               <Button onClick={() => navigate(paths.signInPage())}>
@@ -126,6 +135,14 @@ function Header() {
             <SearchButton />
             <ToggleThemeButton />
             <ChangeLangButton />
+            <div
+              className="pl-2"
+              style={{
+                display: isAuthenticated ? 'block' : 'none',
+              }}
+            >
+              <NotificationButton />
+            </div>
             <div className="pl-2">
               {!isAuthenticated ? (
                 <IconButton

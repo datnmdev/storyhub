@@ -431,7 +431,7 @@ export class UserService {
         }),
         to: signUpDto.email,
       };
-      await this.bullService.addJob(
+      await this.bullService.addMailJob(
         JobName.SEND_OTP_TO_VERIFY_ACCOUNT,
         jobData
       );
@@ -503,7 +503,7 @@ export class UserService {
               }),
               to: user.email,
             };
-            await this.bullService.addJob(
+            await this.bullService.addMailJob(
               JobName.SEND_OTP_TO_VERIFY_ACCOUNT,
               jobData
             );
@@ -519,14 +519,14 @@ export class UserService {
             }),
             to: user.email,
           };
-          await this.bullService.addJob(
+          await this.bullService.addMailJob(
             JobName.SEND_OTP_TO_RESET_PASSWORD,
             jobData
           );
           break;
 
         case OtpVerificationType.CHANGE_PASSWORD:
-          await this.bullService.addJob(
+          await this.bullService.addMailJob(
             JobName.SEND_OTP_TO_VERIFY_CHANGE_PASSWORD,
             {
               accountId: user.id,
@@ -626,7 +626,7 @@ export class UserService {
           emailPasswordCredential.password
         )
       ) {
-        await this.bullService.addJob(
+        await this.bullService.addMailJob(
           JobName.SEND_OTP_TO_VERIFY_CHANGE_PASSWORD,
           {
             accountId: userId,

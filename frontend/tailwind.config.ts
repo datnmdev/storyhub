@@ -11,6 +11,7 @@ export default {
           'fadeOut 1s linear infinite alternate, fadeIn 1s linear infinite alternate',
         expandWidth: 'expandWidth 1s ease-in-out',
         shrinkWidth: 'shrinkWidth 1s ease-in-out',
+        ring: 'ring 1s ease-in-out',
       },
       keyframes: {
         fadeIn: {
@@ -28,6 +29,17 @@ export default {
         shrinkWidth: {
           '0%': { width: '100%', opacity: '1' },
           '100%': { width: '0', opacity: '0' },
+        },
+        ring: {
+          '0%': { transform: 'rotate(0deg)' },
+          '10%': { transform: 'rotate(15deg)' },
+          '20%': { transform: 'rotate(-10deg)' },
+          '30%': { transform: 'rotate(10deg)' },
+          '40%': { transform: 'rotate(-8deg)' },
+          '50%': { transform: 'rotate(6deg)' },
+          '60%': { transform: 'rotate(-4deg)' },
+          '70%': { transform: 'rotate(2deg)' },
+          '80%, 100%': { transform: 'rotate(0deg)' },
         },
       },
     },

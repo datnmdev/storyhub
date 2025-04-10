@@ -4,7 +4,7 @@ import axiosInstance from 'libs/axios';
 
 const uploadApi = {
   getUploadUrl: (options: RequestInit) => {
-    return axiosInstance().get('/google-storage/generate-upload-url', {
+    return axiosInstance().get('/aws-s3/generate-upload-url', {
       params: options.queries,
     });
   },

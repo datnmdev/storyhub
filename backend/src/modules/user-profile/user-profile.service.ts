@@ -39,7 +39,7 @@ export class UserProfileService {
 
   async updateProfile(userId: number, updateProfileDto: UpdateProfileDto) {
     if (updateProfileDto.avatar) {
-      updateProfileDto.avatar = UrlPrefix.INTERNAL_GOOGLE_STORAGE.concat(
+      updateProfileDto.avatar = UrlPrefix.INTERNAL_AWS_S3.concat(
         updateProfileDto.avatar
       );
     }

@@ -99,9 +99,12 @@ export class ConfigService {
     };
   }
 
-  getSocketGatewayConfig() {
+  getAwsS3Config() {
     return {
-      port: Number(this.nestConfigService.get('SOCKET_GATEWAY_PORT')),
+      accessKeyId: this.nestConfigService.get('AWS_ACCESS_KEY_ID'),
+      secretAccessKey: this.nestConfigService.get('AWS_SECRET_ACCESS_KEY'),
+      region: this.nestConfigService.get('AWS_REGION'),
+      bucketName: this.nestConfigService.get('AWS_S3_BUCKET_NAME'),
     };
   }
 }

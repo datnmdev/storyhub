@@ -14,12 +14,14 @@ import { EncryptedUrl } from '@/common/url-cipher/url-cipher.class';
 import { UrlPrefix } from '@/common/constants/url-resolver.constants';
 import { GoogleStorageService } from '@/common/google-storage/google-storage.service';
 import axios from 'axios';
+import { AwsS3Service } from '@/common/aws-s3/aws-s3.service';
 
 @Controller('url-resolver')
 export class UrlResolverController {
   constructor(
     private readonly urlCipherService: UrlCipherService,
-    private readonly googleStorageService: GoogleStorageService
+    private readonly googleStorageService: GoogleStorageService,
+    private readonly awsS3Service: AwsS3Service
   ) {}
 
   @Get()
@@ -54,6 +56,14 @@ export class UrlResolverController {
         response = await axios({
           url: await this.googleStorageService.generateSignedUrl(
             payload.url.substring(UrlPrefix.INTERNAL_GOOGLE_STORAGE.length)
+          ),
+          method: 'get',
+          responseType: 'stream',
+        });
+      } else if (payload.url.startsWith(UrlPrefix.INTERNAL_AWS_S3)) {
+        response = await axios({
+          url: await this.awsS3Service.generateSignedUrl(
+            payload.url.substring(UrlPrefix.INTERNAL_AWS_S3.length)
           ),
           method: 'get',
           responseType: 'stream',

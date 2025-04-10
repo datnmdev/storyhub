@@ -105,6 +105,7 @@ export class AppModule implements NestModule {
         'deposite-transaction/create-payment-url',
         'deposite-transaction/get-deposite-transaction-history',
         'google-storage',
+        'aws-s3',
         {
           path: 'rating',
           method: RequestMethod.POST,

@@ -30,7 +30,7 @@ export class NotificationProcessor {
         Notification,
         {
           type: NotificationType.DEPOSITE_NOTIFICATION,
-          referenceId: depositeTransaction.id,
+          depositeTransactionId: depositeTransaction.id,
         }
       );
       const newNotification =
@@ -50,7 +50,7 @@ export class NotificationProcessor {
         ...newNotificationUser,
         notification: {
           ...newNotification,
-          reference: depositeTransaction,
+          depositeTransaction,
         },
       });
       await queryRunner.commitTransaction();
@@ -74,7 +74,7 @@ export class NotificationProcessor {
         Notification,
         {
           type: NotificationType.COMMENT_NOTIFICATION,
-          referenceId: comment.id,
+          commentId: comment.id,
         }
       );
       const newNotification =
@@ -94,7 +94,7 @@ export class NotificationProcessor {
         ...newNotificationUser,
         notification: {
           ...newNotification,
-          reference: comment,
+          comment,
         },
       });
       await queryRunner.commitTransaction();

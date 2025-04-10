@@ -11,8 +11,12 @@ export interface Notification {
   notification: {
     id: number;
     type: string;
-    referenceId: number;
-    reference: any;
+    depositeTransactionId: number | null;
+    depositeTransaction: any;
+    commentId: number | null;
+    comment: any;
+    moderationRequestId: number | null;
+    moderationRequest: any;
   };
 }
 

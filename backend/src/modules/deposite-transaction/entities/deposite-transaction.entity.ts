@@ -1,3 +1,4 @@
+import { Notification } from '@/modules/notification/entities/notification.entity';
 import { User } from '@/modules/user/entities/user.entity';
 import {
   Column,
@@ -5,6 +6,7 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -57,4 +59,10 @@ export class DepositeTransaction {
   })
   @JoinColumn([{ name: 'reader_id', referencedColumnName: 'id' }])
   reader: User;
+
+  @OneToMany(
+    () => Notification,
+    (notification) => notification.depositeTransaction
+  )
+  notifications: Notification[];
 }

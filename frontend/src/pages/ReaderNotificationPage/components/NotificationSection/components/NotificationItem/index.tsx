@@ -72,9 +72,9 @@ function NotificationItem({ data }: NotificationItemProps) {
               <img
                 className="w-16 h-16 object-cover object-center rounded-full border-[2px] border-solid border-[#ccc]"
                 src={
-                  data.notification.reference.reader.userProfile.avatar
+                  data.notification.comment.reader.userProfile.avatar
                     ? UrlUtils.generateUrl(
-                        data.notification.reference.reader.userProfile.avatar
+                        data.notification.comment.reader.userProfile.avatar
                       )
                     : AvatarDefault
                 }
@@ -108,7 +108,9 @@ function NotificationItem({ data }: NotificationItemProps) {
                           value: NumberUtils.formatNumberWithSeparator(
                             String(
                               Math.floor(
-                                Number(data.notification.reference.amount) / 100
+                                Number(
+                                  data.notification.depositeTransaction.amount
+                                ) / 100
                               )
                             )
                           ),
@@ -132,22 +134,21 @@ function NotificationItem({ data }: NotificationItemProps) {
                     })
                   );
                   navigate(
-                    data.notification.reference.type ===
-                      CommentType.STORY_COMMENT
+                    data.notification.comment.type === CommentType.STORY_COMMENT
                       ? paths.readerStoryInfoPage(
-                          data.notification.reference.storyId
+                          data.notification.comment.storyId
                         )
                       : paths.readerChapterContentPage(
-                          data.notification.reference.chapter.storyId,
-                          data.notification.reference.chapterId,
-                          data.notification.reference.chapter
+                          data.notification.comment.chapter.storyId,
+                          data.notification.comment.chapterId,
+                          data.notification.comment.chapter
                             .chapterTranslations[0].id
                         )
                   );
                 }}
               >
                 <div className="h-16 flex items-center">
-                  {data.notification.reference.type ===
+                  {data.notification.comment.type ===
                     CommentType.STORY_COMMENT && (
                     <div
                       className="line-clamp-2"
@@ -156,10 +157,9 @@ function NotificationItem({ data }: NotificationItemProps) {
                           'reader.notificationPage.notificationSection.items.commentNotification.content1',
                           {
                             responserName:
-                              data.notification.reference.reader.userProfile
-                                .name,
+                              data.notification.comment.reader.userProfile.name,
                             storyType:
-                              data.notification.reference.story.type ===
+                              data.notification.comment.story.type ===
                               StoryType.COMIC
                                 ? t(
                                     'reader.notificationPage.notificationSection.items.commentNotification.storyType.comic'
@@ -167,14 +167,14 @@ function NotificationItem({ data }: NotificationItemProps) {
                                 : t(
                                     'reader.notificationPage.notificationSection.items.commentNotification.storyType.novel'
                                   ),
-                            storyTitle: data.notification.reference.story.title,
+                            storyTitle: data.notification.comment.story.title,
                           }
                         ),
                       }}
                     />
                   )}
 
-                  {data.notification.reference.type ===
+                  {data.notification.comment.type ===
                     CommentType.CHAPTER_COMMENT && (
                     <div
                       className="line-clamp-2"
@@ -183,10 +183,9 @@ function NotificationItem({ data }: NotificationItemProps) {
                           'reader.notificationPage.notificationSection.items.commentNotification.content2',
                           {
                             responserName:
-                              data.notification.reference.reader.userProfile
-                                .name,
+                              data.notification.comment.reader.userProfile.name,
                             storyType:
-                              data.notification.reference.chapter.story.type ===
+                              data.notification.comment.chapter.story.type ===
                               StoryType.COMIC
                                 ? t(
                                     'reader.notificationPage.notificationSection.items.commentNotification.storyType.comic'
@@ -195,9 +194,8 @@ function NotificationItem({ data }: NotificationItemProps) {
                                     'reader.notificationPage.notificationSection.items.commentNotification.storyType.novel'
                                   ),
                             storyTitle:
-                              data.notification.reference.chapter.story.title,
-                            chapterName:
-                              data.notification.reference.chapter.name,
+                              data.notification.comment.chapter.story.title,
+                            chapterName: data.notification.comment.chapter.name,
                           }
                         ),
                       }}

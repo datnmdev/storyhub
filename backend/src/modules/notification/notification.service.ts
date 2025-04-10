@@ -20,12 +20,6 @@ export class NotificationService {
     private readonly notificationRepository: Repository<Notification>,
     @InjectRepository(NotificationUser)
     private readonly notificationUserRepository: Repository<NotificationUser>,
-    @InjectRepository(DepositeTransaction)
-    private readonly depositeTransactionRepository: Repository<DepositeTransaction>,
-    @InjectRepository(ModerationRequest)
-    private readonly moderationRequestRepository: Repository<ModerationRequest>,
-    @InjectRepository(Comment)
-    private readonly commentRepository: Repository<Comment>,
     private readonly urlCipherService: UrlCipherService,
     private readonly dataSource: DataSource
   ) {}
@@ -37,6 +31,19 @@ export class NotificationService {
     const qb = this.notificationUserRepository
       .createQueryBuilder('notificationUser')
       .innerJoinAndSelect('notificationUser.notification', 'notification')
+      .leftJoinAndSelect(
+        'notification.depositeTransaction',
+        'depositeTransaction'
+      )
+      .leftJoinAndSelect('notification.comment', 'comment')
+      .leftJoinAndSelect('comment.story', 'story')
+      .leftJoinAndSelect('comment.chapter', 'chapter')
+      .leftJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')
+      .leftJoinAndSelect('chapter.story', 'chapter.story')
+      .leftJoinAndSelect('comment.reader', 'reader')
+      .leftJoinAndSelect('reader.userProfile', 'userProfile')
+      .leftJoinAndSelect('comment.parent', 'parent')
+      .leftJoinAndSelect('notification.moderationRequest', 'moderationRequest')
       .where('notificationUser.receiver_id = :receiverId', {
         receiverId,
       })
@@ -71,82 +78,37 @@ export class NotificationService {
       (getNotificationWithFilterDto.page - 1) *
         getNotificationWithFilterDto.limit
     );
-
     const notificationUsers = await qb.getManyAndCount();
-
-    const references: {
-      [key: string]: DepositeTransaction | ModerationRequest | Comment;
-    } = {};
-
-    for (const notificationUser of notificationUsers[0]) {
-      if (
-        notificationUser.notification.type ===
-        NotificationType.DEPOSITE_NOTIFICATION
-      ) {
-        references[notificationUser.notification.id] =
-          await this.depositeTransactionRepository.findOne({
-            where: {
-              id: notificationUser.notification.referenceId,
-            },
-          });
-      } else if (
-        notificationUser.notification.type ===
-        NotificationType.STORY_NOTIFICATION
-      ) {
-        references[notificationUser.notification.id] =
-          await this.moderationRequestRepository.findOne({
-            where: {
-              id: notificationUser.notification.referenceId,
-            },
-            relations: ['chapter'],
-          });
-      } else if (
-        notificationUser.notification.type ===
-        NotificationType.COMMENT_NOTIFICATION
-      ) {
-        const responseComment = await this.commentRepository.findOne({
-          where: {
-            id: notificationUser.notification.referenceId,
-          },
-          relations: [
-            'story',
-            'chapter',
-            'chapter.chapterTranslations',
-            'chapter.story',
-            'reader',
-            'reader.userProfile',
-            'parent',
-          ],
-        });
-        references[notificationUser.notification.id] = {
-          ...responseComment,
-          reader: {
-            ..._.omit(responseComment.reader, ['password']),
-            userProfile: {
-              ...responseComment.reader.userProfile,
-              avatar: responseComment.reader.userProfile.avatar
-                ? UrlResolverUtils.createUrl(
-                    '/url-resolver',
-                    this.urlCipherService.generate({
-                      url: responseComment.reader.userProfile.avatar,
-                      expireIn: 30 * 60 * 60,
-                      iat: Date.now(),
-                    })
-                  )
-                : responseComment.reader.userProfile.avatar,
-            },
-          },
-        };
-      }
-    }
-
     return [
       notificationUsers[0].map((notificationUser) => {
         return {
           ...notificationUser,
           notification: {
             ...notificationUser.notification,
-            reference: references[notificationUser.notification.id],
+            comment: {
+              ...notificationUser.notification.comment,
+              reader: {
+                ..._.omit(notificationUser.notification.comment.reader, [
+                  'password',
+                ]),
+                userProfile: {
+                  ...notificationUser.notification.comment.reader.userProfile,
+                  avatar: notificationUser.notification.comment.reader
+                    .userProfile.avatar
+                    ? UrlResolverUtils.createUrl(
+                        '/url-resolver',
+                        this.urlCipherService.generate({
+                          url: notificationUser.notification.comment.reader
+                            .userProfile.avatar,
+                          expireIn: 30 * 60 * 60,
+                          iat: Date.now(),
+                        })
+                      )
+                    : notificationUser.notification.comment.reader.userProfile
+                        .avatar,
+                },
+              },
+            },
           },
         };
       }),

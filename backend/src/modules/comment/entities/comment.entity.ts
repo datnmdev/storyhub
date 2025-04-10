@@ -1,5 +1,6 @@
 import { Chapter } from '@/modules/chapter/entities/chapter.entity';
 import { CommentInteraction } from '@/modules/comment-interaction/entities/comment-interaction.entity';
+import { Notification } from '@/modules/notification/entities/notification.entity';
 import { Story } from '@/modules/story/entities/story.entity';
 import { User } from '@/modules/user/entities/user.entity';
 import {
@@ -90,4 +91,7 @@ export class Comment {
     (commentInteraction) => commentInteraction.comment
   )
   commentInteractions: CommentInteraction[];
+
+  @OneToMany(() => Notification, (notification) => notification.comment)
+  notifications: Notification[];
 }

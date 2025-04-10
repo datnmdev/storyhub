@@ -4,10 +4,12 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { Chapter } from '../../chapter/entities/chapter.entity';
+import { Notification } from '@/modules/notification/entities/notification.entity';
 
 @Index('FK_moderationRequest_author_idx', ['authorId'], {})
 @Index('FK_moderationRequest_moderator_idx', ['moderatorId'], {})
@@ -76,4 +78,10 @@ export class ModerationRequest {
   })
   @JoinColumn([{ name: 'moderator_id', referencedColumnName: 'id' }])
   moderator: User;
+
+  @OneToMany(
+    () => Notification,
+    (notification) => notification.moderationRequest
+  )
+  notifications: Notification[];
 }

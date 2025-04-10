@@ -142,7 +142,7 @@ export class CommentService {
     });
     const newComment = await this.commentRepository.save(commentEnitiy);
 
-    if (newComment.parentId !== undefined) {
+    if (typeof newComment.parentId === 'number') {
       const parent = await this.commentRepository.findOne({
         where: {
           id: newComment.parentId,
@@ -198,25 +198,7 @@ export class CommentService {
     });
   }
 
-  async deleteComment(id: number) {
-    const queryRunner = this.dataSource.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      await queryRunner.manager.delete(Notification, {
-        type: NotificationType.COMMENT_NOTIFICATION,
-        referenceId: id,
-      });
-      const deleteCommentResult = await queryRunner.manager.delete(Comment, {
-        id,
-      });
-      await queryRunner.commitTransaction();
-      return deleteCommentResult;
-    } catch (error) {
-      await queryRunner.rollbackTransaction();
-      throw error;
-    } finally {
-      await queryRunner.release();
-    }
+  deleteComment(id: number) {
+    return this.commentRepository.delete(id);
   }
 }

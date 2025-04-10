@@ -1,8 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Notification } from '@/modules/notification/entities/notification.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DepositeTransaction } from '@/modules/deposite-transaction/entities/deposite-transaction.entity';
-import { Repository } from 'typeorm';
 import {
   ConcreteNotificationSubscriber,
   NotificationSubscriber,
@@ -13,10 +9,7 @@ import { NotificationType } from '@/common/constants/notification.constants';
 export class NotificationPublisher {
   private subscribers: NotificationSubscriber[];
 
-  constructor(
-    @InjectRepository(DepositeTransaction)
-    private depositeTransactionRepository: Repository<DepositeTransaction>
-  ) {
+  constructor() {
     this.subscribers = [];
   }
 

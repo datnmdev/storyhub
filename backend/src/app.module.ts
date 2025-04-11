@@ -168,6 +168,10 @@ export class AppModule implements NestModule {
         {
           path: '/story/author/filter',
           method: RequestMethod.GET,
+        },
+        {
+          path: '/story/author/soft-delete/:id',
+          method: RequestMethod.PUT,
         }
       )
       .apply(VerifyUrlValidityMiddleware)

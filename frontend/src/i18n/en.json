@@ -752,7 +752,9 @@
     "deleteCommentSuccess": "Comment deleted successfully",
     "deleteCommentFailed": "Failed to delete comment. Please try again",
     "updateCommentSuccess": "Comment edited successfully",
-    "updateCommentFailed": "Failed to edit comment. Please try again"
+    "updateCommentFailed": "Failed to edit comment. Please try again",
+    "softDeleteStorySuccess": "Story deleted successfully",
+    "softDeleteStoryFailure": "An error occurred while deleting the story. Please try again."
   },
   "pagination": {
     "next": "Next",
@@ -764,6 +766,7 @@
     "getDepositeTransHistory": "Fetching deposit history...",
     "getInvoiceHistory": "Fetching payment history...",
     "scrollPosition": "Scrolling to the last read position. Please wait a moment",
-    "getStories": "Fetching story list..."
+    "getStories": "Fetching story list...",
+    "softDeleteStory": "Deleting story..."
   }
 }

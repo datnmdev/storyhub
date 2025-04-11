@@ -752,7 +752,9 @@
     "deleteCommentSuccess": "Xoá bình luận thành công",
     "deleteCommentFailed": "Xoá bình luận không thành công. Vui lòng thử lại",
     "updateCommentSuccess": "Chỉnh sửa bình luận thành công",
-    "updateCommentFailed": "Chỉnh sửa bình luận không thành công. Vui lòng thử lại"
+    "updateCommentFailed": "Chỉnh sửa bình luận không thành công. Vui lòng thử lại",
+    "softDeleteStorySuccess": "Xoá tác phẩm thành công",
+    "softDeleteStoryFailure": "Đã có lỗi xảy ra khi xoá tác phẩm. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",
@@ -764,6 +766,7 @@
     "getDepositeTransHistory": "Đang lấy lịch sử nạp tiền...",
     "getInvoiceHistory": "Đang lấy lịch sử thanh toán...",
     "scrollPosition": "Đang chuyển đến vị trí đã đọc gần nhất. Vui lòng chời trong giây lát",
-    "getStories": "Đang lấy danh sách tác phẩm..."
+    "getStories": "Đang lấy danh sách tác phẩm...",
+    "softDeleteStory": "Đang xoá tác phẩm..."
   }
 }

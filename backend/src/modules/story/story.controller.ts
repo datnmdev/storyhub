@@ -1,4 +1,11 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { GetStoryWithFilterDto } from './dtos/get-story-with-filter.dto';
 import { StoryService } from './story.service';
 import { SearchStoryDto } from './dtos/search-story.dto';
@@ -38,5 +45,15 @@ export class StoryController {
   @Get('search')
   search(@Query() searchStoryDto: SearchStoryDto) {
     return this.storyService.search(searchStoryDto.keyword);
+  }
+
+  @Put('author/soft-delete/:storyId')
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  softDeleteStory(
+    @User('id') authorId: number,
+    @Param('storyId') storyId: number
+  ) {
+    return this.storyService.softDeleteStory(authorId, storyId);
   }
 }

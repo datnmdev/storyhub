@@ -1,13 +1,16 @@
 import { RequestInit } from '@apis/api.type';
 import apis from '@apis/index';
 import IconButton from '@components/IconButton';
+import Loading from '@components/Loading';
 import LoadingWrapper from '@components/LoadingWrapper';
 import NoData from '@components/NoData';
 import Pagination from '@components/Pagination';
 import { StoryStatus, StoryType } from '@constants/story.constants';
+import { ToastType } from '@constants/toast.constants';
 import themeFeature from '@features/theme';
+import toastFeature from '@features/toast';
 import useFetch from '@hooks/fetch.hook';
-import { useAppSelector } from '@hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@hooks/redux.hook';
 import UrlUtils from '@utilities/url.util';
 import classNames from 'classnames';
 import moment from 'moment';
@@ -16,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 
 function StoryManagementSection() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [getStoriesReq, setGetStoriesReq] = useState<RequestInit>({
     queries: {
@@ -34,12 +38,51 @@ function StoryManagementSection() {
     isLoading: isGettingStories,
     setRefetch: setReGetStories,
   } = useFetch(apis.storyApi.getStoryWithFilterForAuthor, getStoriesReq);
+  const [softDeleteStoryReq, setSoftDeleteStoryReq] = useState<RequestInit>();
+  const {
+    data: softDeleteStoryResData,
+    isLoading: isSoftDeletingStory,
+    setRefetch: setReSoftDeleteStory,
+  } = useFetch(apis.storyApi.softDeleteStory, softDeleteStoryReq, false);
 
   useEffect(() => {
     setReGetStories({
       value: true,
     });
   }, [getStoriesReq]);
+
+  useEffect(() => {
+    if (softDeleteStoryReq) {
+      setReSoftDeleteStory({
+        value: true,
+      });
+    }
+  }, [softDeleteStoryReq]);
+
+  useEffect(() => {
+    if (!isSoftDeletingStory) {
+      if (softDeleteStoryResData) {
+        if (softDeleteStoryResData.affected > 0) {
+          dispatch(
+            toastFeature.toastAction.add({
+              type: ToastType.SUCCESS,
+              title: t('notification.softDeleteStorySuccess'),
+            })
+          );
+          setReGetStories({
+            value: true,
+          });
+        } else {
+          dispatch(
+            toastFeature.toastAction.add({
+              type: ToastType.SUCCESS,
+              title: t('notification.softDeleteStoryFailure'),
+            })
+          );
+        }
+      }
+    }
+  }, [isSoftDeletingStory]);
 
   return (
     <div className="space-y-6">
@@ -191,6 +234,13 @@ function StoryManagementSection() {
                                 }
                                 padding="8px"
                                 color="red"
+                                onClick={() =>
+                                  setSoftDeleteStoryReq({
+                                    params: {
+                                      storyId: row.id,
+                                    },
+                                  })
+                                }
                               />
                             </div>
                           </td>
@@ -229,6 +279,14 @@ function StoryManagementSection() {
           </div>
         )}
       </LoadingWrapper>
+
+      {isSoftDeletingStory && (
+        <Loading
+          level="page"
+          backgroundVisible="frog"
+          message={t('loading.softDeleteStory')}
+        />
+      )}
     </div>
   );
 }

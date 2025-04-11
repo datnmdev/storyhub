@@ -476,4 +476,16 @@ export class StoryService {
       results[1],
     ];
   }
+
+  softDeleteStory(authorId: number, storyId: number) {
+    return this.storyRepository.update(
+      {
+        id: storyId,
+        authorId,
+      },
+      {
+        status: StoryStatus.DELETED,
+      }
+    );
+  }
 }

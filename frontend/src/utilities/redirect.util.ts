@@ -22,7 +22,7 @@ const RedirectUtils = {
         break;
 
       case Role.AUTHOR:
-        route = paths.authorHomePage();
+        route = paths.authorStoryManagementPage();
         break;
 
       case Role.TRANSLATOR:

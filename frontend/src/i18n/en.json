@@ -1,5 +1,6 @@
 {
   "noData": "No data found...",
+  "viewportNotSupported": "This feature is not available on small screens. Please switch to a larger device or expand your browser window",
   "timestamps": {
     "second": "{{value}} seconds ago",
     "minute": "{{value}} minutes ago",
@@ -662,6 +663,36 @@
       }
     }
   },
+  "author": {
+    "storyManagementPage": {
+      "breadcrumb": "Story Management",
+      "btn": {
+        "add": "Add"
+      },
+      "table": {
+        "thead": {
+          "id": "Story ID",
+          "coverImage": "Cover Image",
+          "type": "Type",
+          "title": "Title",
+          "status": "Status",
+          "createdAt": "Created At",
+          "action": "Action"
+        },
+        "tbody": {
+          "type": {
+            "comic": "Comic",
+            "novel": "Novel"
+          },
+          "status": {
+            "releasing": "Releasing",
+            "paused": "Paused",
+            "completed": "Completed"
+          }
+        }
+      }
+    }
+  },
   "validation": {
     "required": "This field is required",
     "accountType": "Invalid account type",
@@ -732,6 +763,7 @@
   "loading": {
     "getDepositeTransHistory": "Fetching deposit history...",
     "getInvoiceHistory": "Fetching payment history...",
-    "scrollPosition": "Scrolling to the last read position. Please wait a moment"
+    "scrollPosition": "Scrolling to the last read position. Please wait a moment",
+    "getStories": "Fetching story list..."
   }
 }

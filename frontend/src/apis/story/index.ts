@@ -7,6 +7,11 @@ const storyApi = {
       params: options.queries,
     });
   },
+  getStoryWithFilterForAuthor: (options: RequestInit) => {
+    return axiosInstance().get('/story/author/filter', {
+      params: options.queries,
+    });
+  },
   getGenres: (options: RequestInit) => {
     return axiosInstance().get('/story/get-genres', {
       params: options.queries,

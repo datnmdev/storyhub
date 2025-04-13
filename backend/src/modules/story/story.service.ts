@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Story } from './entities/story.entity';
-import { Brackets, Repository } from 'typeorm';
+import { Brackets, DataSource, In, Repository } from 'typeorm';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { GetStoryWithFilterDto } from './dtos/get-story-with-filter.dto';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
@@ -9,13 +9,19 @@ import UrlResolverUtils from '@/common/utils/url-resolver.util';
 import { StoryStatus } from '@/common/constants/story.constants';
 import { plainToInstance } from 'class-transformer';
 import { GetStoryWithFilterForAuthorDto } from './dtos/get-story-with-filter-for-author.dto';
+import { UploadStoryDto } from './dtos/upload-story.dto';
+import { UrlPrefix } from '@/common/constants/url-resolver.constants';
+import { Genre } from '../genre/entities/genre.entity';
+import { Price } from '../price/entities/price.entity';
+import { Alias } from '../alias/entities/alias.entity';
 
 @Injectable()
 export class StoryService {
   constructor(
     @InjectRepository(Story)
     private readonly storyRepository: Repository<Story>,
-    private readonly urlCipherService: UrlCipherService
+    private readonly urlCipherService: UrlCipherService,
+    private readonly dataSource: DataSource
   ) {}
 
   findOne(id: number): Promise<Story> {
@@ -487,5 +493,60 @@ export class StoryService {
         status: StoryStatus.DELETED,
       }
     );
+  }
+
+  async uploadStory(authorId: number, uploadStoryDto: UploadStoryDto) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const createdAt = new Date();
+      console.log(uploadStoryDto);
+
+      // Tạo truyện
+      const storyEntity = queryRunner.manager.create(Story, {
+        title: uploadStoryDto.title,
+        description: uploadStoryDto.description,
+        notes: uploadStoryDto.notes,
+        coverImage: UrlPrefix.INTERNAL_AWS_S3 + uploadStoryDto.coverImage,
+        type: uploadStoryDto.type,
+        status: StoryStatus.RELEASING,
+        countryId: uploadStoryDto.countryId,
+        authorId,
+        createdAt,
+        updatedAt: createdAt,
+        genres: await queryRunner.manager.find(Genre, {
+          where: {
+            id: In(uploadStoryDto.genres),
+          },
+        }),
+      });
+      const newStory = await queryRunner.manager.save(storyEntity);
+
+      // Tạo giá mỗi chương của truyện
+      const priceEntity = queryRunner.manager.create(Price, {
+        amount: uploadStoryDto.price,
+        startTime: createdAt,
+        createdAt,
+        updatedAt: createdAt,
+        storyId: newStory.id,
+      });
+      await queryRunner.manager.save(priceEntity);
+
+      // Tạo alias cho truyện
+      const aliasEntities = uploadStoryDto.alias.map((alias) =>
+        queryRunner.manager.create(Alias, {
+          name: alias,
+          storyId: newStory.id,
+        })
+      );
+      await queryRunner.manager.save(aliasEntities);
+      await queryRunner.commitTransaction();
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

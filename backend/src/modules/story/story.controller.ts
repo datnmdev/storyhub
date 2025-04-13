@@ -1,7 +1,9 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
+  Post,
   Put,
   Query,
   UseGuards,
@@ -14,6 +16,7 @@ import { Roles } from '@/common/decorators/roles.decorator';
 import { Role } from '@/common/constants/user.constants';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { User } from '@/common/decorators/user.decorator';
+import { UploadStoryDto } from './dtos/upload-story.dto';
 
 @Controller('story')
 export class StoryController {
@@ -55,5 +58,15 @@ export class StoryController {
     @Param('storyId') storyId: number
   ) {
     return this.storyService.softDeleteStory(authorId, storyId);
+  }
+
+  @Post()
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  uploadStory(
+    @User('id') authorId: number,
+    @Body() uploadStoryDto: UploadStoryDto
+  ) {
+    return this.storyService.uploadStory(authorId, uploadStoryDto);
   }
 }

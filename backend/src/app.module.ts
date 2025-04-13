@@ -172,6 +172,10 @@ export class AppModule implements NestModule {
         {
           path: '/story/author/soft-delete/:id',
           method: RequestMethod.PUT,
+        },
+        {
+          path: '/story',
+          method: RequestMethod.POST,
         }
       )
       .apply(VerifyUrlValidityMiddleware)

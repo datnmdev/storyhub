@@ -16,6 +16,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import UploadStoryPopup from './components/UploadStoryPopup';
 
 function StoryManagementSection() {
   const { t } = useTranslation();
@@ -31,6 +32,11 @@ function StoryManagementSection() {
         StoryStatus.COMPLETED,
       ]),
       type: JSON.stringify([StoryType.COMIC, StoryType.NOVEL]),
+      orderBy: JSON.stringify([
+        ['createdAt', 'DESC'],
+        ['updatedAt', 'DESC'],
+        ['id', 'DESC'],
+      ]),
     },
   });
   const {
@@ -58,6 +64,7 @@ function StoryManagementSection() {
       });
     }
   }, [softDeleteStoryReq]);
+  const [isOpenUploadStoryPopup, setOpenUploadStoryPopup] = useState(false);
 
   useEffect(() => {
     if (!isSoftDeletingStory) {
@@ -94,6 +101,7 @@ function StoryManagementSection() {
           padding="8px 16px"
           borderRadius="4px"
           width={100}
+          onClick={() => setOpenUploadStoryPopup(true)}
         >
           {t('author.storyManagementPage.btn.add')}
         </IconButton>
@@ -287,6 +295,17 @@ function StoryManagementSection() {
           message={t('loading.softDeleteStory')}
         />
       )}
+
+      <div
+        style={{
+          display: isOpenUploadStoryPopup ? 'block' : 'none',
+        }}
+      >
+        <UploadStoryPopup
+          setRefetchStoryList={setReGetStories}
+          onClose={() => setOpenUploadStoryPopup(false)}
+        />
+      </div>
     </div>
   );
 }

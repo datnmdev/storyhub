@@ -26,6 +26,7 @@ const paths = {
   managerDashboardPage: () => '/manager',
   authorStoryManagementPage: () => '/author',
   authorPersonalProfilePage: () => '/author/setting/personal-profile',
+  authorChangePasswordPage: () => '/author/setting/change-password',
   moderatorHomePage: () => '/moderator',
 };
 

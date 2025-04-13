@@ -30,6 +30,7 @@ import ReaderHistoryPage from '@pages/ReaderHistoryPage';
 import ReaderNotificationPage from '@pages/ReaderNotificationPage';
 import AuthorLayout from '@layouts/AuthorLayout';
 import AuthorPersonalProfilePage from '@pages/AuthorPersonalProfilePage';
+import AuthorChangePasswordPage from '@pages/AuthorChangePasswordPage';
 
 const router = createBrowserRouter([
   {
@@ -246,6 +247,16 @@ const router = createBrowserRouter([
           <Protected role={Role.AUTHOR}>
             <AuthorLayout>
               <AuthorPersonalProfilePage />
+            </AuthorLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.authorChangePasswordPage(),
+        element: (
+          <Protected role={Role.AUTHOR}>
+            <AuthorLayout>
+              <AuthorChangePasswordPage />
             </AuthorLayout>
           </Protected>
         ),

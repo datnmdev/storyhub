@@ -25,6 +25,7 @@ const paths = {
   readerNotificationPage: () => '/reader/notification',
   managerDashboardPage: () => '/manager',
   authorStoryManagementPage: () => '/author',
+  authorPersonalProfilePage: () => '/author/setting/personal-profile',
   moderatorHomePage: () => '/moderator',
 };
 

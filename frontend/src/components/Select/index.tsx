@@ -46,7 +46,7 @@ function Select({
       )}
       sx={{
         height: '40px',
-        color: '#9CA3AF',
+        color: themeValue === 'light' ? 'var(--black)' : 'var(--white)',
         borderRadius: '4px',
         border,
         boxShadow: 'none',

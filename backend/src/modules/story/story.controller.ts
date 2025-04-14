@@ -17,6 +17,15 @@ import { Role } from '@/common/constants/user.constants';
 import { RolesGuard } from '@/common/guards/roles.guard';
 import { User } from '@/common/decorators/user.decorator';
 import { UploadStoryDto } from './dtos/upload-story.dto';
+import {
+  UpdateStoryBodyDto,
+  UpdateStoryParamDto,
+} from './dtos/update-story.dto';
+import { GetGenreDetailByStoryIdDto } from './dtos/get-genre-detail-by-story-id.dto';
+import {
+  UpdateGenresBodyDto,
+  UpdateGenresParamDto,
+} from './dtos/update-genres.dto';
 
 @Controller('story')
 export class StoryController {
@@ -68,5 +77,44 @@ export class StoryController {
     @Body() uploadStoryDto: UploadStoryDto
   ) {
     return this.storyService.uploadStory(authorId, uploadStoryDto);
+  }
+
+  @Put(':storyId')
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  updateStory(
+    @User('id') authorId: number,
+    @Param() updateStoryParamDto: UpdateStoryParamDto,
+    @Body() updateStoryDto: UpdateStoryBodyDto
+  ) {
+    return this.storyService.updateStory(
+      authorId,
+      updateStoryParamDto.storyId,
+      updateStoryDto
+    );
+  }
+
+  @Get('genre-detail')
+  getGenreDetailByStoryId(
+    @Query() getGenreDetailByStoryIdDto: GetGenreDetailByStoryIdDto
+  ) {
+    return this.storyService.getGenreDetailByStoryId(
+      getGenreDetailByStoryIdDto.storyId
+    );
+  }
+
+  @Put(':storyId/genre-detail')
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  updateGenres(
+    @User('id') authorId: number,
+    @Param() updateGenresParamDto: UpdateGenresParamDto,
+    @Body() updateGenresDto: UpdateGenresBodyDto
+  ) {
+    return this.storyService.updateGenres(
+      authorId,
+      updateGenresParamDto.storyId,
+      updateGenresDto.genres
+    );
   }
 }

@@ -7,6 +7,11 @@ const aliasApi = {
       params: options.queries,
     });
   },
+  updateAlias: (options: RequestInit) => {
+    return axiosInstance().put('/alias', options.body, {
+      params: options.queries,
+    });
+  },
 };
 
 export default aliasApi;

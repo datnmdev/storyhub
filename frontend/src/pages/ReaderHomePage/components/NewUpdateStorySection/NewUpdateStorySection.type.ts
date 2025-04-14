@@ -5,7 +5,7 @@ export interface Story {
   id: number;
   title: string;
   description: string;
-  note: string;
+  notes: string;
   coverImage: string;
   type: StoryType;
   status: StoryStatus;

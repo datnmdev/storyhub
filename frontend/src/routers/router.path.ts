@@ -27,6 +27,8 @@ const paths = {
   authorStoryManagementPage: () => '/author',
   authorPersonalProfilePage: () => '/author/setting/personal-profile',
   authorChangePasswordPage: () => '/author/setting/change-password',
+  authorUpdateStoryPage: (storyId: string | number = ':storyId') =>
+    `/author/story-management/${storyId}`,
   moderatorHomePage: () => '/moderator',
 };
 

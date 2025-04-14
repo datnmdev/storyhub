@@ -7,4 +7,6 @@ export interface SelectProps extends PropsWithChildren {
   border?: string;
   sx?: CSSProperties;
   onChange?: (event: SelectChangeEvent<string>, child: ReactNode) => void;
+  disabled?: boolean;
+  readOnly?: boolean;
 }

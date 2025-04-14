@@ -17,10 +17,13 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UploadStoryPopup from './components/UploadStoryPopup';
+import { useNavigate } from 'react-router-dom';
+import paths from '@routers/router.path';
 
 function StoryManagementSection() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [getStoriesReq, setGetStoriesReq] = useState<RequestInit>({
     queries: {
@@ -234,6 +237,9 @@ function StoryManagementSection() {
                                 }
                                 padding="8px"
                                 color="blue"
+                                onClick={() =>
+                                  navigate(paths.authorUpdateStoryPage(row.id))
+                                }
                               />
 
                               <IconButton

@@ -18,9 +18,9 @@ function Protected({ children, role, enable = true }: ProtectedProps) {
 
   if (enable) {
     if (isAuthenticated) {
-      const tokenJson = Cookies.get('accessToken');
-      if (tokenJson) {
-        const payload = jwtDecode(tokenJson) as JwtPayload;
+      const accessToken = Cookies.get('accessToken');
+      if (accessToken) {
+        const payload = jwtDecode(accessToken) as JwtPayload;
         if (payload.role != role) {
           throw ForbiddenError();
         }

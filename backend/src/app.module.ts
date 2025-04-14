@@ -176,6 +176,22 @@ export class AppModule implements NestModule {
         {
           path: '/story',
           method: RequestMethod.POST,
+        },
+        {
+          path: '/story/:storyId',
+          method: RequestMethod.PUT,
+        },
+        {
+          path: '/alias',
+          method: RequestMethod.PUT,
+        },
+        {
+          path: '/story/:storyId/genre-detail',
+          method: RequestMethod.PUT,
+        },
+        {
+          path: '/price',
+          method: RequestMethod.POST,
         }
       )
       .apply(VerifyUrlValidityMiddleware)

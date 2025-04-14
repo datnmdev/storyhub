@@ -664,6 +664,12 @@
     }
   },
   "author": {
+    "header": {
+      "nav": {
+        "storyManagementPage": "QUẢN LÝ TÁC PHẨM",
+        "statisticsPage": "THỐNG KÊ"
+      }
+    },
     "storyManagementPage": {
       "breadcrumb": "Quản lý tác phẩm",
       "btn": {
@@ -694,6 +700,10 @@
       "uploadStoryPopup": {
         "title": "Đăng tải truyện",
         "form": {
+          "id": {
+            "title": "Mã số truyện",
+            "placeholder": "Mã số truyện"
+          },
           "title": {
             "title": "Tiêu đề truyện",
             "placeholder": "Nhập tiêu đề truyện..."
@@ -736,6 +746,9 @@
           "resetBtn": "Làm mới"
         }
       }
+    },
+    "updateStoryPage": {
+      "breadcrumb": "Tác phẩm {{title}}"
     }
   },
   "validation": {
@@ -802,7 +815,21 @@
     "softDeleteStorySuccess": "Xoá tác phẩm thành công",
     "softDeleteStoryFailure": "Đã có lỗi xảy ra khi xoá tác phẩm. Vui lòng thử lại",
     "uploadStorySuccess": "Đăng tải truyện thành công",
-    "uploadStoryFailure": "Đăng tải truyện không thành công. Vui lòng thử lại"
+    "uploadStoryFailure": "Đăng tải truyện không thành công. Vui lòng thử lại",
+    "updateTitleSuccess": "Đổi tiêu đề truyện thành công",
+    "updateTitleFailure": "Đổi tiêu đề truyện không thành công. Vui lòng thử lại",
+    "updateAliasSuccess": "Cập nhật tên khác của truyện thành công",
+    "updateAliasFailure": "Cập nhật tên khác của truyện không thành công. Vui lòng thử lại",
+    "updateDescriptionSuccess": "Cập nhật mô tả nội dung truyện thành công",
+    "updateDescriptionFailure": "Cập nhật mô tả nội dung truyện không thành công. Vui lòng thử lại",
+    "updateCountrySuccess": "Cập nhật xuất xứ truyện thành công",
+    "updateCountryFailure": "Cập nhật xuất xứ truyện không thành công. Vui lòng thử lại",
+    "updateNotesSuccess": "Cập nhật thông điệp tới độc giả thành công",
+    "updateNotesFailure": "Cập nhật thông điệp tới độc giả không thành công. Vui lòng thử lại",
+    "updateGenresSuccess": "Cập nhật thể loại cho truyện thành công",
+    "updateGenresFailure": "Cập nhật thể loại cho truyện không thành công. Vui lòng thử lại",
+    "createriceSuccess": "Cập nhật giá mỗi chương của truyện thành công",
+    "createPriceFailure": "Cập nhật giá mỗi chương của truyện không thành công. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",
@@ -816,6 +843,11 @@
     "scrollPosition": "Đang chuyển đến vị trí đã đọc gần nhất. Vui lòng chời trong giây lát",
     "getStories": "Đang lấy danh sách tác phẩm...",
     "softDeleteStory": "Đang xoá tác phẩm...",
-    "uploadStory": "Đang đăng tải truyện..."
+    "uploadStory": "Đang đăng tải truyện...",
+    "save": "Đang lưu"
+  },
+  "btns": {
+    "cancel": "Quay lại",
+    "save": "Lưu thay đổi"
   }
 }

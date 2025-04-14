@@ -293,6 +293,16 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: paths.authorUpdateStoryPage(),
+        element: (
+          <Protected role={Role.AUTHOR}>
+            <AuthorLayout>
+              <AuthorUpdateStoryPage />
+            </AuthorLayout>
+          </Protected>
+        ),
+      },
+      {
         path: paths.moderatorHomePage(),
         element: (
           <Protected role={Role.MODERATOR}>

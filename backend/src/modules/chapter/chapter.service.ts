@@ -21,6 +21,7 @@ import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
 import { Role } from '@/common/constants/user.constants';
 import { User } from '@/@types/express';
 import { History } from '../history/entities/history.entity';
+import { GetChapterForAuthorWithFilterDto } from './dtos/get-chapter-for-author-with-filter.dto';
 
 @Injectable()
 export class ChapterService {
@@ -248,5 +249,95 @@ export class ChapterService {
       },
       relations: ['chapterTranslations', 'chapterTranslations.country'],
     });
+  }
+
+  async getChapterForAuthorWithFilter(
+    authorId: number,
+    getChapterForAuthorWithFilterDto: GetChapterForAuthorWithFilterDto
+  ) {
+    const qb = this.chapterRepository
+      .createQueryBuilder('chapter')
+      .innerJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')
+      .innerJoinAndSelect(
+        'chapter.story',
+        'story',
+        'chapter.story_id = story.id AND story.author_id = :authorId',
+        {
+          authorId,
+        }
+      )
+      .where(
+        new Brackets((qb) => {
+          if (getChapterForAuthorWithFilterDto.keyword) {
+            qb.where('MATCH(name) AGAINST (:keyword IN BOOLEAN MODE)', {
+              keyword: getChapterForAuthorWithFilterDto.keyword,
+            });
+            if (!isNaN(Number(getChapterForAuthorWithFilterDto.keyword))) {
+              qb.orWhere('chapter.id = :id', {
+                id: Number(getChapterForAuthorWithFilterDto.keyword),
+              });
+            }
+          }
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          if (getChapterForAuthorWithFilterDto.id) {
+            qb.where('chapter.id = :id', {
+              id: getChapterForAuthorWithFilterDto.id,
+            });
+          }
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          if (getChapterForAuthorWithFilterDto.order) {
+            qb.where('chapter.order = :order', {
+              order: getChapterForAuthorWithFilterDto.order,
+            });
+          }
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          if (getChapterForAuthorWithFilterDto.name) {
+            qb.where('chapter.name = :name', {
+              name: getChapterForAuthorWithFilterDto.name,
+            });
+          }
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          if (getChapterForAuthorWithFilterDto.status) {
+            getChapterForAuthorWithFilterDto.status.forEach((status, index) => {
+              qb.orWhere(`chapter.status = :status${index}`, {
+                [`status${index}`]: status,
+              });
+            });
+          }
+        })
+      )
+      .andWhere(
+        new Brackets((qb) => {
+          if (getChapterForAuthorWithFilterDto.storyId) {
+            qb.where('chapter.story_id = :storyId', {
+              storyId: getChapterForAuthorWithFilterDto.storyId,
+            });
+          }
+        })
+      );
+
+    if (getChapterForAuthorWithFilterDto.orderBy) {
+      getChapterForAuthorWithFilterDto.orderBy.forEach((value) => {
+        qb.addOrderBy(`chapter.${value[0]}`, value[1]);
+      });
+    }
+    qb.take(getChapterForAuthorWithFilterDto.limit);
+    qb.skip(
+      (getChapterForAuthorWithFilterDto.page - 1) *
+        getChapterForAuthorWithFilterDto.limit
+    );
+    return qb.getManyAndCount();
   }
 }

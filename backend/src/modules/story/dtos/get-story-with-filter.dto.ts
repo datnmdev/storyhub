@@ -9,7 +9,6 @@ import { OrderBy } from '@/common/types/typeorm.type';
 import { Transform } from 'class-transformer';
 import {
   IsArray,
-  IsEmpty,
   IsInt,
   IsNumber,
   IsOptional,
@@ -30,7 +29,7 @@ export class GetStoryWithFilterDto extends Pagination {
   @IsOptional()
   @IsArray()
   @ArrayElementsIn([StoryType.NOVEL, StoryType.COMIC])
-  type: string[];
+  type: string[] = [StoryType.NOVEL, StoryType.COMIC];
 
   @JsonToObject<string[]>([StoryStatus.RELEASING, StoryStatus.COMPLETED])
   @IsOptional()
@@ -52,8 +51,8 @@ export class GetStoryWithFilterDto extends Pagination {
   @IsNumber({}, { each: true })
   genres?: number[];
 
-  @JsonToObject<OrderBy>([['updated_at', 'DESC']])
+  @JsonToObject<OrderBy>([['updatedAt', 'DESC']])
   @IsOptional()
-  @IsOrderBy(['created_at', 'updated_at', 'id'])
+  @IsOrderBy(['createdAt', 'updatedAt', 'id'])
   orderBy: OrderBy;
 }

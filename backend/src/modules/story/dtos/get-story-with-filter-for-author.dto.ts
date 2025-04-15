@@ -7,16 +7,13 @@ import {
 } from '@/common/decorators/validation.decorator';
 import { OrderBy } from '@/common/types/typeorm.type';
 import { Transform } from 'class-transformer';
-import {
-  IsArray,
-  IsEmpty,
-  IsInt,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsArray, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class GetStoryWithFilterForAuthorDto extends Pagination {
+  @IsOptional()
+  @IsString()
+  keyword: string;
+
   @Transform(({ value }) => Number(value))
   @IsOptional()
   @IsInt()
@@ -30,7 +27,7 @@ export class GetStoryWithFilterForAuthorDto extends Pagination {
   @IsOptional()
   @IsArray()
   @ArrayElementsIn([StoryType.NOVEL, StoryType.COMIC])
-  type: string[];
+  type: string[] = [StoryType.NOVEL, StoryType.COMIC];
 
   @JsonToObject<string[]>([StoryStatus.RELEASING, StoryStatus.COMPLETED])
   @IsOptional()
@@ -40,17 +37,15 @@ export class GetStoryWithFilterForAuthorDto extends Pagination {
     StoryStatus.PAUSED,
     StoryStatus.COMPLETED,
   ])
-  status: string[];
+  status: string[] = [
+    StoryStatus.RELEASING,
+    StoryStatus.PAUSED,
+    StoryStatus.COMPLETED,
+  ];
 
   @Transform(({ value }) => Number(value))
   @IsOptional()
   countryId?: number;
-
-  @JsonToObject()
-  @IsOptional()
-  @IsArray()
-  @IsNumber({}, { each: true })
-  genres?: number[];
 
   @JsonToObject<OrderBy>([['updatedAt', 'DESC']])
   @IsOptional()

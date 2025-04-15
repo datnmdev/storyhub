@@ -7,6 +7,7 @@ import { RolesGuard } from '@/common/guards/roles.guard';
 import { User } from '@/common/decorators/user.decorator';
 import { GetChapterContentDto } from './dtos/get-chapter-content';
 import { User as UserPayload } from '@/@types/express';
+import { GetChapterForAuthorWithFilterDto } from './dtos/get-chapter-for-author-with-filter.dto';
 
 @Controller('chapter')
 export class ChapterController {
@@ -47,5 +48,18 @@ export class ChapterController {
   @Get(':id/translations')
   getChapterTranslation(@Param('id') chapterId: number) {
     return this.chapterService.getChapterTranslation(chapterId);
+  }
+
+  @Get('/author/filter')
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  getChapterForAuthorWithFilter(
+    @User('id') authorId: number,
+    @Query() getChapterForAuthorWithFilterDto: GetChapterForAuthorWithFilterDto
+  ) {
+    return this.chapterService.getChapterForAuthorWithFilter(
+      authorId,
+      getChapterForAuthorWithFilterDto
+    );
   }
 }

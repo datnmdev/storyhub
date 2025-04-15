@@ -745,10 +745,69 @@
           "uploadStoryBtn": "Đăng tải ngay",
           "resetBtn": "Làm mới"
         }
+      },
+      "search": {
+        "placeholder": "Tìm kiếm bằng id hoặc tiêu đề truyện..."
+      },
+      "filter": {
+        "type": {
+          "title": "Loại truyện",
+          "values": {
+            "comic": "Truyện tranh",
+            "novel": "Tiểu thuyết"
+          }
+        },
+        "status": {
+          "title": "Trạng thái truyện",
+          "values": {
+            "releasing": "Đang phát hành",
+            "paused": "Tạm hoãn",
+            "completed": "Đã hoàn thành"
+          }
+        }
       }
     },
     "updateStoryPage": {
-      "breadcrumb": "Tác phẩm {{title}}"
+      "breadcrumb": "Tác phẩm {{title}}",
+      "updateStorySection": {
+        "title": "Thông tin truyện"
+      },
+      "chapterManagementSection": {
+        "title": "Quản lý chương",
+        "btn": {
+          "add": "Thêm"
+        },
+        "table": {
+          "thead": {
+            "id": "Mã số chương",
+            "order": "Thứ tự chương",
+            "name": "Tên chương",
+            "status": "Trạng thái",
+            "createdAt": "Thời điểm tạo",
+            "action": "Thao tác"
+          },
+          "tbody": {
+            "status": {
+              "unreleased": "Chưa phát hành",
+              "pendingApproval": "Chờ duyệt",
+              "releasing": "Đang phát hành"
+            }
+          }
+        },
+        "search": {
+          "placeholder": "Tìm kiếm bằng id hoặc tên chương..."
+        },
+        "filter": {
+          "status": {
+            "title": "Trạng thái chương",
+            "values": {
+              "unreleased": "Chưa phát hành",
+              "pendingApproval": "Chờ duyệt",
+              "releasing": "Đang phát hành"
+            }
+          }
+        }
+      }
     }
   },
   "validation": {
@@ -828,7 +887,7 @@
     "updateNotesFailure": "Cập nhật thông điệp tới độc giả không thành công. Vui lòng thử lại",
     "updateGenresSuccess": "Cập nhật thể loại cho truyện thành công",
     "updateGenresFailure": "Cập nhật thể loại cho truyện không thành công. Vui lòng thử lại",
-    "createriceSuccess": "Cập nhật giá mỗi chương của truyện thành công",
+    "createPriceSuccess": "Cập nhật giá mỗi chương của truyện thành công",
     "createPriceFailure": "Cập nhật giá mỗi chương của truyện không thành công. Vui lòng thử lại"
   },
   "pagination": {
@@ -844,7 +903,8 @@
     "getStories": "Đang lấy danh sách tác phẩm...",
     "softDeleteStory": "Đang xoá tác phẩm...",
     "uploadStory": "Đang đăng tải truyện...",
-    "save": "Đang lưu"
+    "save": "Đang lưu",
+    "getChapters": "Đang lấy danh sách chương..."
   },
   "btns": {
     "cancel": "Quay lại",

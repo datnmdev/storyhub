@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Chapter } from './entities/chapter.entity';
 import { Brackets, DataSource, Repository } from 'typeorm';
@@ -339,5 +343,30 @@ export class ChapterService {
         getChapterForAuthorWithFilterDto.limit
     );
     return qb.getManyAndCount();
+  }
+
+  async softDeleteChapter(authorId: number, chapterId: number) {
+    const chapter = await this.chapterRepository
+      .createQueryBuilder('chapter')
+      .innerJoin('chapter.story', 'story')
+      .where('chapter.id = :chapterId', {
+        chapterId,
+      })
+      .andWhere('story.author_id = :authorId', {
+        authorId,
+      })
+      .getOne();
+
+    if (chapter) {
+      return this.chapterRepository.update(
+        {
+          id: chapterId,
+        },
+        {
+          status: ChapterStatus.DELETED,
+        }
+      );
+    }
+    throw new ForbiddenException();
   }
 }

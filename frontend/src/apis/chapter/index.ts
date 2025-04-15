@@ -75,6 +75,11 @@ const chapterApi = {
       params: options.queries,
     });
   },
+  softDeleteChapter: (options: RequestInit) => {
+    return axiosInstance().put(
+      `/chapter/author/soft-delete/${options.params.chapterId}`
+    );
+  },
 };
 
 export default chapterApi;

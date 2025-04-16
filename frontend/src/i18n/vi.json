@@ -806,6 +806,34 @@
               "releasing": "Đang phát hành"
             }
           }
+        },
+        "uploadChapterPopup": {
+          "title": "Đăng tải chương",
+          "form": {
+            "id": {
+              "title": "Mã số chương",
+              "placeholder": "Mã số chương"
+            },
+            "order ": {
+              "title": "Thứ tự chương",
+              "placeholder": "Nhập thứ tự chương..."
+            },
+            "name": {
+              "title": "Tên chương",
+              "placeholder": "Nhập tên chương..."
+            },
+            "textContent": {
+              "title": "Nội dung của chương",
+              "placeholder": "Nhập nội dung của chương..."
+            },
+            "imageContents": {
+              "title": "Nội dung của chương"
+            }
+          },
+          "btns": {
+            "uploadChapterBtn": "Đăng tải ngay",
+            "resetBtn": "Làm mới"
+          }
         }
       }
     }
@@ -890,7 +918,9 @@
     "createPriceSuccess": "Cập nhật giá mỗi chương của truyện thành công",
     "createPriceFailure": "Cập nhật giá mỗi chương của truyện không thành công. Vui lòng thử lại",
     "softDeleteChapterSuccess": "Xoá chương thành công",
-    "softDeleteChapterFailure": "Đã có lỗi xảy ra khi xoá chương. Vui lòng thử lại"
+    "softDeleteChapterFailure": "Đã có lỗi xảy ra khi xoá chương. Vui lòng thử lại",
+    "uploadChapterSuccess": "Đăng tải chương thành công",
+    "uploadChapterFailure": "Đăng tải chương không thành công. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",
@@ -906,7 +936,8 @@
     "softDeleteStory": "Đang xoá tác phẩm...",
     "uploadStory": "Đang đăng tải truyện...",
     "save": "Đang lưu",
-    "getChapters": "Đang lấy danh sách chương..."
+    "getChapters": "Đang lấy danh sách chương...",
+    "uploadChapter": "Đang đăng tải chương..."
   },
   "btns": {
     "cancel": "Quay lại",

@@ -15,7 +15,7 @@ function Popup({
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
 
   return (
-    <div className="w-[100vw] h-[100vh] fixed top-0 left-0 flex justify-center items-center z-[1]">
+    <div className="w-[100vw] h-[100vh] fixed top-0 left-0 flex justify-center items-center z-[5]">
       <div
         className={classNames(
           'absolute top-0 left-0 w-full h-full opacity-60',

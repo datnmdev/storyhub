@@ -20,7 +20,7 @@ export function useFormValidation<D extends InputData, E extends InputError>(
   const [errors, setErrors] = useState<E>({} as E);
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement> | SelectChangeEvent<string>
+    e: ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | any
   ) => {
     const { name, value } = e.target;
 

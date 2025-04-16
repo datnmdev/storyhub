@@ -15,11 +15,19 @@ import { Input, ConfigProvider, Tree } from 'antd';
 import { ChapterManagementSectionProps } from './ChapterManagementSection.type';
 import toastFeature from '@features/toast';
 import { ToastType } from '@constants/toast.constants';
+import Loading from '@components/Loading';
+import UploadChapterImageContentPopup from './components/UploadChapterImageContentPopup';
+import UploadChapterTextContentPopup from './components/UploadChapterTextContentPopup';
+import { StoryType } from '@constants/story.constants';
 
-function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
+function ChapterManagementSection({
+  storyId,
+  type,
+}: ChapterManagementSectionProps) {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
+  const [isOpenUploadChapterPopup, setOpenUploadChapterPopup] = useState(false);
   const [getChaptersReq, setGetChaptersReq] = useState<RequestInit>({
     queries: {
       page: 1,
@@ -118,6 +126,7 @@ function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
           padding="8px 16px"
           borderRadius="4px"
           width={100}
+          onClick={() => setOpenUploadChapterPopup(true)}
         >
           {t('author.updateStoryPage.chapterManagementSection.btn.add')}
         </IconButton>
@@ -406,6 +415,44 @@ function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
           <NoData />
         </div>
       )}
+
+      {isSoftDeletingChapter && (
+        <Loading
+          level="page"
+          backgroundVisible="frog"
+          message={t('loading.softDeleteStory')}
+        />
+      )}
+
+      <div
+        style={{
+          display:
+            isOpenUploadChapterPopup && type === StoryType.NOVEL
+              ? 'block'
+              : 'none',
+        }}
+      >
+        <UploadChapterTextContentPopup
+          storyId={storyId}
+          setRefetchChapterList={setReGetChapters}
+          onClose={() => setOpenUploadChapterPopup(false)}
+        />
+      </div>
+
+      <div
+        style={{
+          display:
+            isOpenUploadChapterPopup && type === StoryType.COMIC
+              ? 'block'
+              : 'none',
+        }}
+      >
+        <UploadChapterImageContentPopup
+          storyId={storyId}
+          setRefetchChapterList={setReGetChapters}
+          onClose={() => setOpenUploadChapterPopup(false)}
+        />
+      </div>
     </div>
   );
 }

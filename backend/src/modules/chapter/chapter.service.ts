@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Chapter } from './entities/chapter.entity';
-import { Brackets, DataSource, Repository } from 'typeorm';
+import { Brackets, DataSource, Not, Repository } from 'typeorm';
 import {
   ChapterInfoPublicDto,
   ChapterInfoPublicWithInvoiceRelationDto,
@@ -26,6 +26,11 @@ import { Role } from '@/common/constants/user.constants';
 import { User } from '@/@types/express';
 import { History } from '../history/entities/history.entity';
 import { GetChapterForAuthorWithFilterDto } from './dtos/get-chapter-for-author-with-filter.dto';
+import { UploadChapterDto } from './dtos/upload-chapter.dto';
+import { Story } from '../story/entities/story.entity';
+import { TextContent } from './entities/text-content.entity';
+import { ImageContent } from './entities/image-content.entity';
+import { UrlPrefix } from '@/common/constants/url-resolver.constants';
 
 @Injectable()
 export class ChapterService {
@@ -368,5 +373,80 @@ export class ChapterService {
       );
     }
     throw new ForbiddenException();
+  }
+
+  async uploadChapter(authorId: number, uploadChapterDto: UploadChapterDto) {
+    console.log(uploadChapterDto);
+
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const story = await this.dataSource.manager.findOne(Story, {
+        where: {
+          id: uploadChapterDto.storyId,
+          authorId,
+        },
+      });
+      if (story) {
+        const now = new Date();
+        const newestChapter = await this.dataSource.manager.find(Chapter, {
+          where: {
+            storyId: story.id,
+            status: Not(ChapterStatus.DELETED),
+          },
+          order: {
+            order: 'DESC',
+          },
+          take: 1,
+        });
+        const chapterEntity = this.chapterRepository.create({
+          name: uploadChapterDto.name,
+          order: newestChapter.length > 0 ? newestChapter[0].order + 1 : 1,
+          status: ChapterStatus.UNRELEASED,
+          createdAt: now,
+          updatedAt: now,
+          storyId: story.id,
+        });
+        const newChapter = await queryRunner.manager.save(chapterEntity);
+
+        const chapterTranslationEntity = queryRunner.manager.create(
+          ChapterTranslation,
+          {
+            chapterId: newChapter.id,
+            countryId: story.countryId,
+          }
+        );
+        const newChapterTranslation = await queryRunner.manager.save(
+          chapterTranslationEntity
+        );
+
+        if (story.type === StoryType.NOVEL) {
+          const textContentEntity = queryRunner.manager.create(TextContent, {
+            chapterTranslationId: newChapterTranslation.id,
+            content: uploadChapterDto.textContent.content,
+          });
+          await queryRunner.manager.save(textContentEntity);
+        } else if (story.type === StoryType.COMIC) {
+          const imageContentEntities = uploadChapterDto.imageContents.map(
+            (imageContent) =>
+              queryRunner.manager.create(ImageContent, {
+                order: imageContent.order,
+                path: UrlPrefix.INTERNAL_AWS_S3 + imageContent.path,
+                chapterTranslationId: newChapterTranslation.id,
+              })
+          );
+          await queryRunner.manager.save(imageContentEntities);
+        }
+        await queryRunner.commitTransaction();
+        return newChapter;
+      }
+      throw new ForbiddenException();
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 }

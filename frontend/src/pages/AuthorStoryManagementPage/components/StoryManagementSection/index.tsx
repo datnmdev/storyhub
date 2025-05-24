@@ -224,7 +224,11 @@ function StoryManagementSection() {
             </div>
           </div>
         ) : (
+<<<<<<< HEAD
           <div className="min-h-[320px] flex items-center justify-center">
+=======
+          <div className='min-h-[320px] flex items-center justify-center'>
+>>>>>>> f065e822 (feat: Tạo trang quản lý tác phẩm (#9))
             <NoData />
           </div>
         )}

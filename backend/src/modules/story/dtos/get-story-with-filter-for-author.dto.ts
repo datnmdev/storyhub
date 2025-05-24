@@ -47,8 +47,8 @@ export class GetStoryWithFilterForAuthorDto extends Pagination {
   @IsOptional()
   countryId?: number;
 
-  @JsonToObject<OrderBy>([['updatedAt', 'DESC']])
+  @JsonToObject<OrderBy>([['updated_at', 'DESC']])
   @IsOptional()
-  @IsOrderBy(['createdAt', 'updatedAt', 'id'])
+  @IsOrderBy(['created_at', 'updated_at', 'id'])
   orderBy: OrderBy;
 }

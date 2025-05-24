@@ -31,6 +31,7 @@ import { Story } from '../story/entities/story.entity';
 import { TextContent } from './entities/text-content.entity';
 import { ImageContent } from './entities/image-content.entity';
 import { UrlPrefix } from '@/common/constants/url-resolver.constants';
+import { UpdateChapterBodyDto } from './dtos/update-chapter.dto';
 
 @Injectable()
 export class ChapterService {
@@ -264,9 +265,12 @@ export class ChapterService {
     authorId: number,
     getChapterForAuthorWithFilterDto: GetChapterForAuthorWithFilterDto
   ) {
+
     const qb = this.chapterRepository
       .createQueryBuilder('chapter')
       .innerJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')
+      .leftJoinAndSelect('chapterTranslations.textContent', 'textContent')
+      .leftJoinAndSelect('chapterTranslations.imageContents', 'imageContents')
       .innerJoinAndSelect(
         'chapter.story',
         'story',
@@ -376,8 +380,6 @@ export class ChapterService {
   }
 
   async uploadChapter(authorId: number, uploadChapterDto: UploadChapterDto) {
-    console.log(uploadChapterDto);
-
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
@@ -440,6 +442,125 @@ export class ChapterService {
         }
         await queryRunner.commitTransaction();
         return newChapter;
+      }
+      throw new ForbiddenException();
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  async updateChapter(
+    authorId: number,
+    chapterId: number,
+    updateChapterBodyDto: UpdateChapterBodyDto
+  ) {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const chapter = await queryRunner.manager
+        .createQueryBuilder(Chapter, 'chapter')
+        .innerJoinAndSelect('chapter.story', 'story')
+        .where('story.author_id = :authorId', {
+          authorId,
+        })
+        .andWhere('chapter.id = :chapterId', {
+          chapterId,
+        })
+        .getOne();
+      if (chapter) {
+        if (updateChapterBodyDto.name) {
+          await queryRunner.manager.update(
+            Chapter,
+            {
+              id: chapter.id,
+            },
+            {
+              name: updateChapterBodyDto.name,
+            }
+          );
+        }
+
+        if (typeof updateChapterBodyDto.order === 'number') {
+          const chapters = await queryRunner.manager.find(Chapter, {
+            where: {
+              storyId: chapter.storyId,
+            },
+          });
+          if (
+            updateChapterBodyDto.order > 0 &&
+            updateChapterBodyDto.order <= chapters[chapters.length - 1].order
+          ) {
+            const needReUpdateChapters = chapters.filter(
+              (chapter) => chapter.order >= updateChapterBodyDto.order
+            );
+            await queryRunner.manager.update(
+              Chapter,
+              {
+                id: chapter.id,
+              },
+              {
+                order: updateChapterBodyDto.order,
+              }
+            );
+            for (const needReUpdateChapter of needReUpdateChapters) {
+              await queryRunner.manager.update(
+                Chapter,
+                {
+                  id: needReUpdateChapter.id,
+                },
+                {
+                  order: needReUpdateChapter.order + 1,
+                }
+              );
+            }
+          }
+        }
+
+        const originalChapterTranslation = await queryRunner.manager.findOne(
+          ChapterTranslation,
+          {
+            where: {
+              chapterId: chapter.id,
+              countryId: chapter.story.countryId,
+            },
+          }
+        );
+
+        if (updateChapterBodyDto.textContent) {
+          await queryRunner.manager.update(
+            TextContent,
+            {
+              chapterTranslationId: originalChapterTranslation.id,
+            },
+            {
+              content: updateChapterBodyDto.textContent.content,
+            }
+          );
+        }
+
+        if (updateChapterBodyDto.imageContents) {
+          await queryRunner.manager.delete(ImageContent, {
+            chapterTranslationId: originalChapterTranslation.id,
+          });
+          const imageContentEntities = updateChapterBodyDto.imageContents.map(
+            (imageContent) =>
+              queryRunner.manager.create(ImageContent, {
+                order: imageContent.order,
+                path: imageContent.path.startsWith(UrlPrefix.INTERNAL_AWS_S3)
+                  ? imageContent.path
+                  : UrlPrefix.INTERNAL_AWS_S3 + imageContent.path,
+                chapterTranslationId: originalChapterTranslation.id,
+              })
+          );
+          await queryRunner.manager.save(imageContentEntities);
+        }
+
+        await queryRunner.commitTransaction();
+        return true;
       }
       throw new ForbiddenException();
     } catch (error) {

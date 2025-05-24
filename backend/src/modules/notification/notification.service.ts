@@ -88,13 +88,13 @@ export class NotificationService {
             comment: {
               ...notificationUser.notification.comment,
               reader: {
-                ..._.omit(notificationUser.notification.comment.reader, [
+                ..._.omit(notificationUser.notification.comment?.reader, [
                   'password',
                 ]),
                 userProfile: {
-                  ...notificationUser.notification.comment.reader.userProfile,
-                  avatar: notificationUser.notification.comment.reader
-                    .userProfile.avatar
+                  ...notificationUser.notification.comment?.reader.userProfile,
+                  avatar: notificationUser?.notification?.comment?.reader
+                    ?.userProfile?.avatar
                     ? UrlResolverUtils.createUrl(
                         '/url-resolver',
                         this.urlCipherService.generate({
@@ -104,8 +104,8 @@ export class NotificationService {
                           iat: Date.now(),
                         })
                       )
-                    : notificationUser.notification.comment.reader.userProfile
-                        .avatar,
+                    : notificationUser?.notification?.comment?.reader?.userProfile
+                        ?.avatar,
                 },
               },
             },

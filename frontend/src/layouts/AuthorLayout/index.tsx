@@ -25,10 +25,6 @@ function AuthorLayout({ children }: PropsWithChildren) {
     };
   }, []);
 
-  if (isViewportNotSupported) {
-    return <ViewportNotSupported />;
-  }
-
   return (
     <div
       className={classNames(
@@ -38,7 +34,11 @@ function AuthorLayout({ children }: PropsWithChildren) {
     >
       <AuthorHeader />
 
-      <div className="grow flex flex-col">{children}</div>
+      {isViewportNotSupported || window.innerWidth < 1024 ? (
+        <ViewportNotSupported />
+      ) : (
+        <div className="grow flex flex-col">{children}</div>
+      )}
 
       <ReaderFooter />
     </div>

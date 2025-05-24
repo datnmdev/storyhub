@@ -1,6 +1,6 @@
 {
   "noData": "Không tìm thấy dữ liệu nào...",
-  "viewportNotSupported": "Tính năng này không hoạt động trên màn hình nhỏ. Vui lòng chuyển sang thiết bị có màn hình lớn hơn hoặc mở rộng cửa sổ trình duyệt",
+  "viewportNotSupported": "Trang này không hoạt động trên màn hình nhỏ. Vui lòng chuyển sang thiết bị có màn hình lớn hơn hoặc mở rộng cửa sổ trình duyệt",
   "timestamps": {
     "second": "{{value}} giây trước",
     "minute": "{{value}} phút trước",
@@ -834,6 +834,25 @@
             "uploadChapterBtn": "Đăng tải ngay",
             "resetBtn": "Làm mới"
           }
+        },
+        "updateChapterPopup": {
+          "title": "Cập nhật chương",
+          "id": {
+            "title": "Mã số chương",
+            "placeholder": "Mã số chương"
+          },
+          "name": {
+            "title": "Tên chương",
+            "placeholder": "Nhập tên chương..."
+          },
+          "status": {
+            "title": "Trạng thái chương",
+            "placeholder": "Trạng thái chương"
+          },
+          "content": {
+            "title": "Nội dung của chương",
+            "placeholder": "Nhập nội dung của chương"
+          }
         }
       }
     }
@@ -920,7 +939,11 @@
     "softDeleteChapterSuccess": "Xoá chương thành công",
     "softDeleteChapterFailure": "Đã có lỗi xảy ra khi xoá chương. Vui lòng thử lại",
     "uploadChapterSuccess": "Đăng tải chương thành công",
-    "uploadChapterFailure": "Đăng tải chương không thành công. Vui lòng thử lại"
+    "uploadChapterFailure": "Đăng tải chương không thành công. Vui lòng thử lại",
+    "updateChapterNameSuccess": "Đổi tên chương thành công",
+    "updateChapterNameFailure": "Đổi tên chương không thành công. Vui lòng thử lại",
+    "updateContentSuccess": "Cập nhật nội dung truyện thành công",
+    "updateContentFailure": "Cập nhật nội dung truyện không thành công. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",
@@ -942,5 +965,10 @@
   "btns": {
     "cancel": "Quay lại",
     "save": "Lưu thay đổi"
+  },
+  "chapterStatus": {
+    "unreleased": "Chưa phát hành",
+    "pendingApproval": "Chờ duyệt",
+    "releasing": "Đang phát hành"
   }
 }

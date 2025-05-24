@@ -1,6 +1,6 @@
 {
   "noData": "No data found...",
-  "viewportNotSupported": "This feature is not available on small screens. Please switch to a larger device or expand your browser window",
+  "viewportNotSupported": "This page is not available on small screens. Please switch to a larger device or expand your browser window",
   "timestamps": {
     "second": "{{value}} seconds ago",
     "minute": "{{value}} minutes ago",

@@ -51,8 +51,8 @@ export class GetStoryWithFilterDto extends Pagination {
   @IsNumber({}, { each: true })
   genres?: number[];
 
-  @JsonToObject<OrderBy>([['updatedAt', 'DESC']])
+  @JsonToObject<OrderBy>([['updated_at', 'DESC']])
   @IsOptional()
-  @IsOrderBy(['createdAt', 'updatedAt', 'id'])
+  @IsOrderBy(['created_at', 'updated_at', 'id'])
   orderBy: OrderBy;
 }

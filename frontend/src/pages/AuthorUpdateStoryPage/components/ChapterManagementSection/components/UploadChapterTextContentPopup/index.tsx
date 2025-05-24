@@ -95,7 +95,7 @@ function UploadChapterTextContentPopup(
         'author.updateStoryPage.chapterManagementSection.uploadChapterPopup.title'
       )}
       width={1000}
-      maxHeight={680}
+      maxHeight={580}
     >
       <div className="flex justify-between items-start space-x-4">
         <div className="grow space-y-4">

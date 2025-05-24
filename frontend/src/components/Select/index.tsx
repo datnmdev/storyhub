@@ -12,7 +12,7 @@ function Select({
   onChange,
   children,
   disabled = false,
-  readOnly = false
+  readOnly = false,
 }: SelectProps) {
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
 

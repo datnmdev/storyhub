@@ -22,7 +22,7 @@ function Input({
 
   return (
     <input
-      className="block w-full px-4 py-3 focus:outline-[var(--primary)] bg-inherit text-[#9CA3AF] border-[1px] border-solid border-[var(--gray)]"
+      className="block w-full px-4 py-3 focus:outline-[var(--primary)] bg-inherit border-[1px] border-solid border-[var(--gray)]"
       style={{
         colorScheme: themeValue === 'light' ? 'light' : 'dark',
         ...sx,

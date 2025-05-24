@@ -1,7 +1,7 @@
 import { ChangeEventHandler, CSSProperties, FocusEventHandler } from 'react';
 
 export interface InputProps {
-  type?: 'text' | 'password' | 'email' | 'date';
+  type?: 'text' | 'password' | 'email' | 'date' | 'number';
   placeholder?: string;
   value?: string;
   name?: string;

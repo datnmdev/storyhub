@@ -24,7 +24,7 @@ const paths = {
   readerHistoryPage: () => '/reader/reading-history',
   readerNotificationPage: () => '/reader/notification',
   managerDashboardPage: () => '/manager',
-  authorHomePage: () => '/author',
+  authorStoryManagementPage: () => '/author',
   moderatorHomePage: () => '/moderator',
 };
 

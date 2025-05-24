@@ -164,7 +164,11 @@ export class AppModule implements NestModule {
           method: RequestMethod.DELETE,
         },
         'comment-interaction',
-        'notification'
+        'notification',
+        {
+          path: '/story/author/filter',
+          method: RequestMethod.GET,
+        }
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

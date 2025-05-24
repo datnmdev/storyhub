@@ -178,13 +178,17 @@ function StoryManagementSection() {
                           <td className="py-4 align-middle">
                             <div className="flex justify-center items-center">
                               <IconButton
-                                icon={<i className="fa-solid fa-pen text-[1.2rem]"></i>}
+                                icon={
+                                  <i className="fa-solid fa-pen text-[1.2rem]"></i>
+                                }
                                 padding="8px"
                                 color="blue"
                               />
 
                               <IconButton
-                                icon={<i className="fa-solid fa-trash-can text-[1.2rem]"></i>}
+                                icon={
+                                  <i className="fa-solid fa-trash-can text-[1.2rem]"></i>
+                                }
                                 padding="8px"
                                 color="red"
                               />
@@ -220,7 +224,7 @@ function StoryManagementSection() {
             </div>
           </div>
         ) : (
-          <div className='min-h-[320px] flex items-center justify-center'>
+          <div className="min-h-[320px] flex items-center justify-center">
             <NoData />
           </div>
         )}

@@ -20,8 +20,14 @@ export class StoryController {
   @Get('author/filter')
   @Roles(Role.AUTHOR)
   @UseGuards(RolesGuard)
-  getStoryWithFilterForAuthor(@User('id') authorId: number, @Query() getStoryWithFilterForAuthorDto: GetStoryWithFilterForAuthorDto) {
-    return this.storyService.getStoryWithFilterForAuthor(authorId, getStoryWithFilterForAuthorDto);
+  getStoryWithFilterForAuthor(
+    @User('id') authorId: number,
+    @Query() getStoryWithFilterForAuthorDto: GetStoryWithFilterForAuthorDto
+  ) {
+    return this.storyService.getStoryWithFilterForAuthor(
+      authorId,
+      getStoryWithFilterForAuthorDto
+    );
   }
 
   @Get('get-genres')

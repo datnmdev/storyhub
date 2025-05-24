@@ -35,7 +35,11 @@ export class GetStoryWithFilterForAuthorDto extends Pagination {
   @JsonToObject<string[]>([StoryStatus.RELEASING, StoryStatus.COMPLETED])
   @IsOptional()
   @IsArray()
-  @ArrayElementsIn([StoryStatus.RELEASING, StoryStatus.PAUSED, StoryStatus.COMPLETED])
+  @ArrayElementsIn([
+    StoryStatus.RELEASING,
+    StoryStatus.PAUSED,
+    StoryStatus.COMPLETED,
+  ])
   status: string[];
 
   @Transform(({ value }) => Number(value))

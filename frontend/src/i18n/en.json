@@ -828,7 +828,7 @@
     "updateNotesFailure": "Failed to update message to readers. Please try again",
     "updateGenresSuccess": "Genres updated successfully",
     "updateGenresFailure": "Failed to update genres. Please try again",
-    "createriceSuccess": "Chapter price updated successfully",
+    "createPriceSuccess": "Chapter price updated successfully",
     "createPriceFailure": "Failed to update chapter price. Please try again"
   },
   "pagination": {

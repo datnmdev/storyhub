@@ -98,6 +98,18 @@ function Slider({ slideTransitionDelay = 4000, children }: SliderProps) {
     };
   }, [slideRefs]);
 
+  useEffect(() => {
+    function handleResize() {
+      slideRefs.current.map((slide) => {
+        slide.style.width = getSlideWidth();
+      });
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   if (!isValidChildrenArray) {
     return null;
   }

@@ -238,118 +238,23 @@ export class StoryService {
     authorId: number,
     getStoryWithFilterForAuthorDto: GetStoryWithFilterForAuthorDto
   ) {
-    if (getStoryWithFilterForAuthorDto.genres) {
-      const qb = this.storyRepository
-        .createQueryBuilder('story')
-        .innerJoin(
-          'story.genres',
-          'genre',
-          getStoryWithFilterForAuthorDto.genres
-            .map((genreId) => `genre.id = ${genreId}`)
-            .join(' OR ')
-        )
-        .groupBy('story.id')
-        .select(['story.*'])
-        .addSelect('COUNT(*)', 'genreCount')
-        .having('genreCount = :genreCount', {
-          genreCount: getStoryWithFilterForAuthorDto.genres.length,
-        })
-        .andWhere(
-          new Brackets((qb) => {
-            if (getStoryWithFilterForAuthorDto.id) {
-              qb.where('story.id = :id', {
-                id: getStoryWithFilterForAuthorDto.id,
-              });
-            }
-          })
-        )
-        .andWhere(
-          new Brackets((qb) => {
-            if (getStoryWithFilterForAuthorDto.title) {
-              qb.where('story.title = :title', {
-                title: getStoryWithFilterForAuthorDto.title,
-              });
-            }
-          })
-        )
-        .andWhere(
-          new Brackets((qb) => {
-            if (getStoryWithFilterForAuthorDto.type) {
-              getStoryWithFilterForAuthorDto.type.forEach((type, index) => {
-                qb.orWhere(`story.type = :type${index}`, {
-                  [`type${index}`]: type,
-                });
-              });
-            }
-          })
-        )
-        .andWhere(
-          new Brackets((qb) => {
-            if (getStoryWithFilterForAuthorDto.status) {
-              getStoryWithFilterForAuthorDto.status.forEach((status, index) => {
-                qb.orWhere(`story.status = :status${index}`, {
-                  [`status${index}`]: status,
-                });
-              });
-            }
-          })
-        )
-        .andWhere(
-          new Brackets((qb) => {
-            if (getStoryWithFilterForAuthorDto.countryId) {
-              qb.where('story.country_id = :country_id', {
-                country_id: getStoryWithFilterForAuthorDto.countryId,
-              });
-            }
-          })
-        )
-        .andWhere('story.author_id = :author_id', {
-          author_id: authorId,
-        });
-
-      if (getStoryWithFilterForAuthorDto.orderBy) {
-        getStoryWithFilterForAuthorDto.orderBy.forEach((value) => {
-          qb.addOrderBy(`story.${value[0]}`, value[1]);
-        });
-      }
-      qb.limit(getStoryWithFilterForAuthorDto.limit);
-      qb.offset(
-        (getStoryWithFilterForAuthorDto.page - 1) *
-          getStoryWithFilterForAuthorDto.limit
-      );
-      const stories = await qb.getRawMany();
-      return [
-        stories.map((story) => {
-          return {
-            id: story.id,
-            title: story.title,
-            description: story.description,
-            note: story.note,
-            coverImage: UrlResolverUtils.createUrl(
-              '/url-resolver',
-              this.urlCipherService.generate(
-                plainToInstance(UrlCipherPayload, {
-                  url: story.cover_image,
-                  expireIn: 4 * 60 * 60,
-                  iat: Date.now(),
-                } as UrlCipherPayload)
-              )
-            ),
-            type: story.type,
-            status: story.status,
-            createdAt: story.created_at,
-            updatedAt: story.updated_at,
-            countryId: story.country_id,
-            authorId: story.author_id,
-          };
-        }),
-        stories.length,
-      ];
-    }
-
     const qb = this.storyRepository
       .createQueryBuilder('story')
       .where(
+        new Brackets((qb) => {
+          if (getStoryWithFilterForAuthorDto.keyword) {
+            qb.where('MATCH(title) AGAINST (:keyword IN BOOLEAN MODE)', {
+              keyword: getStoryWithFilterForAuthorDto.keyword,
+            });
+            if (!isNaN(Number(getStoryWithFilterForAuthorDto.keyword))) {
+              qb.orWhere('story.id = :id', {
+                id: Number(getStoryWithFilterForAuthorDto.keyword),
+              });
+            }
+          }
+        })
+      )
+      .andWhere(
         new Brackets((qb) => {
           if (getStoryWithFilterForAuthorDto.id) {
             qb.where('story.id = :id', {
@@ -502,8 +407,6 @@ export class StoryService {
     await queryRunner.startTransaction();
     try {
       const createdAt = new Date();
-      console.log(uploadStoryDto);
-
       // Tạo truyện
       const storyEntity = queryRunner.manager.create(Story, {
         title: uploadStoryDto.title,

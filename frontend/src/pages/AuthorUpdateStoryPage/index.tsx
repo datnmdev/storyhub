@@ -7,6 +7,7 @@ import paths from '@routers/router.path';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import UpdateStorySection from './components/UpdateStorySection';
+import ChapterManagementSection from './components/ChapterManagementSection';
 
 function AuthorUpdateStoryPage() {
   const { t } = useTranslation();
@@ -47,7 +48,17 @@ function AuthorUpdateStoryPage() {
       </div>
 
       <div>
+        <h3 className="text-[1.4rem] font-[500]">
+          {t('author.updateStoryPage.updateStorySection.title')}
+        </h3>
         <UpdateStorySection />
+      </div>
+
+      <div>
+        <h3 className="text-[1.4rem] font-[500] mb-2">
+          {t('author.updateStoryPage.chapterManagementSection.title')}
+        </h3>
+        <ChapterManagementSection storyId={Number(storyId)} />
       </div>
     </div>
   );

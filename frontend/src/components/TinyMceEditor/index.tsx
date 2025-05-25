@@ -1,6 +1,14 @@
-import { forwardRef, memo, useImperativeHandle, useRef } from 'react';
+import {
+  forwardRef,
+  memo,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { TinyMceEditorProps } from './TinyMceEditor.type';
+import { useAppSelector } from '@hooks/redux.hook';
+import themeFeature from '@features/theme';
 
 function TinyMceEditor(
   {
@@ -12,6 +20,7 @@ function TinyMceEditor(
   }: TinyMceEditorProps,
   ref?: any
 ) {
+  const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const editorRef = useRef<any>(null);
 
   useImperativeHandle(ref, () => ({
@@ -22,6 +31,15 @@ function TinyMceEditor(
       return editorRef.current?.getContent() ?? '';
     },
   }));
+
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.contentDocument.body.style.color =
+        themeValue === 'light' ? 'black' : 'white';
+      editorRef.current.contentDocument.body.style.backgroundColor =
+        themeValue === 'light' ? 'white' : 'black';
+    }
+  }, [editorRef.current, themeValue]);
 
   return (
     <Editor

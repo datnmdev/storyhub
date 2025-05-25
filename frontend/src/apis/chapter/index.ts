@@ -70,6 +70,11 @@ const chapterApi = {
       `/chapter/${options.params.chapterId}/translations`
     );
   },
+  getChapterForAuthorWithFilter: (options: RequestInit) => {
+    return axiosInstance().get('/chapter/author/filter', {
+      params: options.queries,
+    });
+  },
 };
 
 export default chapterApi;

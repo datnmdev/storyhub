@@ -122,7 +122,7 @@ function ContentSection({ chapterId }: ContentSectionProps) {
     if (isEditorReady) {
       descriptionRef.current.setContent(inputData.content);
     }
-  }, [isEditorReady]);
+  }, [isEditorReady, inputData]);
 
   return (
     <div>

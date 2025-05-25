@@ -39,6 +39,8 @@ import { CommentModule } from './modules/comment/comment.module';
 import { CommentInteractionModule } from './modules/comment-interaction/comment-interaction.module';
 import { SocketModule } from './modules/socket/socket.module';
 import { NotificationModule } from './modules/notification/notification.module';
+import { ModerationRequestModule } from './modules/moderation-request/moderation-request.module';
+import { BackgroundModule } from './modules/background/background.module';
 
 @Module({
   imports: [
@@ -88,6 +90,8 @@ import { NotificationModule } from './modules/notification/notification.module';
     CommentInteractionModule,
     SocketModule,
     NotificationModule,
+    ModerationRequestModule,
+    BackgroundModule
   ],
 })
 export class AppModule implements NestModule {
@@ -205,7 +209,8 @@ export class AppModule implements NestModule {
         {
           path: '/chapter/:chapterId',
           method: RequestMethod.PUT,
-        }
+        },
+        'moderation-request'
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

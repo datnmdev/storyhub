@@ -42,3 +42,27 @@ export class SocketService {
     return false;
   }
 }
+
+@Injectable()
+export class ClientManagerService {
+  private clients: Socket[];
+
+  constructor() {
+    this.clients = [];
+  }
+
+  add(client: Socket) {
+    this.clients.push(client);
+  }
+
+  remove(client: Socket) {
+    const index = this.clients.findIndex((_client) => _client === client);
+    if (index != -1) {
+      this.clients.splice(index, 1);
+    }
+  }
+
+  getAll() {
+    return this.clients
+  }
+}

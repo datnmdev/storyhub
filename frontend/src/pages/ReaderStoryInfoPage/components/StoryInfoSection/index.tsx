@@ -399,7 +399,7 @@ function StoryInfoSection() {
 
                 <div>
                   {data[2].length > 0
-                    ? data[2].map((alias: any) => alias.name).join('')
+                    ? data[2].map((alias: any) => alias.name).join('; ')
                     : t('reader.storyInfoPage.storyInfoSection.alias.notData')}
                 </div>
               </div>
@@ -680,7 +680,7 @@ function StoryInfoSection() {
             className="mt-2 text-[var(--black)] text-justify"
             dangerouslySetInnerHTML={{
               __html:
-                data[0][0][0].note ??
+                data[0][0][0].notes ??
                 t('reader.storyInfoPage.storyInfoSection.note.notData'),
             }}
           />

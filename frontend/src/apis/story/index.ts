@@ -22,6 +22,14 @@ const storyApi = {
       params: options.queries,
     });
   },
+  softDeleteStory: (options: RequestInit) => {
+    return axiosInstance().put(
+      `/story/author/soft-delete/${options.params.storyId}`
+    );
+  },
+  uploadStory: (options: RequestInit) => {
+    return axiosInstance().post('/story', options.body);
+  },
 };
 
 export default storyApi;

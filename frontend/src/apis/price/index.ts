@@ -7,6 +7,9 @@ const priceApi = {
       params: options.queries,
     });
   },
+  createPrice: (options: RequestInit) => {
+    return axiosInstance().post('/price', options.body);
+  },
 };
 
 export default priceApi;

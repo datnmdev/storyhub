@@ -152,7 +152,7 @@ function User() {
             <li>
               <Link
                 className="py-4 space-x-2 hover:bg-[var(--primary)] hover:text-[var(--white)] px-4 flex items-center"
-                to={paths.readerPersonalProfilePage()}
+                to={paths.authorPersonalProfilePage()}
                 onClick={() => setHiddenBox(true)}
               >
                 <span className="text-[1.6rem]">

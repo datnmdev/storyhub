@@ -11,12 +11,16 @@ function Select({
   sx = {},
   onChange,
   children,
+  disabled = false,
+  readOnly = false,
 }: SelectProps) {
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
 
   return (
     <MuiSelect
       fullWidth
+      disabled={disabled}
+      readOnly={readOnly}
       inputProps={{
         MenuProps: {
           MenuListProps: {
@@ -46,7 +50,7 @@ function Select({
       )}
       sx={{
         height: '40px',
-        color: '#9CA3AF',
+        color: themeValue === 'light' ? 'var(--black)' : 'var(--white)',
         borderRadius: '4px',
         border,
         boxShadow: 'none',

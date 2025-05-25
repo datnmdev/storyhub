@@ -30,6 +30,23 @@ const storyApi = {
   uploadStory: (options: RequestInit) => {
     return axiosInstance().post('/story', options.body);
   },
+  updateStory: (options: RequestInit) => {
+    return axiosInstance().put(
+      `/story/${options.params.storyId}`,
+      options.body
+    );
+  },
+  getGenreDetailByStoryId: (options: RequestInit) => {
+    return axiosInstance().get('/story/genre-detail', {
+      params: options.queries,
+    });
+  },
+  updateGenres: (options: RequestInit) => {
+    return axiosInstance().put(
+      `/story/${options.params.storyId}/genre-detail`,
+      options.body
+    );
+  },
 };
 
 export default storyApi;

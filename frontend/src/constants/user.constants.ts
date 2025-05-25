@@ -5,6 +5,7 @@ export enum Gender {
 }
 
 export enum Role {
+  GUEST = 'guest',
   ADMIN = 'admin',
   AUTHOR = 'author',
   MODERATOR = 'moderator',

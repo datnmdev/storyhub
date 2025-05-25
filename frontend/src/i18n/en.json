@@ -284,7 +284,7 @@
           }
         },
         "btn": {
-          "readFromBeginning": "Read from Beginning",
+          "readFromBeginning": "Start reading",
           "follow": "Follow",
           "unfollow": "Unfollow"
         },
@@ -664,6 +664,12 @@
     }
   },
   "author": {
+    "header": {
+      "nav": {
+        "storyManagementPage": "STORY MANAGEMENT",
+        "statisticsPage": "STATISTICS"
+      }
+    },
     "storyManagementPage": {
       "breadcrumb": "Story Management",
       "btn": {
@@ -694,13 +700,17 @@
       "uploadStoryPopup": {
         "title": "Upload Story",
         "form": {
+          "id": {
+            "title": "Story ID",
+            "placeholder": "Enter story ID"
+          },
           "title": {
             "title": "Story Title",
-            "placeholder": "Enter the story title..."
+            "placeholder": "Enter story title..."
           },
           "alias": {
             "title": "Alternative Titles",
-            "placeholder": "Enter an alternative title and press enter...",
+            "placeholder": "Enter alternative titles and press enter...",
             "formatCreateLabel": "Add title \"{{inputValue}}\""
           },
           "description": {
@@ -719,12 +729,12 @@
           },
           "genres": {
             "title": "Genres",
-            "placeholder": "Enter a genre and press enter...",
+            "placeholder": "Enter genres and press enter...",
             "formatCreateLabel": "Add genre \"{{inputValue}}\""
           },
           "notes": {
             "title": "Message to Readers",
-            "placeholder": "Enter your message..."
+            "placeholder": "Enter your message to readers..."
           },
           "price": {
             "title": "Chapter Price (Unit: VND)",
@@ -736,6 +746,9 @@
           "resetBtn": "Reset"
         }
       }
+    },
+    "updateStoryPage": {
+      "breadcrumb": "Story {{title}}"
     }
   },
   "validation": {
@@ -772,13 +785,13 @@
     "undefinedError": "An error occurred, please try again",
     "signUpSuccess": "Account registration successful",
     "verifyAccountSuccess": "Account verification successful",
-    "verifyOtpError": "Incorrect OTP. Please try again",
+    "verifyOtpError": "Invalid OTP code. Please try again",
     "needToVerifyAccount": "Your account needs to be verified",
     "resetPasswordSuccess": "Password reset successful",
     "resetPasswordFailed": "An error occurred. Please try again",
     "paymentSuccess": "Payment successful",
     "paymentFailed": "Payment failed",
-    "paymentExpired": "Payment has expired. Please try again",
+    "paymentExpired": "Payment expired. Please try again",
     "createRatingSuccess": "Successfully rated the story",
     "createRatingFailed": "Failed to rate the story. Please try again",
     "updateRatingSuccess": "Rating updated successfully",
@@ -790,19 +803,33 @@
     "updateProfileFailed": "An error occurred while saving profile information. Please try again",
     "verifyChangePasswordFailed": "Current password is incorrect",
     "changePasswordSuccess": "Password changed successfully",
-    "changePasswordFailed": "An error occurred while changing password. Please try again",
+    "changePasswordFailed": "An error occurred while changing the password. Please try again",
     "deleteAllReadingHistorySuccess": "Successfully deleted all reading history",
-    "deleteReadingHistoryByStoryIdSuccess": "Successfully deleted reading history of the story",
-    "deleteReadingHistoryByChapterIdSuccess": "Successfully deleted reading history of the chapter",
+    "deleteReadingHistoryByStoryIdSuccess": "Successfully deleted reading history for the story",
+    "deleteReadingHistoryByChapterIdSuccess": "Successfully deleted reading history for the chapter",
     "createCommentSuccess": "Comment created successfully",
     "deleteCommentSuccess": "Comment deleted successfully",
     "deleteCommentFailed": "Failed to delete comment. Please try again",
-    "updateCommentSuccess": "Comment edited successfully",
-    "updateCommentFailed": "Failed to edit comment. Please try again",
+    "updateCommentSuccess": "Comment updated successfully",
+    "updateCommentFailed": "Failed to update comment. Please try again",
     "softDeleteStorySuccess": "Story deleted successfully",
-    "softDeleteStoryFailure": "An error occurred while deleting the story. Please try again.",
+    "softDeleteStoryFailure": "An error occurred while deleting the story. Please try again",
     "uploadStorySuccess": "Story uploaded successfully",
-    "uploadStoryFailure": "Story upload failed. Please try again."
+    "uploadStoryFailure": "Failed to upload story. Please try again",
+    "updateTitleSuccess": "Story title updated successfully",
+    "updateTitleFailure": "Failed to update story title. Please try again",
+    "updateAliasSuccess": "Alternate name for the story updated successfully",
+    "updateAliasFailure": "Failed to update alternate name for the story. Please try again",
+    "updateDescriptionSuccess": "Story description updated successfully",
+    "updateDescriptionFailure": "Failed to update story description. Please try again",
+    "updateCountrySuccess": "Story origin updated successfully",
+    "updateCountryFailure": "Failed to update story origin. Please try again",
+    "updateNotesSuccess": "Message to readers updated successfully",
+    "updateNotesFailure": "Failed to update message to readers. Please try again",
+    "updateGenresSuccess": "Genres updated successfully",
+    "updateGenresFailure": "Failed to update genres. Please try again",
+    "createriceSuccess": "Chapter price updated successfully",
+    "createPriceFailure": "Failed to update chapter price. Please try again"
   },
   "pagination": {
     "next": "Next",
@@ -811,11 +838,16 @@
     "last": "Last"
   },
   "loading": {
-    "getDepositeTransHistory": "Fetching deposit history...",
-    "getInvoiceHistory": "Fetching payment history...",
+    "getDepositeTransHistory": "Loading deposit history...",
+    "getInvoiceHistory": "Loading payment history...",
     "scrollPosition": "Scrolling to the last read position. Please wait a moment",
-    "getStories": "Fetching story list...",
+    "getStories": "Loading stories...",
     "softDeleteStory": "Deleting story...",
-    "uploadStory": "Uploading story..."
+    "uploadStory": "Uploading story...",
+    "save": "Saving..."
+  },
+  "btns": {
+    "cancel": "Go back",
+    "save": "Save changes"
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Story } from './entities/story.entity';
 import { Brackets, DataSource, In, Repository } from 'typeorm';
@@ -14,6 +14,7 @@ import { UrlPrefix } from '@/common/constants/url-resolver.constants';
 import { Genre } from '../genre/entities/genre.entity';
 import { Price } from '../price/entities/price.entity';
 import { Alias } from '../alias/entities/alias.entity';
+import { UpdateStoryBodyDto } from './dtos/update-story.dto';
 
 @Injectable()
 export class StoryService {
@@ -547,6 +548,60 @@ export class StoryService {
       throw error;
     } finally {
       await queryRunner.release();
+    }
+  }
+
+  updateStory(
+    authorId: number,
+    storyId: number,
+    updateStoryDto: UpdateStoryBodyDto
+  ) {
+    return this.storyRepository.update(
+      {
+        id: storyId,
+        authorId,
+      },
+      {
+        ...updateStoryDto,
+        coverImage: updateStoryDto.coverImage
+          ? UrlPrefix.INTERNAL_AWS_S3 + updateStoryDto.coverImage
+          : undefined,
+      }
+    );
+  }
+
+  async getGenreDetailByStoryId(storyId: number) {
+    const story = await this.storyRepository.findOne({
+      where: {
+        id: storyId,
+      },
+      relations: ['genres'],
+    });
+    return story.genres;
+  }
+
+  async updateGenres(authorId: number, storyId: number, genres: number[]) {
+    try {
+      const story = await this.storyRepository.findOne({
+        where: {
+          id: storyId,
+          authorId,
+        },
+        relations: ['genres'],
+      });
+      if (story) {
+        const newGenres = await this.dataSource.manager.find(Genre, {
+          where: {
+            id: In(genres),
+          },
+        });
+        story.genres = newGenres;
+        await this.storyRepository.save(story);
+        return true;
+      }
+      throw new ForbiddenException();
+    } catch (error) {
+      throw error;
     }
   }
 }

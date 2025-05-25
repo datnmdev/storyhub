@@ -17,10 +17,13 @@ import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import UploadStoryPopup from './components/UploadStoryPopup';
+import { useNavigate } from 'react-router-dom';
+import paths from '@routers/router.path';
 
 function StoryManagementSection() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [getStoriesReq, setGetStoriesReq] = useState<RequestInit>({
     queries: {
@@ -229,13 +232,20 @@ function StoryManagementSection() {
                           <td className="py-4 align-middle">
                             <div className="flex justify-center items-center">
                               <IconButton
-                                icon={<i className="fa-solid fa-pen text-[1.2rem]"></i>}
+                                icon={
+                                  <i className="fa-solid fa-pen text-[1.2rem]"></i>
+                                }
                                 padding="8px"
                                 color="blue"
+                                onClick={() =>
+                                  navigate(paths.authorUpdateStoryPage(row.id))
+                                }
                               />
 
                               <IconButton
-                                icon={<i className="fa-solid fa-trash-can text-[1.2rem]"></i>}
+                                icon={
+                                  <i className="fa-solid fa-trash-can text-[1.2rem]"></i>
+                                }
                                 padding="8px"
                                 color="red"
                                 onClick={() =>
@@ -278,7 +288,7 @@ function StoryManagementSection() {
             </div>
           </div>
         ) : (
-          <div className='min-h-[320px] flex items-center justify-center'>
+          <div className="min-h-[320px] flex items-center justify-center">
             <NoData />
           </div>
         )}

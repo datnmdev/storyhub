@@ -10,6 +10,7 @@ import { useAppSelector } from '@hooks/redux.hook';
 import authFeature from '@features/auth';
 import User from './components/User';
 import NotificationButton from './components/NotificationButton';
+import Nav from './components/Nav';
 
 function AuthorHeader() {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ function AuthorHeader() {
   );
 
   return (
-    <div className="sticky top-0 left-0 z-[2] border-solid border-b-[1px] border-[var(--gray)] bg-inherit">
+    <div className="sticky top-0 left-0 z-[4] border-solid border-b-[1px] border-[var(--gray)] bg-inherit">
       {/* Desktop */}
       <div
         className={classNames(
@@ -28,6 +29,7 @@ function AuthorHeader() {
       >
         <div className="flex">
           <Logo />
+          <Nav />
         </div>
 
         <div className="flex items-center space-x-4">

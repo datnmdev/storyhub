@@ -1,16 +1,37 @@
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, useImperativeHandle, useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { TinyMceEditorProps } from './TinyMceEditor.type';
 
 function TinyMceEditor(
-  { placeholder = '', onChange, height = 240 }: TinyMceEditorProps,
-  ref: any
+  {
+    placeholder = '',
+    onChange,
+    height = 240,
+    readOnly = false,
+    onReady,
+  }: TinyMceEditorProps,
+  ref?: any
 ) {
+  const editorRef = useRef<any>(null);
+
+  useImperativeHandle(ref, () => ({
+    setContent: (value: string) => {
+      editorRef.current?.setContent(value ?? '');
+    },
+    getContent: () => {
+      return editorRef.current?.getContent() ?? '';
+    },
+  }));
+
   return (
     <Editor
       apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
       initialValue=""
-      onInit={(_evt: any, editor: any) => (ref.current = editor)}
+      disabled={readOnly}
+      onInit={(_evt: any, editor: any) => {
+        editorRef.current = editor;
+        onReady?.();
+      }}
       onEditorChange={(newContent: string) => {
         if (onChange) {
           onChange(newContent);

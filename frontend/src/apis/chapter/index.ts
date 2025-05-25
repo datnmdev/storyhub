@@ -80,6 +80,9 @@ const chapterApi = {
       `/chapter/author/soft-delete/${options.params.chapterId}`
     );
   },
+  uploadChapter: (options: RequestInit) => {
+    return axiosInstance().post('/chapter', options.body);
+  },
 };
 
 export default chapterApi;

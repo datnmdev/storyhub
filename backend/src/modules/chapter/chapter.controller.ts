@@ -1,4 +1,13 @@
-import { Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { GetChapterWithFilterDto } from './dtos/get-chapter-with-filter.dto';
 import { ChapterService } from './chapter.service';
 import { Roles } from '@/common/decorators/roles.decorator';
@@ -8,6 +17,7 @@ import { User } from '@/common/decorators/user.decorator';
 import { GetChapterContentDto } from './dtos/get-chapter-content';
 import { User as UserPayload } from '@/@types/express';
 import { GetChapterForAuthorWithFilterDto } from './dtos/get-chapter-for-author-with-filter.dto';
+import { UploadChapterDto } from './dtos/upload-chapter.dto';
 
 @Controller('chapter')
 export class ChapterController {
@@ -71,5 +81,15 @@ export class ChapterController {
     @Param('chapterId') chapterId: number
   ) {
     return this.chapterService.softDeleteChapter(authorId, chapterId);
+  }
+
+  @Post()
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  uploadChapter(
+    @User('id') authorId: number,
+    @Body() uploadChapterDto: UploadChapterDto
+  ) {
+    return this.chapterService.uploadChapter(authorId, uploadChapterDto);
   }
 }

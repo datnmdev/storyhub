@@ -58,7 +58,10 @@ function AuthorUpdateStoryPage() {
         <h3 className="text-[1.4rem] font-[500] mb-2">
           {t('author.updateStoryPage.chapterManagementSection.title')}
         </h3>
-        <ChapterManagementSection storyId={Number(storyId)} />
+        <ChapterManagementSection
+          storyId={Number(storyId)}
+          type={data?.[0]?.[0]?.type}
+        />
       </div>
     </div>
   );

@@ -333,6 +333,36 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: paths.authorPersonalProfilePage(),
+        element: (
+          <Protected role={Role.AUTHOR}>
+            <AuthorLayout>
+              <AuthorPersonalProfilePage />
+            </AuthorLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.authorChangePasswordPage(),
+        element: (
+          <Protected role={Role.AUTHOR}>
+            <AuthorLayout>
+              <AuthorChangePasswordPage />
+            </AuthorLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.authorUpdateStoryPage(),
+        element: (
+          <Protected role={Role.AUTHOR}>
+            <AuthorLayout>
+              <AuthorUpdateStoryPage />
+            </AuthorLayout>
+          </Protected>
+        ),
+      },
+      {
         path: paths.moderatorHomePage(),
         element: (
           <Protected role={Role.MODERATOR}>

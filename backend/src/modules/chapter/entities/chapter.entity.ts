@@ -14,6 +14,7 @@ import { TranslationTask } from '../../translation-task/entities/translation-tas
 import { View } from '../../view/entities/view.entity';
 import { ChapterTranslation } from '@/modules/chapter/entities/chapter-translation.entity';
 import { Comment } from '@/modules/comment/entities/comment.entity';
+import { ChapterStatus } from '@/common/constants/chapter.constants';
 
 @Index('FK_chapter_story_idx', ['storyId'], {})
 @Index('FTI_name', ['name'], { fulltext: true })
@@ -30,9 +31,14 @@ export class Chapter {
 
   @Column('enum', {
     name: 'status',
-    enum: ['unreleased', 'pending_release', 'releasing', 'deleted'],
+    enum: [
+      ChapterStatus.UNRELEASED,
+      ChapterStatus.PENDING_APPROVAL,
+      ChapterStatus.RELEASING,
+      ChapterStatus.DELETED,
+    ],
   })
-  status: 'unreleased' | 'pending_release' | 'releasing' | 'deleted';
+  status: ChapterStatus;
 
   @Column('datetime', {
     name: 'created_at',

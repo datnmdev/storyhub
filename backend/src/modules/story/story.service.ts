@@ -469,6 +469,7 @@ export class StoryService {
         coverImage: updateStoryDto.coverImage
           ? UrlPrefix.INTERNAL_AWS_S3 + updateStoryDto.coverImage
           : undefined,
+        updatedAt: new Date(),
       }
     );
   }

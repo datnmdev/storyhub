@@ -1,5 +1,6 @@
 {
   "noData": "Không tìm thấy dữ liệu nào...",
+  "viewportNotSupported": "Tính năng này không hoạt động trên màn hình nhỏ. Vui lòng chuyển sang thiết bị có màn hình lớn hơn hoặc mở rộng cửa sổ trình duyệt",
   "timestamps": {
     "second": "{{value}} giây trước",
     "minute": "{{value}} phút trước",
@@ -662,6 +663,36 @@
       }
     }
   },
+  "author": {
+    "storyManagementPage": {
+      "breadcrumb": "Quản lý tác phẩm",
+      "btn": {
+        "add": "Thêm"
+      },
+      "table": {
+        "thead": {
+          "id": "Mã số truyện",
+          "coverImage": "Ảnh bìa",
+          "type": "Loại truyện",
+          "title": "Tiêu đề",
+          "status": "Trạng thái",
+          "createdAt": "Thời điểm tạo",
+          "action": "Thao tác"
+        },
+        "tbody": {
+          "type": {
+            "comic": "Truyện tranh",
+            "novel": "Tiểu thuyết"
+          },
+          "status": {
+            "releasing": "Đang phát hành",
+            "paused": "Đang tạm hoãn",
+            "completed": "Đã hoàn thành"
+          }
+        }
+      }
+    }
+  },
   "validation": {
     "required": "Trường này là bắt buộc",
     "accountType": "Loại tài khoản không hợp lệ",
@@ -732,6 +763,7 @@
   "loading": {
     "getDepositeTransHistory": "Đang lấy lịch sử nạp tiền...",
     "getInvoiceHistory": "Đang lấy lịch sử thanh toán...",
-    "scrollPosition": "Đang chuyển đến vị trí đã đọc gần nhất. Vui lòng chời trong giây lát"
+    "scrollPosition": "Đang chuyển đến vị trí đã đọc gần nhất. Vui lòng chời trong giây lát",
+    "getStories": "Đang lấy danh sách tác phẩm..."
   }
 }

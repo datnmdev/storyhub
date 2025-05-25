@@ -193,7 +193,11 @@ export class AppModule implements NestModule {
           path: '/price',
           method: RequestMethod.POST,
         },
-        '/chapter/author/filter'
+        '/chapter/author/filter',
+        {
+          path: '/chapter/author/soft-delete/:id',
+          method: RequestMethod.PUT,
+        }
       )
       .apply(VerifyUrlValidityMiddleware)
       .forRoutes('url-resolver');

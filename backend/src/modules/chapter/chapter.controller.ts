@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
 import { GetChapterWithFilterDto } from './dtos/get-chapter-with-filter.dto';
 import { ChapterService } from './chapter.service';
 import { Roles } from '@/common/decorators/roles.decorator';
@@ -61,5 +61,15 @@ export class ChapterController {
       authorId,
       getChapterForAuthorWithFilterDto
     );
+  }
+
+  @Put('author/soft-delete/:chapterId')
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  softDeleteChapter(
+    @User('id') authorId: number,
+    @Param('chapterId') chapterId: number
+  ) {
+    return this.chapterService.softDeleteChapter(authorId, chapterId);
   }
 }

@@ -888,7 +888,9 @@
     "updateGenresSuccess": "Cập nhật thể loại cho truyện thành công",
     "updateGenresFailure": "Cập nhật thể loại cho truyện không thành công. Vui lòng thử lại",
     "createPriceSuccess": "Cập nhật giá mỗi chương của truyện thành công",
-    "createPriceFailure": "Cập nhật giá mỗi chương của truyện không thành công. Vui lòng thử lại"
+    "createPriceFailure": "Cập nhật giá mỗi chương của truyện không thành công. Vui lòng thử lại",
+    "softDeleteChapterSuccess": "Xoá chương thành công",
+    "softDeleteChapterFailure": "Đã có lỗi xảy ra khi xoá chương. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",

@@ -6,16 +6,19 @@ import Pagination from '@components/Pagination';
 import { ChapterStatus } from '@constants/chapter.constant';
 import themeFeature from '@features/theme';
 import useFetch from '@hooks/fetch.hook';
-import { useAppSelector } from '@hooks/redux.hook';
+import { useAppDispatch, useAppSelector } from '@hooks/redux.hook';
 import classNames from 'classnames';
 import moment from 'moment';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Input, ConfigProvider, Tree } from 'antd';
 import { ChapterManagementSectionProps } from './ChapterManagementSection.type';
+import toastFeature from '@features/toast';
+import { ToastType } from '@constants/toast.constants';
 
 function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [getChaptersReq, setGetChaptersReq] = useState<RequestInit>({
     queries: {
@@ -27,6 +30,7 @@ function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
         ChapterStatus.RELEASING,
       ]),
       orderBy: JSON.stringify([
+        ['order', 'DESC'],
         ['createdAt', 'DESC'],
         ['updatedAt', 'DESC'],
         ['id', 'DESC'],
@@ -39,6 +43,13 @@ function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
     isLoading: isGettingChapters,
     setRefetch: setReGetChapters,
   } = useFetch(apis.chapterApi.getChapterForAuthorWithFilter, getChaptersReq);
+  const [softDeleteChapterReq, setSoftDeleteChapterReq] =
+    useState<RequestInit>();
+  const {
+    data: softDeleteChapterResData,
+    isLoading: isSoftDeletingChapter,
+    setRefetch: setReSoftDeleteChapter,
+  } = useFetch(apis.chapterApi.softDeleteChapter, softDeleteChapterReq, false);
   const [isOpenFilterBox, setOpenFilterBox] = useState(false);
   const filterBoxRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +74,39 @@ function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
       value: true,
     });
   }, [getChaptersReq]);
+
+  useEffect(() => {
+    if (softDeleteChapterReq) {
+      setReSoftDeleteChapter({
+        value: true,
+      });
+    }
+  }, [softDeleteChapterReq]);
+
+  useEffect(() => {
+    if (!isSoftDeletingChapter) {
+      if (softDeleteChapterResData) {
+        if (softDeleteChapterResData.affected > 0) {
+          dispatch(
+            toastFeature.toastAction.add({
+              type: ToastType.SUCCESS,
+              title: t('notification.softDeleteChapterSuccess'),
+            })
+          );
+          setReGetChapters({
+            value: true,
+          });
+        } else {
+          dispatch(
+            toastFeature.toastAction.add({
+              type: ToastType.SUCCESS,
+              title: t('notification.softDeleteChapterFailure'),
+            })
+          );
+        }
+      }
+    }
+  }, [isSoftDeletingChapter]);
 
   return (
     <div className="space-y-4">
@@ -318,6 +362,13 @@ function ChapterManagementSection({ storyId }: ChapterManagementSectionProps) {
                               }
                               padding="8px"
                               color="red"
+                              onClick={() =>
+                                setSoftDeleteChapterReq({
+                                  params: {
+                                    chapterId: row.id,
+                                  },
+                                })
+                              }
                             />
                           </div>
                         </td>

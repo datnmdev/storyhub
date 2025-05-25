@@ -8,7 +8,7 @@ import { NotificationPublisher } from '../notification/notification.publisher';
 import { Module } from '@nestjs/common';
 import { NotificationModule } from '../notification/notification.module';
 import { ConcreteNotificationSubscriber } from '../notification/notification.subscriber';
-import { SocketService } from './socket.service';
+import { ClientManagerService, SocketService } from './socket.service';
 
 @WebSocketGateway({
   transports: ['websocket'],
@@ -18,18 +18,20 @@ import { SocketService } from './socket.service';
 })
 @Module({
   imports: [NotificationModule],
-  providers: [SocketService],
-  exports: [SocketService],
+  providers: [SocketService, ClientManagerService],
+  exports: [SocketService, ClientManagerService],
 })
 export class SocketModule implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private readonly notificationPublisher: NotificationPublisher,
-    private readonly socketService: SocketService
+    private readonly socketService: SocketService,
+    private readonly clientManagerService: ClientManagerService
   ) {}
 
   async handleConnection(client: Socket) {
     const isAuthenticated = await this.socketService.auth(client);
     if (isAuthenticated) {
+      this.clientManagerService.add(client)
       this.notificationPublisher.subscribe(
         new ConcreteNotificationSubscriber(client)
       );
@@ -37,6 +39,7 @@ export class SocketModule implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   handleDisconnect(client: Socket) {
+    this.clientManagerService.remove(client)
     this.notificationPublisher.unsubscribe(
       this.notificationPublisher
         .getSubscribers()

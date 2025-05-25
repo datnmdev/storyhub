@@ -55,6 +55,7 @@ export class ModerationRequest {
   @Column('int', {
     name: 'moderator_id',
     comment: 'Người xử lý yêu cầu ở đây là kiểm duyệt viên',
+    nullable: true
   })
   moderatorId: number;
 

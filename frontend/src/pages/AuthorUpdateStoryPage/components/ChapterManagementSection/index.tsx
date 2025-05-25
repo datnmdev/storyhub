@@ -65,6 +65,17 @@ function ChapterManagementSection({
   } = useFetch(apis.chapterApi.softDeleteChapter, softDeleteChapterReq, false);
   const [isOpenFilterBox, setOpenFilterBox] = useState(false);
   const filterBoxRef = useRef<HTMLDivElement>(null);
+  const [createModerationRequestReq, setCreateModerationRequestReq] =
+    useState<RequestInit>();
+  const {
+    data: createModerationRequestResData,
+    isLoading: isCreatingModerationRequest,
+    setRefetch: setReCreateModerationRequest,
+  } = useFetch(
+    apis.moderationRequestApi.createModerationRequest,
+    createModerationRequestReq,
+    false
+  );
 
   const handleClickOutside = (e: MouseEvent) => {
     if (
@@ -120,6 +131,24 @@ function ChapterManagementSection({
       }
     }
   }, [isSoftDeletingChapter]);
+
+  useEffect(() => {
+    if (createModerationRequestReq) {
+      setReCreateModerationRequest({
+        value: true
+      })
+    }
+  }, [createModerationRequestReq])
+
+  useEffect(() => {
+    if (!isCreatingModerationRequest) {
+      if (createModerationRequestResData) {
+        setReGetChapters({
+          value: true
+        })
+      }
+    }
+  }, [isCreatingModerationRequest, createModerationRequestResData])
 
   return (
     <div className="space-y-4">
@@ -362,6 +391,25 @@ function ChapterManagementSection({
 
                         <td className="py-4 align-middle">
                           <div className="flex justify-center items-center">
+                            <IconButton
+                              icon={
+                                <i className="fa-solid fa-rocket text-[1.2rem]"></i>
+                              }
+                              padding="8px"
+                              color="green"
+                              onClick={() => setCreateModerationRequestReq({
+                                body: {
+                                  chapterId: row.id
+                                }
+                              })}
+                              sx={{
+                                display:
+                                  row.status === ChapterStatus.UNRELEASED
+                                    ? 'block'
+                                    : 'none',
+                              }}
+                            />
+
                             <IconButton
                               icon={
                                 <i className="fa-solid fa-pen text-[1.2rem]"></i>

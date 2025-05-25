@@ -17,6 +17,7 @@ import historyApi from './history';
 import commentApi from './comment';
 import commentInteractionApi from './commentInteraction';
 import notificationApi from './notification';
+import moderationRequestApi from './moderation-request';
 
 const apis = {
   authApi,
@@ -38,6 +39,7 @@ const apis = {
   commentApi,
   commentInteractionApi,
   notificationApi,
+  moderationRequestApi
 };
 
 export default apis;

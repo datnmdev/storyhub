@@ -76,7 +76,7 @@ function GenresSection({ storyId }: GenresSectionProps) {
         setInputData(genresOfStoryData.map((genre: any) => genre.id));
       }
     }
-  }, [isGettingGenresOfStory]);
+  }, [isGettingGenresOfStory, genresOfStoryData]);
 
   useEffect(() => {
     setReGetGenres({

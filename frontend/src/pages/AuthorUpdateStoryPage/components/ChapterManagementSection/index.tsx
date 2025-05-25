@@ -19,6 +19,9 @@ import Loading from '@components/Loading';
 import UploadChapterImageContentPopup from './components/UploadChapterImageContentPopup';
 import UploadChapterTextContentPopup from './components/UploadChapterTextContentPopup';
 import { StoryType } from '@constants/story.constants';
+import UpdateChapterTextContentPopup from './components/UpdateChapterTextContentPopup';
+import { Chapter } from '@apis/chapter';
+import UpdateChapterImageContentPopup from './components/UpdateChapterImageContentPopup';
 
 function ChapterManagementSection({
   storyId,
@@ -28,6 +31,8 @@ function ChapterManagementSection({
   const dispatch = useAppDispatch();
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [isOpenUploadChapterPopup, setOpenUploadChapterPopup] = useState(false);
+  const [selectedChapterToUpdate, setSelectedChapterToUpdate] =
+    useState<Chapter | null>(null);
   const [getChaptersReq, setGetChaptersReq] = useState<RequestInit>({
     queries: {
       page: 1,
@@ -363,6 +368,7 @@ function ChapterManagementSection({
                               }
                               padding="8px"
                               color="blue"
+                              onClick={() => setSelectedChapterToUpdate(row)}
                             />
 
                             <IconButton
@@ -386,6 +392,36 @@ function ChapterManagementSection({
                   })}
                 </tbody>
               </table>
+
+              {selectedChapterToUpdate && (
+                <>
+                  <div
+                    style={{
+                      textAlign: 'left',
+                      display: type === StoryType.NOVEL ? 'block' : 'none',
+                    }}
+                  >
+                    <UpdateChapterTextContentPopup
+                      chapterId={selectedChapterToUpdate.id}
+                      setRefetchChapterList={setReGetChapters}
+                      onClose={() => setSelectedChapterToUpdate(null)}
+                    />
+                  </div>
+
+                  <div
+                    style={{
+                      textAlign: 'left',
+                      display: type === StoryType.COMIC ? 'block' : 'none',
+                    }}
+                  >
+                    <UpdateChapterImageContentPopup
+                      chapterId={selectedChapterToUpdate.id}
+                      setRefetchChapterList={setReGetChapters}
+                      onClose={() => setSelectedChapterToUpdate(null)}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
 

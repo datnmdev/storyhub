@@ -37,8 +37,8 @@ function StoryManagementSection() {
       ]),
       type: JSON.stringify([StoryType.COMIC, StoryType.NOVEL]),
       orderBy: JSON.stringify([
-        ['createdAt', 'DESC'],
-        ['updatedAt', 'DESC'],
+        ['created_at', 'DESC'],
+        ['updated_at', 'DESC'],
         ['id', 'DESC'],
       ]),
     },

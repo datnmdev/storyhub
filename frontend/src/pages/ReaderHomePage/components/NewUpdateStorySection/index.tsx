@@ -13,8 +13,8 @@ function NewUpdateStorySection() {
   const { t } = useTranslation();
   const [queries, setQueries] = useState<GetNewUpdatedStoriesQueries>({
     orderBy: JSON.stringify([
-      ['createdAt', 'DESC'],
-      ['updatedAt', 'DESC'],
+      ['created_at', 'DESC'],
+      ['updated_at', 'DESC'],
       ['id', 'DESC'],
     ]),
     page: 1,

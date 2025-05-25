@@ -1,5 +1,7 @@
 import { RequestInit } from '@apis/api.type';
 import { Country } from '@apis/country';
+import { ChapterStatus } from '@constants/chapter.constant';
+import { Story } from '@pages/ReaderHomePage/components/NewUpdateStorySection/NewUpdateStorySection.type';
 import axiosInstance from 'libs/axios';
 
 export interface ChapterTranslation {
@@ -12,11 +14,13 @@ export interface ChapterTranslation {
 export interface Chapter {
   id: number;
   order: number;
+  status: ChapterStatus;
   name: string;
   chapterTranslations: ChapterTranslation[];
   createdAt: string;
   updatedAt: string;
   storyId: number;
+  story: Story;
 }
 
 export interface ChapterWithInvoiceRelation extends Chapter {
@@ -82,6 +86,12 @@ const chapterApi = {
   },
   uploadChapter: (options: RequestInit) => {
     return axiosInstance().post('/chapter', options.body);
+  },
+  updateChapter: (options: RequestInit) => {
+    return axiosInstance().put(
+      `/chapter/${options.params.chapterId}`,
+      options.body
+    );
   },
 };
 

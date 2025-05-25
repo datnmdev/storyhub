@@ -63,7 +63,7 @@ function AliasSection({ storyId }: AliasSectionProps) {
         setInputData(aliasData.map((alias: any) => alias.name));
       }
     }
-  }, [isGettingAlias]);
+  }, [isGettingAlias, aliasData]);
 
   useEffect(() => {
     setReGetAlias({

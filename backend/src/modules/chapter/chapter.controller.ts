@@ -18,6 +18,10 @@ import { GetChapterContentDto } from './dtos/get-chapter-content';
 import { User as UserPayload } from '@/@types/express';
 import { GetChapterForAuthorWithFilterDto } from './dtos/get-chapter-for-author-with-filter.dto';
 import { UploadChapterDto } from './dtos/upload-chapter.dto';
+import {
+  UpdateChapterBodyDto,
+  UpdateChapterParamDto,
+} from './dtos/update-chapter.dto';
 
 @Controller('chapter')
 export class ChapterController {
@@ -43,7 +47,7 @@ export class ChapterController {
   }
 
   @Get('with-invoice-relation')
-  @Roles(Role.READER, Role.GUEST)
+  @Roles(Role.READER, Role.AUTHOR, Role.ADMIN, Role.GUEST)
   @UseGuards(RolesGuard)
   getChaptersWithInvoiceRelation(
     @User('id') userId: number,
@@ -91,5 +95,20 @@ export class ChapterController {
     @Body() uploadChapterDto: UploadChapterDto
   ) {
     return this.chapterService.uploadChapter(authorId, uploadChapterDto);
+  }
+
+  @Put(':chapterId')
+  @Roles(Role.AUTHOR)
+  @UseGuards(RolesGuard)
+  updateChapter(
+    @User('id') authorId: number,
+    @Param() updateChapterParamDto: UpdateChapterParamDto,
+    @Body() updateChapterDto: UpdateChapterBodyDto
+  ) {
+    return this.chapterService.updateChapter(
+      authorId,
+      updateChapterParamDto.chapterId,
+      updateChapterDto
+    );
   }
 }

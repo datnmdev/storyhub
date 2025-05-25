@@ -59,7 +59,7 @@ function TitleSection({ storyId }: TitleSectionProps) {
         });
       }
     }
-  }, [isGettingStory]);
+  }, [isGettingStory, storyData]);
 
   useEffect(() => {
     setReGetStory({

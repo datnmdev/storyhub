@@ -201,6 +201,10 @@ export class AppModule implements NestModule {
         {
           path: '/chapter',
           method: RequestMethod.POST,
+        },
+        {
+          path: '/chapter/:chapterId',
+          method: RequestMethod.PUT,
         }
       )
       .apply(VerifyUrlValidityMiddleware)

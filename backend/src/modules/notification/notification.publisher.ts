@@ -44,6 +44,15 @@ export class NotificationPublisher {
         .forEach((subscriber: ConcreteNotificationSubscriber) =>
           subscriber.updateNotification(data)
         );
+    } else if (data.notification.type === NotificationType.STORY_NOTIFICATION) {
+      this.subscribers
+        .filter(
+          (subscriber: ConcreteNotificationSubscriber) =>
+            subscriber.getClient().user.id === data.receiverId
+        )
+        .forEach((subscriber: ConcreteNotificationSubscriber) =>
+          subscriber.updateNotification(data)
+        );
     }
   }
 }

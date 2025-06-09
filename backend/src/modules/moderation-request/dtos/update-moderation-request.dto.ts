@@ -3,7 +3,7 @@ import { OneOf } from '@/common/decorators/validation.decorator';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateModerationRequestReqDto {
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   reason: string;
 

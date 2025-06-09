@@ -13,6 +13,8 @@ import { plainToInstance } from 'class-transformer';
 import { UrlCipherPayload } from '@/common/url-cipher/url-cipher.class';
 import { UpdateModerationRequestReqDto } from './dtos/update-moderation-request.dto';
 import { ForbiddenException } from '@/common/exceptions/forbidden.exception';
+import { BullService } from '@/common/bull/bull.service';
+import { JobName } from '@/common/constants/bull.constants';
 
 @Injectable()
 export class ModerationRequestService {
@@ -20,7 +22,8 @@ export class ModerationRequestService {
     @InjectRepository(ModerationRequest)
     private readonly moderationRequestRepository: Repository<ModerationRequest>,
     private readonly dataSource: DataSource,
-    private readonly urlCipherService: UrlCipherService
+    private readonly urlCipherService: UrlCipherService,
+    private readonly bullService: BullService
   ) {}
 
   async createModerationRequest(authorId: number, chapterId: number) {
@@ -205,6 +208,19 @@ export class ModerationRequestService {
           }
         );
         await queryRunner.commitTransaction();
+        await this.bullService.addNotificationJob(
+          JobName.SEND_STORY_NOTIFICATION,
+          await this.dataSource
+            .createQueryBuilder(ModerationRequest, 'moderationRequest')
+            .leftJoinAndSelect('moderationRequest.chapter', 'chapter')
+            .leftJoinAndSelect('chapter.story', 'story')
+            .leftJoinAndSelect('story.followDetails', 'followDetails')
+            .where('moderationRequest.id = :moderationRequestId', {
+              moderationRequestId,
+            })
+            .getOne()
+        );
+
         return true;
       }
       throw new ForbiddenException();

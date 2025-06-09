@@ -30,7 +30,7 @@ function NotificationButton() {
   return (
     <Link
       className="relative hover:opacity-60"
-      to={paths.readerNotificationPage()}
+      to={paths.authorNotificationPage()}
     >
       <div ref={bellRef} className="flex items-center">
         <i className="fa-solid fa-bell desktop:text-[1.8rem] tablet:text-[20px] mobile:text-[18px]"></i>

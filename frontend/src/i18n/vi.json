@@ -656,6 +656,9 @@
             "content1": "Độc giả <b>{{responserName}}</b> vừa phản hồi một bình luận của bạn trong cuốn {{storyType}} <b>{{storyTitle}}</b>",
             "content2": "Độc giả <b>{{responserName}}</b> vừa phản hồi một bình luận của bạn ở chương <b>{{chapterName}}</b> trong cuốn {{storyType}} <b>{{storyTitle}}</b>"
           },
+          "moderationRequest": {
+            "content": "Tác giả {{authorName}} vừa phát hành {{chapterName}} thuộc tác phẩm {{storyTitle}} mà bạn đang theo dõi"
+          },
           "options": {
             "delete": "Xoá"
           }
@@ -852,6 +855,57 @@
           "content": {
             "title": "Nội dung của chương",
             "placeholder": "Nhập nội dung của chương"
+          }
+        }
+      }
+    },
+    "notificationPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Trang chủ",
+          "notificationPage": "Thông báo"
+        }
+      },
+      "notificationSection": {
+        "title": "Thông báo",
+        "btn": {
+          "deleteAllBtn": "Xoá tất cả",
+          "moreBtn": "Xem thêm",
+          "allNotificationsBtn": "Tất cả",
+          "allUnSeenNotificationsBtn": "Chưa xem"
+        },
+        "loading": {
+          "message": "Đang lấy danh sách thông báo...",
+          "handlingReqMessage": "Đang xử lý yêu cầu..."
+        },
+        "items": {
+          "moderationRequest": {
+            "approved": "<b style='color:red;'>{{chapterTitle}}</b> thuộc tác phẩm <b>{{storyTitle}}</b> của bạn đã được duyệt và phát hành công khai trên nền tảng storyhub",
+            "rejected": "<b style='color:red;'>{{chapterTitle}}</b> thuộc tác phẩm <b>{{storyTitle}}</b> của bạn không được duyệt vì chưa đáp ứng được các điều kiện của nền tảng storyhub"
+          },
+          "options": {
+            "delete": "Xoá"
+          }
+        },
+        "notificationInfoPopup": {
+          "title": "Thông tin chi tiết",
+          "formLabel": {
+            "id": "Mã yêu cầu kiểm duyệt",
+            "status": {
+              "label": "Kết quả duyệt",
+              "values": {
+                "1": "Đã được duyệt",
+                "2": "Không được duyệt"
+              }
+            },
+            "storyId": "Mã tác phẩm",
+            "storyTitle": "Tên tác phẩm",
+            "chapterId": "Mã chương",
+            "chapterTitle": "Tên chương",
+            "moderatorId": "Mã kiểm duyệt viên",
+            "createdAt": "Thời điểm tạo yêu cầu",
+            "processAt": "Thời diểm duyệt",
+            "reason": "Thông điệp từ kiểm duyệt viên"
           }
         }
       }

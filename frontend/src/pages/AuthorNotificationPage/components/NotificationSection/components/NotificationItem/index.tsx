@@ -20,6 +20,7 @@ import UrlUtils from '@utilities/url.util';
 import AvatarDefault from '@assets/avatars/user-default.png';
 import notificationFeature from '@features/notification';
 import { ModerationRequestStatus } from '@constants/moderationRequest.constants';
+import NotificationInfoPopup from './components/NotificationInfoPopup';
 
 function NotificationItem({ data }: NotificationItemProps) {
   const { t } = useTranslation();
@@ -28,6 +29,8 @@ function NotificationItem({ data }: NotificationItemProps) {
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
   const [isOpenOptionBox, setOpenOptionBox] = useState(false);
   const optionBoxRef = useRef<HTMLDivElement>(null);
+  const [isShowNotificationInfoBox, setIsShowNotificationInfoBox] =
+    useState(false);
 
   const handleClickOutside = (e: MouseEvent) => {
     if (
@@ -44,8 +47,6 @@ function NotificationItem({ data }: NotificationItemProps) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  console.log(data);
 
   return (
     <LoadingWrapper
@@ -215,50 +216,58 @@ function NotificationItem({ data }: NotificationItemProps) {
               </div>
             )}
 
-            {data.notification.type === NotificationType.STORY_NOTIFICATION &&
-              data.notification.moderationRequest.status ===
-                ModerationRequestStatus.APPROVED && (
-                <div
-                  className="cursor-pointer select-none active:text-[var(--primary)] hover:text-[var(--primary)]"
-                  onClick={() => {
-                    dispatch(
-                      notificationFeature.notificationThunk.updateNotification({
-                        notificationId: data.notificationId,
-                        status: NotificationStatus.VIEWED,
-                      })
-                    );
-                    navigate(
-                      paths.readerChapterContentPage(
-                        data.notification.moderationRequest.chapter.storyId,
-                        data.notification.moderationRequest.chapterId,
-                        data.notification.moderationRequest.chapter
-                          .chapterTranslations?.[0]?.id ?? -1
-                      )
-                    );
-                  }}
-                >
-                  <div className="h-16 flex items-center">
-                    <div
-                      className="line-clamp-2"
-                      dangerouslySetInnerHTML={{
-                        __html: t(
-                          'reader.notificationPage.notificationSection.items.moderationRequest.content',
-                          {
-                            authorName:
-                              data.notification.moderationRequest.chapter.story
-                                .author.userProfile.name,
-                            chapterName:
-                              data.notification.moderationRequest.chapter.name,
-                            storyTitle:
-                              data.notification.moderationRequest.chapter.story
-                                .title,
-                          }
-                        ),
-                      }}
-                    />
-                  </div>
+            {data.notification.type === NotificationType.STORY_NOTIFICATION && (
+              <div
+                className="cursor-pointer select-none active:text-[var(--primary)] hover:text-[var(--primary)]"
+                onClick={() => {
+                  dispatch(
+                    notificationFeature.notificationThunk.updateNotification({
+                      notificationId: data.notificationId,
+                      status: NotificationStatus.VIEWED,
+                    })
+                  );
+                  if (
+                    data.notification.type ===
+                    NotificationType.STORY_NOTIFICATION
+                  ) {
+                    setIsShowNotificationInfoBox(true);
+                  }
+                }}
+              >
+                <div className="h-16 flex items-center">
+                  <div
+                    className="line-clamp-2"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        data.notification.moderationRequest.status ===
+                        ModerationRequestStatus.APPROVED
+                          ? t(
+                              'author.notificationPage.notificationSection.items.moderationRequest.approved',
+                              {
+                                chapterTitle:
+                                  data.notification.moderationRequest.chapter
+                                    .name,
+                                storyTitle:
+                                  data.notification.moderationRequest.chapter
+                                    .story.title,
+                              }
+                            )
+                          : t(
+                              'author.notificationPage.notificationSection.items.moderationRequest.rejected',
+                              {
+                                chapterTitle:
+                                  data.notification.moderationRequest.chapter
+                                    .name,
+                                storyTitle:
+                                  data.notification.moderationRequest.chapter
+                                    .story.title,
+                              }
+                            ),
+                    }}
+                  />
                 </div>
-              )}
+              </div>
+            )}
 
             <div className="shrink-0">
               <span className="font-normal text-[var(--primary)] text-[0.95rem]">
@@ -311,6 +320,12 @@ function NotificationItem({ data }: NotificationItemProps) {
           <span className="absolute right-2 top-2 w-[12px] h-[12px] bg-[var(--primary)] rounded-full"></span>
         )}
       </div>
+      {isShowNotificationInfoBox && (
+        <NotificationInfoPopup
+          data={data}
+          onClose={() => setIsShowNotificationInfoBox(false)}
+        />
+      )}
     </LoadingWrapper>
   );
 }

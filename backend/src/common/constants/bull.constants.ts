@@ -9,4 +9,5 @@ export enum JobName {
   SEND_OTP_TO_VERIFY_CHANGE_PASSWORD = 'send-otp-to-verify-change-password',
   SEND_DEPOSITE_TRANSACTION_NOTIFICATION = 'send-deposite-transaction-notification',
   SEND_COMMENT_NOTIFICATION = 'send-comment-notification',
+  SEND_STORY_NOTIFICATION = 'send-moderation-request-notification',
 }

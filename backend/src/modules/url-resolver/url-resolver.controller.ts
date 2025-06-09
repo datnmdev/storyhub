@@ -1,4 +1,9 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { UrlCipherService } from '@/common/url-cipher/url-cipher.service';
 import { Response } from 'express';
 import { GetDataDto } from './dtos/get-data.dto';

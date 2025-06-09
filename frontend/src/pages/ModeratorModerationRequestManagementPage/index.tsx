@@ -1,8 +1,8 @@
-import Breadcrumb from '@components/Breadcrumb';
-import { BreadcrumbProps } from '@components/Breadcrumb/Breadcrumb.type';
-import paths from '@routers/router.path';
-import { useTranslation } from 'react-i18next';
-import ModerationRequestManagementSection from './components/ModerationRequestManagementSection';
+import Breadcrumb from "@components/Breadcrumb";
+import { BreadcrumbProps } from "@components/Breadcrumb/Breadcrumb.type";
+import paths from "@routers/router.path";
+import { useTranslation } from "react-i18next";
+import ModerationRequestManagementSection from "./components/ModerationRequestManagementSection";
 
 function ModeratorModerationRequestManagementPage() {
   const { t } = useTranslation();

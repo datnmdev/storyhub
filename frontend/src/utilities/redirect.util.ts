@@ -18,7 +18,7 @@ const RedirectUtils = {
         break;
 
       case Role.MODERATOR:
-        route = paths.moderatorHomePage();
+        route = paths.moderatorModerationRequestManagementPage();
         break;
 
       case Role.AUTHOR:

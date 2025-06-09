@@ -857,6 +857,51 @@
       }
     }
   },
+  "moderator": {
+    "header": {
+      "nav": {
+        "moderationRequestManagementPage": "QUẢN LÝ YÊU CẦU KIỂM DUYỆT"
+      }
+    },
+    "moderationRequestManagementPage": {
+      "breadcrumb": "Quản lý yêu cầu kiểm duyêt",
+      "title": "Danh sách yêu cầu kiểm duyệt",
+      "filter": {
+        "status": {
+          "title": "Trạng thái",
+          "values": {
+            "pending": "Chờ duyệt",
+            "approved": "Đã được duyệt",
+            "rejected": "Không được duyệt"
+          }
+        }
+      },
+      "table": {
+        "thead": {
+          "id": "Mã yêu cầu",
+          "status": "Trạng thái",
+          "chapterId": "Mã chương",
+          "authorId": "Mã tác giả",
+          "createdAt": "Thời điểm tạo",
+          "action": "Thao tác"
+        },
+        "tbody": {
+          "status": {
+            "pending": "Chờ duyệt",
+            "approved": "Đã được duyệt",
+            "rejected": "Không được duyệt"
+          }
+        }
+      },
+      "moderationPopup": {
+        "title": "Xử lý yêu cầu kiểm duyệt",
+        "pageNumber": "Trang {{value}}",
+        "chapterContentSection": "Nội dung chương",
+        "actionSection": "Vùng thao thao tác của kiểm duyệt viên",
+        "placeholder": "Nhập lời nhắn muốn gửi đến tác giả..."
+      }
+    }
+  },
   "validation": {
     "required": "Trường này là bắt buộc",
     "accountType": "Loại tài khoản không hợp lệ",
@@ -943,7 +988,9 @@
     "updateChapterNameSuccess": "Đổi tên chương thành công",
     "updateChapterNameFailure": "Đổi tên chương không thành công. Vui lòng thử lại",
     "updateContentSuccess": "Cập nhật nội dung truyện thành công",
-    "updateContentFailure": "Cập nhật nội dung truyện không thành công. Vui lòng thử lại"
+    "updateContentFailure": "Cập nhật nội dung truyện không thành công. Vui lòng thử lại",
+    "updateModerationRequestSuccess": "Duyệt truyện thành công",
+    "updateModerationRequestFailure": "Duyệt truyện không thành công. Vui lòng thử lại"
   },
   "pagination": {
     "next": "Sau",

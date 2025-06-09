@@ -11,6 +11,7 @@ function Popup({
   minHeight = 48,
   children,
   onClose,
+  sx,
 }: PopupProps) {
   const themeValue = useAppSelector(themeFeature.themeSelector.selectValue);
 
@@ -47,7 +48,9 @@ function Popup({
           </div>
         </div>
 
-        <div className="grow mt-4 overflow-auto">{children}</div>
+        <div className="grow mt-4 overflow-auto" style={{ ...sx }}>
+          {children}
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ import paths from './router.path';
 import ReaderHomePage from '@pages/ReaderHomePage';
 import Protected from '@components/Protected';
 import ManagerDashboardPage from '@pages/ManagerDashboardPage';
-import ModeratorHomePage from '@pages/ModeratorHomePage';
 import { Role } from '@constants/user.constants';
 import Authentication from '@components/Authentication';
 import ErrorBoundary from '@components/ErrorBoundary';
@@ -32,6 +31,8 @@ import AuthorPersonalProfilePage from '@pages/AuthorPersonalProfilePage';
 import AuthorChangePasswordPage from '@pages/AuthorChangePasswordPage';
 import AuthorStoryManagementPage from '@pages/AuthorStoryManagementPage';
 import AuthorUpdateStoryPage from '@pages/AuthorUpdateStoryPage';
+import ModeratorLayout from '@layouts/ModeratorLayout';
+import ModeratorModerationRequestManagementPage from '@pages/ModeratorModerationRequestManagementPage';
 
 const router = createBrowserRouter([
   {
@@ -393,12 +394,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: paths.moderatorHomePage(),
+        path: paths.moderatorModerationRequestManagementPage(),
         element: (
           <Protected role={Role.MODERATOR}>
-            <ReaderLayout>
-              <ModeratorHomePage />
-            </ReaderLayout>
+            <ModeratorLayout>
+              <ModeratorModerationRequestManagementPage />
+            </ModeratorLayout>
           </Protected>
         ),
       },

@@ -104,8 +104,8 @@ export class NotificationService {
                           iat: Date.now(),
                         })
                       )
-                    : notificationUser?.notification?.comment?.reader?.userProfile
-                        ?.avatar,
+                    : notificationUser?.notification?.comment?.reader
+                        ?.userProfile?.avatar,
                 },
               },
             },

@@ -29,16 +29,13 @@ function ContentSection({ chapterId }: ContentSectionProps) {
     data: chapterData,
     isLoading: isGettingChapter,
     setRefetch: setReGetChapter,
-  } = useFetch<[any[], number]>(
-    apis.chapterApi.getChapterForAuthorWithFilter,
-    {
-      queries: {
-        id: chapterId,
-        page: 1,
-        limit: 1,
-      },
-    }
-  );
+  } = useFetch<[any[], number]>(apis.chapterApi.getChapterForAuthorWithFilter, {
+    queries: {
+      id: chapterId,
+      page: 1,
+      limit: 1,
+    },
+  });
   const [inputDataInit] = useState<InputData>({
     content: '',
   });

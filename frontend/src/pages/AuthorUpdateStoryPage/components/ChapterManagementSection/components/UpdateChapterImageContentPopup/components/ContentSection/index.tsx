@@ -139,7 +139,7 @@ function ContentSection({ chapterId }: ContentSectionProps) {
                 <Button
                   onClick={() => {
                     console.log(chapterData);
-                    
+
                     setInputData({
                       imageContents: chapterData
                         ? chapterData[0][0].chapterTranslations.filter(

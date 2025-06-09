@@ -265,7 +265,6 @@ export class ChapterService {
     authorId: number,
     getChapterForAuthorWithFilterDto: GetChapterForAuthorWithFilterDto
   ) {
-
     const qb = this.chapterRepository
       .createQueryBuilder('chapter')
       .innerJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')

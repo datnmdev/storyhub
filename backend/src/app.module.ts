@@ -91,7 +91,7 @@ import { BackgroundModule } from './modules/background/background.module';
     SocketModule,
     NotificationModule,
     ModerationRequestModule,
-    BackgroundModule
+    BackgroundModule,
   ],
 })
 export class AppModule implements NestModule {

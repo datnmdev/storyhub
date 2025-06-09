@@ -21,7 +21,10 @@ function UploadButton({
   }, [files]);
 
   return (
-    <div className="inline-block cursor-pointer group select-none" style={{ display: hidden ? 'none' : 'inline-block' }}>
+    <div
+      className="inline-block cursor-pointer group select-none"
+      style={{ display: hidden ? 'none' : 'inline-block' }}
+    >
       <div
         className="flex items-center justify-center w-[100px] h-[100px] border-[1px] border-dashed border-[var(--gray)] group-hover:border-[var(--primary)] rounded-[4px]"
         style={{

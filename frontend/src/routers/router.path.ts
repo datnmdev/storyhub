@@ -29,7 +29,7 @@ const paths = {
   authorChangePasswordPage: () => '/author/setting/change-password',
   authorUpdateStoryPage: (storyId: string | number = ':storyId') =>
     `/author/story-management/${storyId}`,
-  moderatorHomePage: () => '/moderator',
+  moderatorModerationRequestManagementPage: () => '/moderator',
 };
 
 export default paths;

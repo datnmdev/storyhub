@@ -39,7 +39,7 @@ const apis = {
   commentApi,
   commentInteractionApi,
   notificationApi,
-  moderationRequestApi
+  moderationRequestApi,
 };
 
 export default apis;

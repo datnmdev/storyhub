@@ -29,7 +29,7 @@ export class BackgroundService implements OnModuleInit {
           {
             where: {
               status: ModerationRequestStatus.PENDING,
-              moderatorId: IsNull()
+              moderatorId: IsNull(),
             },
           }
         );
@@ -37,9 +37,6 @@ export class BackgroundService implements OnModuleInit {
           .getAll()
           .map((client) => this.jwtService.decode(client.handshake.auth.token))
           .filter((payload) => payload.role === Role.MODERATOR);
-
-        console.log(pendingModerationRequests.map(el => el.id));
-
         const nextClientPayloadGenerator = (function* () {
           let index = 0;
           while (true) {
@@ -51,7 +48,6 @@ export class BackgroundService implements OnModuleInit {
             }
           }
         })();
-
         for (const pendingModerationRequest of pendingModerationRequests) {
           const nextClientPayload = nextClientPayloadGenerator.next().value;
           await queryRunner.manager.update(
@@ -64,7 +60,6 @@ export class BackgroundService implements OnModuleInit {
             }
           );
         }
-
         await queryRunner.commitTransaction();
       } catch (error) {
         await queryRunner.rollbackTransaction();

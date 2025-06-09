@@ -135,20 +135,20 @@ function ChapterManagementSection({
   useEffect(() => {
     if (createModerationRequestReq) {
       setReCreateModerationRequest({
-        value: true
-      })
+        value: true,
+      });
     }
-  }, [createModerationRequestReq])
+  }, [createModerationRequestReq]);
 
   useEffect(() => {
     if (!isCreatingModerationRequest) {
       if (createModerationRequestResData) {
         setReGetChapters({
-          value: true
-        })
+          value: true,
+        });
       }
     }
-  }, [isCreatingModerationRequest, createModerationRequestResData])
+  }, [isCreatingModerationRequest, createModerationRequestResData]);
 
   return (
     <div className="space-y-4">
@@ -397,11 +397,13 @@ function ChapterManagementSection({
                               }
                               padding="8px"
                               color="green"
-                              onClick={() => setCreateModerationRequestReq({
-                                body: {
-                                  chapterId: row.id
-                                }
-                              })}
+                              onClick={() =>
+                                setCreateModerationRequestReq({
+                                  body: {
+                                    chapterId: row.id,
+                                  },
+                                })
+                              }
                               sx={{
                                 display:
                                   row.status === ChapterStatus.UNRELEASED

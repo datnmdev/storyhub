@@ -31,7 +31,7 @@ export class SocketModule implements OnGatewayConnection, OnGatewayDisconnect {
   async handleConnection(client: Socket) {
     const isAuthenticated = await this.socketService.auth(client);
     if (isAuthenticated) {
-      this.clientManagerService.add(client)
+      this.clientManagerService.add(client);
       this.notificationPublisher.subscribe(
         new ConcreteNotificationSubscriber(client)
       );
@@ -39,7 +39,7 @@ export class SocketModule implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   handleDisconnect(client: Socket) {
-    this.clientManagerService.remove(client)
+    this.clientManagerService.remove(client);
     this.notificationPublisher.unsubscribe(
       this.notificationPublisher
         .getSubscribers()

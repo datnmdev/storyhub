@@ -1,4 +1,4 @@
-import { MouseEventHandler, PropsWithChildren } from 'react';
+import { CSSProperties, MouseEventHandler, PropsWithChildren } from 'react';
 
 export interface PopupProps extends PropsWithChildren {
   title?: string;
@@ -6,4 +6,5 @@ export interface PopupProps extends PropsWithChildren {
   maxHeight?: number;
   minHeight?: number;
   onClose?: MouseEventHandler<HTMLDivElement>;
+  sx?: CSSProperties;
 }

@@ -31,19 +31,23 @@ export class NotificationService {
     const qb = this.notificationUserRepository
       .createQueryBuilder('notificationUser')
       .innerJoinAndSelect('notificationUser.notification', 'notification')
-      .leftJoinAndSelect(
-        'notification.depositeTransaction',
-        'depositeTransaction'
-      )
+      .leftJoinAndSelect('notification.depositeTransaction', 'depositeTransaction')
       .leftJoinAndSelect('notification.comment', 'comment')
       .leftJoinAndSelect('comment.story', 'story')
       .leftJoinAndSelect('comment.chapter', 'chapter')
       .leftJoinAndSelect('chapter.chapterTranslations', 'chapterTranslations')
-      .leftJoinAndSelect('chapter.story', 'chapter.story')
+      .leftJoinAndSelect('chapter.story', 'story1')
+      .leftJoinAndSelect('story1.author', 'author')
+      .leftJoinAndSelect('author.userProfile', 'userProfile1')
       .leftJoinAndSelect('comment.reader', 'reader')
       .leftJoinAndSelect('reader.userProfile', 'userProfile')
       .leftJoinAndSelect('comment.parent', 'parent')
       .leftJoinAndSelect('notification.moderationRequest', 'moderationRequest')
+      .leftJoinAndSelect('moderationRequest.chapter', 'moderationRequestChapter')
+      .leftJoinAndSelect('moderationRequestChapter.story', 'moderationRequestChapterStory')
+      .leftJoinAndSelect('moderationRequestChapter.chapterTranslations', 'chapterTranslations1')
+      .leftJoinAndSelect('moderationRequestChapterStory.author', 'author1')
+      .leftJoinAndSelect('author1.userProfile', 'userProfile2')
       .where('notificationUser.receiver_id = :receiverId', {
         receiverId,
       })
@@ -79,6 +83,7 @@ export class NotificationService {
         getNotificationWithFilterDto.limit
     );
     const notificationUsers = await qb.getManyAndCount();
+    
     return [
       notificationUsers[0].map((notificationUser) => {
         return {
@@ -159,6 +164,10 @@ export class NotificationService {
         notificationUser.notification.type ===
         NotificationType.STORY_NOTIFICATION
       ) {
+        await queryRunner.manager.delete(NotificationUser, {
+          receiverId: notificationUser.receiverId,
+          notificationId: notificationUser.notificationId,
+        });
       }
       await queryRunner.commitTransaction();
       return true;
@@ -198,6 +207,10 @@ export class NotificationService {
           notificationUser.notification.type ===
           NotificationType.STORY_NOTIFICATION
         ) {
+          await queryRunner.manager.delete(NotificationUser, {
+            receiverId: notificationUser.receiverId,
+            notificationId: notificationUser.notificationId,
+          });
         }
       }
       await queryRunner.commitTransaction();

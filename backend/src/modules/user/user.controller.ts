@@ -54,7 +54,7 @@ export class AuthController {
 
   @Get('sign-in/google/callback')
   async signInWithGoogleCallback(
-    @Query() query: ParameterDecorator,
+    @Query() query: any,
     @Query('state') redirectTo: string,
     @Res() res: Response
   ) {
@@ -80,7 +80,7 @@ export class AuthController {
 
   @Get('sign-in/facebook/callback')
   async signInWithFacebookCallback(
-    @Query() query: ParameterDecorator,
+    @Query() query: any,
     @Query('state') redirectTo: string,
     @Res() res: Response
   ) {

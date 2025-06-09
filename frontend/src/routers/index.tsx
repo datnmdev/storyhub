@@ -33,6 +33,7 @@ import AuthorStoryManagementPage from '@pages/AuthorStoryManagementPage';
 import AuthorUpdateStoryPage from '@pages/AuthorUpdateStoryPage';
 import ModeratorLayout from '@layouts/ModeratorLayout';
 import ModeratorModerationRequestManagementPage from '@pages/ModeratorModerationRequestManagementPage';
+import AuthorNotificationPage from '@pages/AuthorNotificationPage';
 
 const router = createBrowserRouter([
   {
@@ -389,6 +390,16 @@ const router = createBrowserRouter([
           <Protected role={Role.AUTHOR}>
             <AuthorLayout>
               <AuthorUpdateStoryPage />
+            </AuthorLayout>
+          </Protected>
+        ),
+      },
+      {
+        path: paths.authorNotificationPage(),
+        element: (
+          <Protected role={Role.AUTHOR}>
+            <AuthorLayout>
+              <AuthorNotificationPage />
             </AuthorLayout>
           </Protected>
         ),

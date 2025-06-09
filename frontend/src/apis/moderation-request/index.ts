@@ -3,19 +3,16 @@ import axiosInstance from 'libs/axios';
 
 const moderationRequestApi = {
   createModerationRequest: (options: RequestInit) => {
-    return axiosInstance().post('/moderation-request', options.body);
+    return axiosInstance().post('/moderation-request', options.body)
   },
   getModerationRequests: (options: RequestInit) => {
     return axiosInstance().get('/moderation-request', {
-      params: options.queries,
-    });
+      params: options.queries
+    })
   },
   updateModerationRequest: (options: RequestInit) => {
-    return axiosInstance().put(
-      `/moderation-request/${options.params.moderationRequestId}`,
-      options.body
-    );
-  },
-};
+    return axiosInstance().put(`/moderation-request/${options.params.moderationRequestId}`, options.body)
+  }
+}
 
 export default moderationRequestApi;

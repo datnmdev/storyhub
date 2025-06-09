@@ -61,8 +61,7 @@ function ModeratorHeader() {
               style={{
                 display: isAuthenticated ? 'block' : 'none',
               }}
-            >
-            </div>
+            ></div>
             <div className="pl-2">
               <User />
             </div>

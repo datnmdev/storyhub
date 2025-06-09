@@ -63,6 +63,6 @@ export class ClientManagerService {
   }
 
   getAll() {
-    return this.clients
+    return this.clients;
   }
 }

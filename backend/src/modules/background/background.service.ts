@@ -29,7 +29,7 @@ export class BackgroundService implements OnModuleInit {
           {
             where: {
               status: ModerationRequestStatus.PENDING,
-              moderatorId: IsNull()
+              moderatorId: IsNull(),
             },
           }
         );

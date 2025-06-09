@@ -16,11 +16,11 @@ export function getHomePage() {
         break;
 
       case Role.AUTHOR:
-        homeRoute = paths.authorHomePage();
+        homeRoute = paths.authorStoryManagementPage();
         break;
 
       case Role.MODERATOR:
-        homeRoute = paths.moderatorHomePage();
+        homeRoute = paths.moderatorModerationRequestManagementPage();
         break;
 
       default:

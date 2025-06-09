@@ -6,5 +6,5 @@ export interface PopupProps extends PropsWithChildren {
   maxHeight?: number;
   minHeight?: number;
   onClose?: MouseEventHandler<HTMLDivElement>;
-  sx?: CSSProperties;
+  sx?: CSSProperties
 }

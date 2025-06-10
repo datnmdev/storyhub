@@ -125,7 +125,7 @@ function UploadChapterTextContentPopup(
 
           <div>
             <div className="space-y-1">
-              <div className='flex justify-between items-center'>
+              <div className="flex justify-between items-center">
                 <div>
                   {t(
                     'author.updateStoryPage.chapterManagementSection.uploadChapterPopup.form.textContent.title'

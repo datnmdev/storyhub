@@ -39,7 +39,7 @@ export class DepositeTransactionController {
 
   @Get('vnpay-ipn')
   handleVnpayIpn(
-    @Query() handleVnpayIpnDto: HandleVnpayIpnDto,
+    @Query() handleVnpayIpnDto: any,
     @Res() res: Response
   ) {
     return res
@@ -48,7 +48,7 @@ export class DepositeTransactionController {
   }
 
   @Get('vnpay-return')
-  handleVnpayReturn(@Query() handleVnpayReturnDto: HandleVnpayIpnDto) {
+  handleVnpayReturn(@Query() handleVnpayReturnDto: any) {
     return this.depositeTransactionService.handleVnpReturn(
       handleVnpayReturnDto
     );

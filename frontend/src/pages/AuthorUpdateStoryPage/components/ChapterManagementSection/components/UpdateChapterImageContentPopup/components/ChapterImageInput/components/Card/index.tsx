@@ -2,6 +2,7 @@ import { memo, useRef } from 'react';
 import { CardProps, DragItem, ItemTypes } from './Card.type';
 import { useDrag, useDrop } from 'react-dnd';
 import { Image } from 'antd';
+import UrlUtils from '@utilities/url.util';
 
 function Card({
   item,
@@ -53,7 +54,11 @@ function Card({
       <Image
         width={100}
         height={100}
-        src={item.previewUrl}
+        src={
+          item.previewUrl.startsWith('/')
+            ? UrlUtils.generateUrl(item.previewUrl)
+            : item.previewUrl
+        }
         style={{
           objectFit: 'cover',
           objectPosition: 'center center',

@@ -1,26 +1,26 @@
 {
   "noData": "No data found...",
-  "viewportNotSupported": "This page is not available on small screens. Please switch to a larger device or expand your browser window",
+  "viewportNotSupported": "This page does not support small screens. Please switch to a device with a larger screen or expand your browser window",
   "timestamps": {
-    "second": "{{value}} seconds ago",
-    "minute": "{{value}} minutes ago",
-    "hour": "{{value}} hours ago",
-    "day": "{{value}} days ago",
-    "week": "{{value}} weeks ago",
-    "month": "{{value}} months ago",
-    "year": "{{value}} years ago"
+    "second": "{{value}} second(s) ago",
+    "minute": "{{value}} minute(s) ago",
+    "hour": "{{value}} hour(s) ago",
+    "day": "{{value}} day(s) ago",
+    "week": "{{value}} week(s) ago",
+    "month": "{{value}} month(s) ago",
+    "year": "{{value}} year(s) ago"
   },
   "avatarUpload": {
-    "uploadImageNote": "Image must be under 10 MB and in PNG, JPG, JPEG, or GIF format",
+    "uploadImageNote": "Image must not exceed 10 MB and must be in PNG, JPG, JPEG, or GIF format",
     "changeAvatarBtn": "Change"
   },
   "comment": {
     "title": "Comments ({{value}})",
     "reply": "Reply",
-    "reviewReplies": "View {{value}} replies",
+    "reviewReplies": "View {{value}} reply(ies)",
     "delete": "Delete",
     "edit": "Edit",
-    "placeholder": "Share your thoughts here...",
+    "placeholder": "Write your feelings here...",
     "loading": {
       "message": "Loading comments"
     },
@@ -28,13 +28,13 @@
     "exit": "Exit"
   },
   "timeAgo": {
-    "second": "{{value}} seconds ago",
-    "minute": "{{value}} minutes ago",
-    "hour": "{{value}} hours ago",
-    "day": "{{value}} days ago",
-    "week": "{{value}} weeks ago",
-    "month": "{{value}} months ago",
-    "year": "{{value}} years ago"
+    "second": "{{value}} second(s) ago",
+    "minute": "{{value}} minute(s) ago",
+    "hour": "{{value}} hour(s) ago",
+    "day": "{{value}} day(s) ago",
+    "week": "{{value}} week(s) ago",
+    "month": "{{value}} month(s) ago",
+    "year": "{{value}} year(s) ago"
   },
   "reader": {
     "header": {
@@ -58,11 +58,11 @@
         "history": "Reading History",
         "setting": "Settings",
         "signOut": "Sign Out",
-        "notification": "Notifications"
+        "notification": "Notification"
       },
       "signingOut": "Signing out...",
       "searchSection": {
-        "placeholder": "Enter the story name you want to search...",
+        "placeholder": "Enter the story name you want to search for...",
         "item": {
           "type": {
             "label": "Type:",
@@ -73,11 +73,11 @@
           "country": "Country",
           "status": {
             "label": "Status:",
-            "publishing": "Ongoing",
-            "finished": "Completed"
+            "publishing": "Publishing",
+            "finished": "Finished"
           }
         },
-        "title": "Search stories by keywords",
+        "title": "Search stories by keyword",
         "resultTitle": "Total results found:"
       }
     },
@@ -86,7 +86,7 @@
         "heading": "Contact Information",
         "email": "htkh.story@gmail.com",
         "phone": "+84123456789",
-        "address": "97 Man Thien St, Hiep Phu Ward, District 9, Ho Chi Minh City 70000"
+        "address": "97 Man Thien St., Hiep Phu, District 9, Ho Chi Minh City 70000"
       },
       "about": {
         "heading": "About Story For All",
@@ -97,13 +97,13 @@
     "signInPage": {
       "signIn": "Sign In",
       "signUp": "Sign Up",
-      "email": "Email Address",
+      "email": "Email address",
       "password": "Password",
       "forgotPassword": "Forgot password?",
       "or": "Or",
       "noAccount": "Don't have an account?",
       "signUpNow": "Sign up now",
-      "getOAuthUrl": "Fetching authentication URL...",
+      "getOAuthUrl": "Getting authentication URL...",
       "authenticating": "Authenticating. Please wait a moment...",
       "failedAuth": "Authentication and authorization failed. Please try again..."
     },
@@ -115,18 +115,18 @@
         "reader": "Reader",
         "author": "Author"
       },
-      "email": "Email Address",
-      "name": "Full Name",
-      "dob": "Date of Birth",
+      "email": "Email address",
+      "name": "Full name",
+      "dob": "Date of birth",
       "gender": {
         "label": "Gender",
         "male": "Male",
         "female": "Female",
         "other": "Other"
       },
-      "phone": "Phone Number",
+      "phone": "Phone number",
       "password": "Password",
-      "repeatPassword": "Repeat Password",
+      "repeatPassword": "Repeat password",
       "country": {
         "label": "Country"
       },
@@ -136,23 +136,23 @@
     },
     "otpVerificationPage": {
       "btn": {
-        "resendOtp": "Resend Code"
+        "resendOtp": "Resend OTP"
       },
-      "sentOtpMessage": "An OTP verification code has been sent to {{email}}. Please check your inbox for the code",
+      "sentOtpMessage": "OTP verification code has been sent to {{email}}. Please check your inbox for the verification code",
       "otp": "OTP Code",
-      "notReceiveOtp": "Didn't receive the code?",
-      "resendRequest": "You can request a resend in {{second}} seconds"
+      "notReceiveOtp": "Haven't received the code?",
+      "resendRequest": "You can request to resend the code in {{second}} seconds"
     },
     "forgotPasswordPage": {
       "btn": {
-        "goBack": "Go Back"
+        "goBack": "Go back"
       },
-      "title": "Recover Password"
+      "title": "Reset Password"
     },
     "resetPasswordPage": {
       "title": "Reset Password",
-      "password": "New Password",
-      "repeatPassword": "Repeat New Password"
+      "password": "New password",
+      "repeatPassword": "Repeat new password"
     },
     "walletPage": {
       "breadcrumb": {
@@ -169,17 +169,17 @@
       },
       "content": {
         "balanceTitle": "Available Balance",
-        "depositeBtn": "Top Up",
-        "depositePopupTitle": "Top Up",
+        "depositeBtn": "Deposit More",
+        "depositePopupTitle": "Deposit",
         "depositePopup": {
-          "amount": "Amount to Top Up",
+          "amount": "Amount to deposit",
           "bankCode": {
-            "label": "Payment Account/Card Type",
-            "vnpayQl": "Pay via VNPAYQR-supported app",
-            "vnBank": "Pay via ATM - Domestic Bank Account",
-            "intCard": "Pay via International Card"
+            "label": "Account/card type",
+            "vnpayQl": "Payment via VNPAYQR supported apps",
+            "vnBank": "Payment via domestic ATM/Bank account",
+            "intCard": "Payment via international card"
           },
-          "formatedMoney": "Entered Amount",
+          "formatedMoney": "Entered amount",
           "waitingPayment": "Waiting for your payment"
         }
       }
@@ -187,24 +187,24 @@
     "depositeTransHistoryPage": {
       "content": {
         "orderId": "Transaction ID",
-        "bankCode": "Bank Code",
-        "cardType": "Card/Account Type",
+        "bankCode": "Bank code",
+        "cardType": "Card/account type",
         "amount": "Amount",
-        "createDate": "Transaction Time",
+        "createDate": "Transaction time",
         "status": {
           "title": "Status",
           "initialize": "Initialized",
-          "succeed": "Successful",
+          "succeed": "Succeeded",
           "failed": "Failed"
         }
       }
     },
     "invoiceHistoryPage": {
       "content": {
-        "invoiceNumber": "Invoice Number",
-        "chapterId": "Chapter Code",
-        "totalAmount": "Total Amount",
-        "createdAt": "Created Time"
+        "invoiceNumber": "Invoice number",
+        "chapterId": "Chapter ID",
+        "totalAmount": "Total amount",
+        "createdAt": "Creation time"
       }
     },
     "homePage": {
@@ -214,9 +214,9 @@
           "readBtn": "Read"
         },
         "ortherInfo": {
-          "priceCount": "{{value}}đ/chapter",
+          "priceCount": "{{value}} VND/chapter",
           "viewCount": "{{value}} views",
-          "followerCount": "{{value}} followers"
+          "followerCount": "{{value}} follows"
         },
         "storyType": {
           "comic": "Comic",
@@ -226,7 +226,7 @@
       "newUpdatedSection": {
         "title": "Recently Updated Stories",
         "ortherInfo": {
-          "priceCount": "{{value}}đ/c",
+          "priceCount": "{{value}} VND/c",
           "viewCount": "{{value}}",
           "followerCount": "{{value}}",
           "ratingCount": "{{value}}",
@@ -237,13 +237,13 @@
           "novel": "Novel"
         },
         "timestamps": {
-          "second": "{{value}} seconds ago",
-          "minute": "{{value}} minutes ago",
-          "hour": "{{value}} hours ago",
-          "day": "{{value}} days ago",
-          "week": "{{value}} weeks ago",
-          "month": "{{value}} months ago",
-          "year": "{{value}} years ago"
+          "second": "{{value}} second(s) ago",
+          "minute": "{{value}} minute(s) ago",
+          "hour": "{{value}} hour(s) ago",
+          "day": "{{value}} day(s) ago",
+          "week": "{{value}} week(s) ago",
+          "month": "{{value}} month(s) ago",
+          "year": "{{value}} year(s) ago"
         }
       }
     },
@@ -254,17 +254,17 @@
           "novel": "Novel"
         },
         "ortherInfo": {
-          "priceCount": "{{value}}đ/chapter"
+          "priceCount": "{{value}} VND/chapter"
         },
         "alias": {
-          "label": "Alternate Name",
+          "label": "Other name",
           "notData": "Updating"
         },
         "author": "Author",
         "status": {
           "label": "Status",
           "publishing": "Publishing",
-          "finished": "Completed"
+          "finished": "Finished"
         },
         "followerCount": {
           "label": "Followers",
@@ -284,62 +284,62 @@
           }
         },
         "btn": {
-          "readFromBeginning": "Start reading",
+          "readFromBeginning": "Read from beginning",
           "follow": "Follow",
           "unfollow": "Unfollow"
         },
         "note": {
-          "label": "Author's Note",
-          "notData": "The author has no notes at the moment..."
+          "label": "Author's note",
+          "notData": "The author has no notifications yet..."
         },
         "contentIntroduction": {
-          "label": "Content Introduction",
-          "notData": "No data available..."
+          "label": "Content introduction",
+          "notData": "No data..."
         }
       },
       "chapterListSection": {
         "title": "Chapter List",
         "header": {
-          "chapterName": "Chapter Name",
-          "updatedTime": "Updated Time",
+          "chapterName": "Chapter name",
+          "updatedTime": "Update time",
           "viewCount": "Views",
           "status": {
             "label": "Status",
             "paid": "Unlocked",
-            "unpaid": "Requires Unlock"
+            "unpaid": "Need to unlock"
           }
         },
         "paymentRemindPopup": {
-          "title": "Confirm Chapter Purchase",
-          "content": "You will be charged <span style='color:red;font-weight:500;'>{{value}}đ</span> to read this chapter. Do you want to continue?",
+          "title": "Confirm chapter purchase",
+          "content": "You will spend <span style='color:red;font-weight:500;'>{{value}} VND</span> to read this chapter. Do you want to continue?",
           "btn": {
             "ok": "Continue",
-            "cancel": "Go Back"
+            "cancel": "Go back"
           },
           "loadingWrapper": {
-            "message": "Processing payment. Please wait a moment..."
+            "message": "Processing payment. Please wait..."
           },
-          "paymentSuccess": "Chapter purchase successful. Enjoy your reading...",
-          "paymentFailed": "Insufficient funds to purchase this chapter. Please top up..."
+          "paymentSuccess": "Chapter payment successful. Enjoy your reading...",
+          "paymentFailed": "You don't have enough balance to pay for this chapter. Please deposit more..."
         },
         "chapterTransListPopup": {
-          "title": "Chapter Translation List",
-          "original": "Original Version"
+          "title": "Chapter translation list",
+          "original": "Original version"
         }
       }
     },
     "chapterContentPage": {
       "btn": {
-        "chapterPrevious": "Previous Chapter",
-        "chapterNext": "Next Chapter"
+        "chapterPrevious": "Previous chapter",
+        "chapterNext": "Next chapter"
       },
       "loadingWrapper": {
-        "message": "Loading data. Please wait a moment..."
+        "message": "Loading data. Please wait..."
       },
       "blockedContent": {
-        "content": "You haven't unlocked this chapter. Please unlock to continue...",
+        "content": "You haven't unlocked this chapter yet. Please unlock to continue...",
         "btn": {
-          "unlock": "Unlock Chapter"
+          "unlock": "Unlock chapter"
         }
       },
       "page": "Page"
@@ -348,7 +348,7 @@
       "breadcrumb": {
         "items": {
           "homePage": "Home",
-          "storyFilterPage": "Story Filter"
+          "storyFilterPage": "Search stories"
         }
       },
       "filterFormSection": {
@@ -369,24 +369,24 @@
           },
           "country": "Country",
           "type": {
-            "label": "Story Type",
+            "label": "Story type",
             "comic": "Comic",
             "novel": "Novel"
           },
           "orderBy": {
             "label": "Sort by",
-            "datePostedAsscending": "Date Posted Ascending",
-            "datePostedDescending": "Date Posted Descending",
-            "dateUpdatedAsscending": "Date Updated Ascending",
-            "dateUpdatedDescending": "Date Updated Descending"
+            "datePostedAsscending": "Post date ascending",
+            "datePostedDescending": "Post date descending",
+            "dateUpdatedAsscending": "Update date ascending",
+            "dateUpdatedDescending": "Update date descending"
           },
-          "genre": "Genre"
+          "genre": "Story genre"
         }
       },
       "resultSection": {
-        "title": "Search Results (Total: {{value}} results)",
+        "title": "Search results (total {{value}} results)",
         "loading": {
-          "message": "Searching for information. Please wait a moment..."
+          "message": "Searching for information. Please wait..."
         }
       }
     },
@@ -398,7 +398,7 @@
         }
       },
       "topViewSection": {
-        "title": "#Ranking by Views",
+        "title": "#Ranking by views",
         "chart": {
           "story": {
             "status": {
@@ -409,7 +409,7 @@
         },
         "topStoryList": {
           "btn": {
-            "moreBtn": "See more"
+            "moreBtn": "View more"
           },
           "loading": {
             "message": "Loading data..."
@@ -430,10 +430,10 @@
         }
       },
       "topRatingSection": {
-        "title": "#Ranking by Ratings",
+        "title": "#Ranking by rating",
         "topStoryList": {
           "btn": {
-            "moreBtn": "See more"
+            "moreBtn": "View more"
           },
           "loading": {
             "message": "Loading data..."
@@ -460,10 +460,10 @@
         }
       },
       "topFollowSection": {
-        "title": "#Ranking by Follows",
+        "title": "#Ranking by follows",
         "topStoryList": {
           "btn": {
-            "moreBtn": "See more"
+            "moreBtn": "View more"
           },
           "loading": {
             "message": "Loading data..."
@@ -494,11 +494,11 @@
       "followManagementSection": {
         "title": "Following List",
         "btn": {
-          "deleteAllBtn": "Unfollow All",
+          "deleteAllBtn": "Unfollow all",
           "readingBtn": "Read"
         },
         "loading": {
-          "message": "Fetching follow list...",
+          "message": "Getting following list...",
           "handlingReqMessage": "Processing request..."
         },
         "item": {
@@ -523,10 +523,10 @@
         "accountInfoSection": {
           "heading": "Account Information",
           "id": "ID",
-          "createdAt": "Created At",
+          "createdAt": "Creation date",
           "status": {
             "label": "Status",
-            "unactivated": "Not Activated",
+            "unactivated": "Not activated",
             "activated": "Activated",
             "locked": "Locked",
             "deleted": "Unavailable"
@@ -534,21 +534,21 @@
         },
         "userInfoSection": {
           "heading": "Personal Information",
-          "name": "Full Name",
-          "dob": "Date of Birth",
+          "name": "Full name",
+          "dob": "Date of birth",
           "gender": {
             "label": "Gender",
             "male": "Male",
             "female": "Female",
             "orther": "Other"
           },
-          "phone": "Phone Number"
+          "phone": "Phone number"
         },
-        "submitBtn": "Save Changes",
+        "submitBtn": "Save changes",
         "resetBtn": "Reset",
         "loading": {
           "loadingProfileInfo": {
-            "message": "Fetching personal profile information..."
+            "message": "Loading personal profile information..."
           },
           "updatingProfile": {
             "message": "Saving personal profile..."
@@ -570,15 +570,15 @@
       },
       "changePasswordForm": {
         "oldPassword": {
-          "label": "Current Password",
+          "label": "Current password",
           "placeholder": "Enter current password..."
         },
         "newPassword": {
-          "label": "New Password",
+          "label": "New password",
           "placeholder": "Enter new password..."
         },
         "repeatNewPassword": {
-          "label": "Confirm New Password",
+          "label": "Confirm new password",
           "placeholder": "Re-enter new password..."
         },
         "submitBtn": "Apply",
@@ -592,7 +592,7 @@
           }
         },
         "verifyOtpToChangePasswordPopup": {
-          "title": "Verify Password Change"
+          "title": "Verify password change"
         }
       }
     },
@@ -606,12 +606,12 @@
       "readingHistorySection": {
         "title": "Reading History",
         "btn": {
-          "deleteAllBtn": "Delete All",
-          "continueReadingBtn": "Continue",
-          "reviewDetailBtn": "View Details"
+          "deleteAllBtn": "Delete all",
+          "continueReadingBtn": "Continue reading",
+          "reviewDetailBtn": "View details"
         },
         "loading": {
-          "message": "Fetching reading history...",
+          "message": "Getting reading history...",
           "handlingReqMessage": "Processing request..."
         },
         "item": {
@@ -619,7 +619,7 @@
           "mostRecentlyReadedChapter": "Last read chapter:"
         },
         "reviewDetailReadingHistoryPopup": {
-          "title": "Chapter Reading History",
+          "title": "Chapter reading history",
           "mostRecentlyReadingTimeAt": "Last read at {{value}}",
           "firstReadingTimeAt": "First read at {{value}}"
         }
@@ -635,13 +635,13 @@
       "notificationSection": {
         "title": "Notifications",
         "btn": {
-          "deleteAllBtn": "Delete All",
-          "moreBtn": "See more",
+          "deleteAllBtn": "Delete all",
+          "moreBtn": "View more",
           "allNotificationsBtn": "All",
-          "allUnSeenNotificationsBtn": "Unread"
+          "allUnSeenNotificationsBtn": "Unseen"
         },
         "loading": {
-          "message": "Fetching notifications...",
+          "message": "Getting notification list...",
           "handlingReqMessage": "Processing request..."
         },
         "items": {
@@ -655,6 +655,9 @@
             },
             "content1": "Reader <b>{{responserName}}</b> just replied to your comment in the {{storyType}} <b>{{storyTitle}}</b>",
             "content2": "Reader <b>{{responserName}}</b> just replied to your comment in chapter <b>{{chapterName}}</b> of the {{storyType}} <b>{{storyTitle}}</b>"
+          },
+          "moderationRequest": {
+            "content": "Author {{authorName}} just released {{chapterName}} of the work {{storyTitle}} that you're following"
           },
           "options": {
             "delete": "Delete"
@@ -678,12 +681,12 @@
       "table": {
         "thead": {
           "id": "Story ID",
-          "coverImage": "Cover Image",
-          "type": "Story Type",
+          "coverImage": "Cover image",
+          "type": "Story type",
           "title": "Title",
           "status": "Status",
-          "createdAt": "Created At",
-          "action": "Actions"
+          "createdAt": "Creation time",
+          "action": "Action"
         },
         "tbody": {
           "type": {
@@ -702,23 +705,23 @@
         "form": {
           "id": {
             "title": "Story ID",
-            "placeholder": "Enter story ID"
+            "placeholder": "Story ID"
           },
           "title": {
-            "title": "Story Title",
+            "title": "Story title",
             "placeholder": "Enter story title..."
           },
           "alias": {
-            "title": "Alternative Titles",
-            "placeholder": "Enter alternative titles and press enter...",
-            "formatCreateLabel": "Add title \"{{inputValue}}\""
+            "title": "Story alias",
+            "placeholder": "Enter story alias and press enter...",
+            "formatCreateLabel": "Add name \"{{inputValue}}\""
           },
           "description": {
-            "title": "Description",
-            "placeholder": "Enter story description..."
+            "title": "Content description",
+            "placeholder": "Enter description content..."
           },
           "type": {
-            "title": "Story Type",
+            "title": "Story type",
             "values": {
               "comic": "Comic",
               "novel": "Novel"
@@ -728,108 +731,320 @@
             "title": "Country"
           },
           "genres": {
-            "title": "Genres",
-            "placeholder": "Enter genres and press enter...",
+            "title": "Genre",
+            "placeholder": "Enter desired genre and press enter...",
             "formatCreateLabel": "Add genre \"{{inputValue}}\""
           },
           "notes": {
-            "title": "Message to Readers",
-            "placeholder": "Enter your message to readers..."
+            "title": "Message to readers",
+            "placeholder": "Enter message content..."
           },
           "price": {
-            "title": "Chapter Price (Unit: VND)",
+            "title": "Chapter purchase price (Unit: VND)",
             "placeholder": "Enter chapter price..."
           }
         },
         "btns": {
-          "uploadStoryBtn": "Upload Now",
+          "uploadStoryBtn": "Upload now",
           "resetBtn": "Reset"
+        }
+      },
+      "search": {
+        "placeholder": "Search by ID or story title..."
+      },
+      "filter": {
+        "type": {
+          "title": "Story type",
+          "values": {
+            "comic": "Comic",
+            "novel": "Novel"
+          }
+        },
+        "status": {
+          "title": "Story status",
+          "values": {
+            "releasing": "Releasing",
+            "paused": "Paused",
+            "completed": "Completed"
+          }
         }
       }
     },
     "updateStoryPage": {
-      "breadcrumb": "Story {{title}}"
+      "breadcrumb": "Story {{title}}",
+      "updateStorySection": {
+        "title": "Story Information"
+      },
+      "chapterManagementSection": {
+        "title": "Chapter Management",
+        "btn": {
+          "add": "Add"
+        },
+        "table": {
+          "thead": {
+            "id": "Chapter ID",
+            "order": "Chapter order",
+            "name": "Chapter name",
+            "status": "Status",
+            "createdAt": "Creation time",
+            "action": "Action"
+          },
+          "tbody": {
+            "status": {
+              "unreleased": "Unreleased",
+              "pendingApproval": "Pending approval",
+              "releasing": "Releasing"
+            }
+          }
+        },
+        "search": {
+          "placeholder": "Search by ID or chapter name..."
+        },
+        "filter": {
+          "status": {
+            "title": "Chapter status",
+            "values": {
+              "unreleased": "Unreleased",
+              "pendingApproval": "Pending approval",
+              "releasing": "Releasing"
+            }
+          }
+        },
+        "uploadChapterPopup": {
+          "title": "Upload Chapter",
+          "form": {
+            "id": {
+              "title": "Chapter ID",
+              "placeholder": "Chapter ID"
+            },
+            "order": {
+              "title": "Chapter order",
+              "placeholder": "Enter chapter order..."
+            },
+            "name": {
+              "title": "Chapter name",
+              "placeholder": "Enter chapter name..."
+            },
+            "textContent": {
+              "title": "Chapter content",
+              "placeholder": "Enter chapter content..."
+            },
+            "imageContents": {
+              "title": "Chapter content"
+            }
+          },
+          "btns": {
+            "uploadChapterBtn": "Upload now",
+            "resetBtn": "Reset"
+          }
+        },
+        "updateChapterPopup": {
+          "title": "Update Chapter",
+          "id": {
+            "title": "Chapter ID",
+            "placeholder": "Chapter ID"
+          },
+          "name": {
+            "title": "Chapter name",
+            "placeholder": "Enter chapter name..."
+          },
+          "status": {
+            "title": "Chapter status",
+            "placeholder": "Chapter status"
+          },
+          "content": {
+            "title": "Chapter content",
+            "placeholder": "Enter chapter content"
+          }
+        }
+      }
+    },
+    "notificationPage": {
+      "breadcrumb": {
+        "items": {
+          "homePage": "Home",
+          "notificationPage": "Notifications"
+        }
+      },
+      "notificationSection": {
+        "title": "Notifications",
+        "btn": {
+          "deleteAllBtn": "Delete all",
+          "moreBtn": "View more",
+          "allNotificationsBtn": "All",
+          "allUnSeenNotificationsBtn": "Unseen"
+        },
+        "loading": {
+          "message": "Getting notification list...",
+          "handlingReqMessage": "Processing request..."
+        },
+        "items": {
+          "moderationRequest": {
+            "approved": "<b style='color:red;'>{{chapterTitle}}</b> of your work <b>{{storyTitle}}</b> has been approved and publicly released on the storyhub platform",
+            "rejected": "<b style='color:red;'>{{chapterTitle}}</b> of your work <b>{{storyTitle}}</b> was not approved as it doesn't meet storyhub platform requirements"
+          },
+          "options": {
+            "delete": "Delete"
+          }
+        },
+        "notificationInfoPopup": {
+          "title": "Detailed Information",
+          "formLabel": {
+            "id": "Moderation request ID",
+            "status": {
+              "label": "Moderation result",
+              "values": {
+                "1": "Approved",
+                "2": "Rejected"
+              }
+            },
+            "storyId": "Work ID",
+            "storyTitle": "Work title",
+            "chapterId": "Chapter ID",
+            "chapterTitle": "Chapter title",
+            "moderatorId": "Moderator ID",
+            "createdAt": "Request creation time",
+            "processAt": "Moderation time",
+            "reason": "Message from moderator"
+          }
+        }
+      }
+    }
+  },
+  "moderator": {
+    "header": {
+      "nav": {
+        "moderationRequestManagementPage": "MODERATION REQUEST MANAGEMENT"
+      }
+    },
+    "moderationRequestManagementPage": {
+      "breadcrumb": "Moderation Request Management",
+      "title": "Moderation Request List",
+      "filter": {
+        "status": {
+          "title": "Status",
+          "values": {
+            "pending": "Pending",
+            "approved": "Approved",
+            "rejected": "Rejected"
+          }
+        }
+      },
+      "table": {
+        "thead": {
+          "id": "Request ID",
+          "status": "Status",
+          "chapterId": "Chapter ID",
+          "authorId": "Author ID",
+          "createdAt": "Creation time",
+          "action": "Action"
+        },
+        "tbody": {
+          "status": {
+            "pending": "Pending",
+            "approved": "Approved",
+            "rejected": "Rejected"
+          }
+        }
+      },
+      "moderationPopup": {
+        "title": "Process Moderation Request",
+        "pageNumber": "Page {{value}}",
+        "chapterContentSection": "Chapter content",
+        "actionSection": "Moderator action area",
+        "placeholder": "Enter message to send to author..."
+      }
     }
   },
   "validation": {
     "required": "This field is required",
     "accountType": "Invalid account type",
     "email": "Invalid email",
-    "password": "Password must be at least 8 characters long, including at least one uppercase letter, one lowercase letter, one number, and one special character",
-    "dob": "Date of birth must be a time in the past",
+    "password": "Password must be at least 8 characters, including at least one uppercase letter, lowercase letter, number, and special character",
+    "dob": "Date of birth must be a past date",
     "gender": "Invalid gender",
     "phone": "Invalid phone number",
     "repeatPassword": "This field must match the password field",
     "emailExisted": "Email already exists",
     "length": "This field must be {{length}} characters long",
-    "numberString": "This field must contain only digits",
-    "amount": "Minimum deposit is 10,000 VND",
+    "numberString": "This field must contain only numbers",
+    "amount": "Minimum deposit amount is 10,000 VND",
     "bankCode": "Invalid account/card type",
-    "number": "This field must contain only digits",
+    "number": "This field must contain only numbers",
     "storyType": "Invalid story type"
   },
   "errorPage": {
     "notFoundPage": {
-      "message": "Sorry! We can't find this page"
+      "message": "Sorry! This page could not be found"
     },
     "forbiddenPage": {
-      "message": "Sorry! You do not have permission to access this page"
+      "message": "Sorry! You don't have permission to access this page"
     },
     "button": {
-      "goHome": "Go back to homepage"
+      "goHome": "Return to home"
     }
   },
   "notification": {
-    "signInWithEmailPasswordFailure": "Incorrect email address or password",
+    "signInWithEmailPasswordFailure": "Email address or password is incorrect",
     "loginSuccess": "Login successful",
     "undefinedError": "An error occurred, please try again",
     "signUpSuccess": "Account registration successful",
     "verifyAccountSuccess": "Account verification successful",
-    "verifyOtpError": "Invalid OTP code. Please try again",
+    "verifyOtpError": "OTP code is incorrect. Please try again",
     "needToVerifyAccount": "Your account needs to be verified",
     "resetPasswordSuccess": "Password reset successful",
     "resetPasswordFailed": "An error occurred. Please try again",
     "paymentSuccess": "Payment successful",
     "paymentFailed": "Payment failed",
     "paymentExpired": "Payment expired. Please try again",
-    "createRatingSuccess": "Successfully rated the story",
-    "createRatingFailed": "Failed to rate the story. Please try again",
-    "updateRatingSuccess": "Rating updated successfully",
-    "updateRatingFailed": "Failed to update rating. Please try again",
-    "followSuccess": "Successfully followed the story",
-    "unfollowSuccess": "Successfully unfollowed the story",
-    "deleteAllFollowSuccess": "Successfully unfollowed all stories",
-    "updateProfileSuccess": "Profile updated successfully",
-    "updateProfileFailed": "An error occurred while saving profile information. Please try again",
+    "createRatingSuccess": "Story rating successful",
+    "createRatingFailed": "Story rating failed. Please try again",
+    "updateRatingSuccess": "Rating update successful",
+    "updateRatingFailed": "Rating update failed. Please try again",
+    "followSuccess": "Follow story successful",
+    "unfollowSuccess": "Unfollow story successful",
+    "deleteAllFollowSuccess": "Unfollow all stories successful",
+    "updateProfileSuccess": "Personal profile update successful",
+    "updateProfileFailed": "An error occurred while saving personal profile information. Please try again",
     "verifyChangePasswordFailed": "Current password is incorrect",
-    "changePasswordSuccess": "Password changed successfully",
-    "changePasswordFailed": "An error occurred while changing the password. Please try again",
-    "deleteAllReadingHistorySuccess": "Successfully deleted all reading history",
-    "deleteReadingHistoryByStoryIdSuccess": "Successfully deleted reading history for the story",
-    "deleteReadingHistoryByChapterIdSuccess": "Successfully deleted reading history for the chapter",
-    "createCommentSuccess": "Comment created successfully",
-    "deleteCommentSuccess": "Comment deleted successfully",
-    "deleteCommentFailed": "Failed to delete comment. Please try again",
-    "updateCommentSuccess": "Comment updated successfully",
-    "updateCommentFailed": "Failed to update comment. Please try again",
-    "softDeleteStorySuccess": "Story deleted successfully",
-    "softDeleteStoryFailure": "An error occurred while deleting the story. Please try again",
-    "uploadStorySuccess": "Story uploaded successfully",
-    "uploadStoryFailure": "Failed to upload story. Please try again",
-    "updateTitleSuccess": "Story title updated successfully",
-    "updateTitleFailure": "Failed to update story title. Please try again",
-    "updateAliasSuccess": "Alternate name for the story updated successfully",
-    "updateAliasFailure": "Failed to update alternate name for the story. Please try again",
-    "updateDescriptionSuccess": "Story description updated successfully",
-    "updateDescriptionFailure": "Failed to update story description. Please try again",
-    "updateCountrySuccess": "Story origin updated successfully",
-    "updateCountryFailure": "Failed to update story origin. Please try again",
-    "updateNotesSuccess": "Message to readers updated successfully",
-    "updateNotesFailure": "Failed to update message to readers. Please try again",
-    "updateGenresSuccess": "Genres updated successfully",
-    "updateGenresFailure": "Failed to update genres. Please try again",
-    "createPriceSuccess": "Chapter price updated successfully",
-    "createPriceFailure": "Failed to update chapter price. Please try again"
+    "changePasswordSuccess": "Password change successful",
+    "changePasswordFailed": "An error occurred during password change. Please try again",
+    "deleteAllReadingHistorySuccess": "Delete all reading history successful",
+    "deleteReadingHistoryByStoryIdSuccess": "Delete story reading history successful",
+    "deleteReadingHistoryByChapterIdSuccess": "Delete chapter reading history successful",
+    "createCommentSuccess": "Create comment successful",
+    "deleteCommentSuccess": "Delete comment successful",
+    "deleteCommentFailed": "Delete comment failed. Please try again",
+    "updateCommentSuccess": "Edit comment successful",
+    "updateCommentFailed": "Edit comment failed. Please try again",
+    "softDeleteStorySuccess": "Delete work successful",
+    "softDeleteStoryFailure": "An error occurred while deleting work. Please try again",
+    "uploadStorySuccess": "Story upload successful",
+    "uploadStoryFailure": "Story upload failed. Please try again",
+    "updateTitleSuccess": "Story title change successful",
+    "updateTitleFailure": "Story title change failed. Please try again",
+    "updateAliasSuccess": "Story alias update successful",
+    "updateAliasFailure": "Story alias update failed. Please try again",
+    "updateDescriptionSuccess": "Story content description update successful",
+    "updateDescriptionFailure": "Story content description update failed. Please try again",
+    "updateCountrySuccess": "Story origin update successful",
+    "updateCountryFailure": "Story origin update failed. Please try again",
+    "updateNotesSuccess": "Reader message update successful",
+    "updateNotesFailure": "Reader message update failed. Please try again",
+    "updateGenresSuccess": "Story genre update successful",
+    "updateGenresFailure": "Story genre update failed. Please try again",
+    "createPriceSuccess": "Chapter price update successful",
+    "createPriceFailure": "Chapter price update failed. Please try again",
+    "softDeleteChapterSuccess": "Delete chapter successful",
+    "softDeleteChapterFailure": "An error occurred while deleting chapter. Please try again",
+    "uploadChapterSuccess": "Chapter upload successful",
+    "uploadChapterFailure": "Chapter upload failed. Please try again",
+    "updateChapterNameSuccess": "Chapter name change successful",
+    "updateChapterNameFailure": "Chapter name change failed. Please try again",
+    "updateContentSuccess": "Story content update successful",
+    "updateContentFailure": "Story content update failed. Please try again",
+    "updateModerationRequestSuccess": "Story approval successful",
+    "updateModerationRequestFailure": "Story approval failed. Please try again"
   },
   "pagination": {
     "next": "Next",
@@ -838,16 +1053,24 @@
     "last": "Last"
   },
   "loading": {
-    "getDepositeTransHistory": "Loading deposit history...",
-    "getInvoiceHistory": "Loading payment history...",
-    "scrollPosition": "Scrolling to the last read position. Please wait a moment",
-    "getStories": "Loading stories...",
-    "softDeleteStory": "Deleting story...",
+    "getDepositeTransHistory": "Getting deposit history...",
+    "getInvoiceHistory": "Getting payment history...",
+    "scrollPosition": "Moving to last read position. Please wait",
+    "getStories": "Getting story list...",
+    "softDeleteStory": "Deleting work...",
     "uploadStory": "Uploading story...",
-    "save": "Saving..."
+    "save": "Saving",
+    "getChapters": "Getting chapter list...",
+    "uploadChapter": "Uploading chapter..."
   },
   "btns": {
-    "cancel": "Go back",
+    "cancel": "Cancel",
     "save": "Save changes"
+  },
+  "chapterStatus": {
+    "unreleased": "Unreleased",
+    "pendingApproval": "Pending approval",
+    "pending_approval": "Pending approval",
+    "releasing": "Releasing"
   }
 }

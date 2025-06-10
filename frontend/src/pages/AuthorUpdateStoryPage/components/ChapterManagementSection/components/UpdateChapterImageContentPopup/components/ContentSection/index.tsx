@@ -138,8 +138,6 @@ function ContentSection({ chapterId }: ContentSectionProps) {
               <div className="flex justify-end mt-2 space-x-2">
                 <Button
                   onClick={() => {
-                    console.log(chapterData);
-
                     setInputData({
                       imageContents: chapterData
                         ? chapterData[0][0].chapterTranslations.filter(

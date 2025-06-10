@@ -1070,6 +1070,7 @@
   "chapterStatus": {
     "unreleased": "Chưa phát hành",
     "pendingApproval": "Chờ duyệt",
+    "pending_approval": "Chờ duyệt",
     "releasing": "Đang phát hành"
   }
 }

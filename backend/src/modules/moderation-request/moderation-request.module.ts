@@ -4,14 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ModerationRequest } from './entities/moderation-request';
 import { ModerationRequestService } from './moderation-request.service';
 import { UrlCipherModule } from '@/common/url-cipher/url-cipher.module';
-import { BullModule } from '@/common/bull/bull.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([ModerationRequest]),
-    UrlCipherModule,
-    BullModule,
-  ],
+  imports: [TypeOrmModule.forFeature([ModerationRequest]), UrlCipherModule],
   controllers: [ModerationRequestController],
   providers: [ModerationRequestService],
 })

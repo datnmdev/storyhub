@@ -19,6 +19,7 @@ import { RequestInit } from '@apis/api.type';
 import toastFeature from '@features/toast';
 import { ToastType } from '@constants/toast.constants';
 import Loading from '@components/Loading';
+import IconButton from '@components/IconButton';
 
 function UploadChapterTextContentPopup(
   props: UploadChapterTextContentPopupProps
@@ -124,10 +125,15 @@ function UploadChapterTextContentPopup(
 
           <div>
             <div className="space-y-1">
-              <div>
-                {t(
-                  'author.updateStoryPage.chapterManagementSection.uploadChapterPopup.form.textContent.title'
-                )}
+              <div className="flex justify-between items-center">
+                <div>
+                  {t(
+                    'author.updateStoryPage.chapterManagementSection.uploadChapterPopup.form.textContent.title'
+                  )}
+                </div>
+                {/* <div>
+                  <IconButton padding='8px' icon={<i className="fa-solid fa-file-pdf text-[1.4rem] text-red-500"></i>} />
+                </div> */}
               </div>
               <TinyMceEditor
                 placeholder={t(

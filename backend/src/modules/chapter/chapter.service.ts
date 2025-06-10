@@ -32,6 +32,7 @@ import { TextContent } from './entities/text-content.entity';
 import { ImageContent } from './entities/image-content.entity';
 import { UrlPrefix } from '@/common/constants/url-resolver.constants';
 import { UpdateChapterBodyDto } from './dtos/update-chapter.dto';
+import * as lodash from 'lodash';
 
 @Injectable()
 export class ChapterService {
@@ -350,7 +351,37 @@ export class ChapterService {
       (getChapterForAuthorWithFilterDto.page - 1) *
         getChapterForAuthorWithFilterDto.limit
     );
-    return qb.getManyAndCount();
+    const chapters = await qb.getManyAndCount();
+    return [
+      chapters[0].map((chapter) => {
+        return lodash.update(
+          chapter,
+          'chapterTranslations',
+          (chapterTranslations) => {
+            return lodash.map(chapterTranslations, (chapterTranslation) => ({
+              ...chapterTranslation,
+              imageContents: lodash.map(
+                chapterTranslation.imageContents,
+                (imageContent) => ({
+                  ...imageContent,
+                  previewUrl: UrlResolverUtils.createUrl(
+                    '/url-resolver',
+                    this.urlCipherService.generate(
+                      plainToInstance(UrlCipherPayload, {
+                        url: imageContent.path,
+                        expireIn: 4 * 60 * 60,
+                        iat: Date.now(),
+                      } as UrlCipherPayload)
+                    )
+                  ),
+                })
+              ),
+            }));
+          }
+        );
+      }),
+      chapters[1],
+    ];
   }
 
   async softDeleteChapter(authorId: number, chapterId: number) {
@@ -549,7 +580,7 @@ export class ChapterService {
             (imageContent) =>
               queryRunner.manager.create(ImageContent, {
                 order: imageContent.order,
-                path: imageContent.path.startsWith(UrlPrefix.INTERNAL_AWS_S3)
+                path: imageContent.path.startsWith('@')
                   ? imageContent.path
                   : UrlPrefix.INTERNAL_AWS_S3 + imageContent.path,
                 chapterTranslationId: originalChapterTranslation.id,

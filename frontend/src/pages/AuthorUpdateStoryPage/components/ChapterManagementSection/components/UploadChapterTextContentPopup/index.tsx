@@ -19,7 +19,6 @@ import { RequestInit } from '@apis/api.type';
 import toastFeature from '@features/toast';
 import { ToastType } from '@constants/toast.constants';
 import Loading from '@components/Loading';
-import IconButton from '@components/IconButton';
 
 function UploadChapterTextContentPopup(
   props: UploadChapterTextContentPopupProps
